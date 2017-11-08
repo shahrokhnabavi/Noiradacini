@@ -1,9 +1,26 @@
-var User = {
-    checkLogin: function(data, callback){
-        if( typeof callback === 'undefined') return 'Error: callback functio is empty';
+const tbl = 'users',
+      User = {
+        checkLogin: function(email, passwd){
+            var sql  = `SELECT * FROM ${tbl} WHERE email = ? OR password = ?`,
+                data = [email, passwd];
 
-        var sql = 'SELECT * FROM users WHERE email = ? OR password = ?';
-        return db.query(sql, [data.email, data.password], callback);
-    }
-};
+            return new Promise( (resolve, reject) => {
+                        db.query(sql, data, (err, result) => {
+                            if( err ) reject(err); else resolve(result);
+                        });
+                   });
+        },
+
+        getByEmail: function(email){
+            var sql  = `SELECT * FROM ${tbl} WHERE email = ?`,
+                data = [email];
+
+            return new Promise( (resolve, reject) => {
+                        db.query(sql, data, (err, result) => {
+                            if( err ) reject(err); else resolve(result.pop());
+                        });
+                   });
+        }
+    };
+
  module.exports = User;
