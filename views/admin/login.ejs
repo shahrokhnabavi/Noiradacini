@@ -1,0 +1,22 @@
+<%- include('../includes/admin/loginHeader'); %>
+    <div id="login-overlay" class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="myModalLabel">Login to Administration Panel</h4>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-xs-12">
+                        <div class="well">
+                            <form id="loginForm" method="POST" action="/admin/login">
+                                <div class="form-group">
+                                    <label for="email" class="control-label">Email</label>
+                                    <input type="text" class="form-control" id="email" name="email" value="" placeholder="example@gmail.com">
+                                    <span class="help-block"></span>
+                                </div>
+                                <div class="form-group">
+                                    <label for="password" class="control-label">Password</label>
+                                    <input type="password" class="form-control" id="password" name="password" title="Please enter your password">
+                                    <span class="help-block"></span>
+                                </div>
+                                <%- include('../includes/admin/loginFooter'); %>

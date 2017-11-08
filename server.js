@@ -7,7 +7,7 @@ const cors       = require('cors');
 const session    = require('express-session');
 
 // MySQL Connection
-
+global.db = require('./db');
 
 // Create express server
 const app = express();
@@ -35,10 +35,7 @@ app.use(session({
 }));
 
 // Routes
-// app.use('/api', require('./routes/'));
-app.get('/', (req, res) => {
-    res.send('welcome');
-});
+app.use('/admin', require('./routes/rt_admin'));
 
 // Listen to port
 const port = process.argv[2] || process.env.port || 3500;
