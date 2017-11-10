@@ -2,11 +2,11 @@
 const {check, validationResult} = require('express-validator/check');
 
 
-const admDashboard = ( req, res ) => {
+const admSetting = ( req, res ) => {
     if( req.userAuth('/admin/login') ) return;
-    res.render('admin/dashboard');
+    res.render('admin/setting');
 };
 
 module.exports = {
-    admDashboard: admDashboard
+    admSetting: admSetting
 };

@@ -6,6 +6,9 @@ const bodyParser = require('body-parser');
 const cors       = require('cors');
 const session    = require('express-session');
 
+// Shahrokh Library
+const core = require('./core');
+
 // MySQL Connection
 global.db = require('./db');
 
@@ -33,6 +36,9 @@ app.use(session({
     saveUninitialized:true,
     cookie: { maxAge: (60000*30) }
 }));
+
+// My Core Functions
+app.use('*', core.pathUserSession);
 
 // Routes
 app.use('/admin', require('./routes/rt_admin'));

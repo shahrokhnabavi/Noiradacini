@@ -1,0 +1,15 @@
+
+    <% if( typeof errors !== 'undefined' && errors ) { %>
+    <ul class="list-unstyled alert alert-danger">
+        <% errors.forEach( (val,key) => { %>
+        <li><%= val.msg %></li>
+        <% }); %>
+    </ul>
+    <% } %>
+    <% if( typeof success !== 'undefined' && success ) { %>
+    <ul class="list-unstyled alert alert-success">
+        <% success.forEach( (val,key) => { %>
+        <li><%= val.msg %></li>
+        <% }); %>
+    </ul>
+    <% } %>
