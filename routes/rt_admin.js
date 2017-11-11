@@ -9,11 +9,14 @@ const Site  = require('../controllers/ctrl_site');
 router.get('/logout', Users.doLogout);
 router.get('/login',  Users.admLogin);
 router.post('/login', Users.lValidate(), Users.doLogin);
-router.get('/user/add',        Users.admForm);
+
 router.get('/user/delete/:id', Users.remove);
-router.get('/user/:id',        Users.admForm);
-router.get('/user',   Users.admList);
-router.post('/user',  Users.rValidate(), Users.add);
+router.get('/user',      Users.addForm);
+router.post('/user',     Users.aValidate, Users.add);
+router.get('/user/:id',  Users.edtForm);
+router.post('/user/:id', Users.eValidate, Users.edit);
+router.get('/users',     Users.admList);
+
 
 // Setting
 router.get('/setting', Site.admSetting);

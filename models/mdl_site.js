@@ -1,41 +1,26 @@
 const tbl = 'users',
       User = {
 
-        findByIdAndRemove: function(id){
+        remove: function(id){
             var sql  = `DELETE FROM ${tbl} WHERE user_id = ?`,
                 data = [id];
 
-            return runQuery(sql, data);
+            return new Promise( (resolve, reject) => {
+                        db.query(sql, data, (err, result) => {
+                            if( err ) reject(err); else resolve(result);
+                        });
+                   });
         },
 
         create: function(data){
             var sql  = `INSERT INTO ${tbl} (name, email, passwd) VALUES (?, ?, ?)`,
                 data = [data.name, data.email, data.passwd];
 
-            return runQuery(sql, data);
-        },
-
-        findByIdAndUpdate: function(id, data){
-            if( data.passwd ){
-                var sql  = `UPDATE ${tbl} SET name = ?, email = ?, passwd = ? WHERE user_id = ?`,
-                    data = [data.name, data.email, data.passwd, id];
-            } else {
-                var sql  = `UPDATE ${tbl} SET name = ?, email = ? WHERE user_id = ?`,
-                    data = [data.name, data.email, id];
-            }
-
-            return runQuery(sql, data);
-        },
-
-        getByEmailButNotSameId: function(email, id){
-          var sql  = `SELECT * FROM ${tbl} WHERE email = ? AND user_id != ?`,
-              data = [email, id];
-
-          return new Promise( (resolve, reject) => {
-                      db.query(sql, data, (err, result) => {
-                          if( err ) reject(err); else resolve(result.pop());
-                      });
-                 });
+            return new Promise( (resolve, reject) => {
+                        db.query(sql, data, (err, result) => {
+                            if( err ) reject(err); else resolve(result);
+                        });
+                   });
         },
 
         getByEmail: function(email){
@@ -70,17 +55,12 @@ const tbl = 'users',
             var sql  = `SELECT * FROM ${tbl} LIMIT ?, ?`,
                 data = [offset, limit];
 
-            return runQuery(sql, data);
+            return new Promise( (resolve, reject) => {
+                        db.query(sql, data, (err, result) => {
+                            if( err ) reject(err); else resolve(result);
+                        });
+                   });
         }
     };
 
  module.exports = User;
-
-
- function runQuery( sql, data ){
-     return new Promise( (resolve, reject) => {
-                 db.query(sql, data, (err, result) => {
-                     if( err ) reject(err); else resolve(result);
-                 });
-            });
- }

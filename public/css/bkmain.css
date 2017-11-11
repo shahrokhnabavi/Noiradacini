@@ -63,3 +63,6 @@ footer {
 h4.title{
     color: #337ab7;
 }
+h4.title a{
+    margin-left: 5px
+}
