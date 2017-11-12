@@ -20,6 +20,7 @@ router.get('/users',     Users.admList);
 
 // Setting
 router.get('/setting', Site.admSetting);
+router.post('/setting', Site.save);
 
 // Dashboard
 router.get('/', Pages.admDashboard);

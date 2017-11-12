@@ -1,7 +1,7 @@
 module.exports = {
     pathUserSession: (req, res, next) => {
-        res.locals.user = req.session.user;
-        // res.locals.user = {name: 'DEBUG MODE'};
+        // res.locals.user = req.session.user;
+        res.locals.user = {name: 'DEBUG MODE'};
 
         if (!req.userAuth) {
             req.userAuth = _userAuth;
@@ -17,7 +17,7 @@ module.exports = {
 
 // User Authentication
 function _userAuth(redirect, loggedin) {
-    // return false; //DEBUG MODE
+    return false; //DEBUG MODE
 
     if (this.session === undefined) throw Error('req.userAuth() requires sessions');
 
