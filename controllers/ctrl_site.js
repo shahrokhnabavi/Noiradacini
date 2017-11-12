@@ -18,24 +18,23 @@ const admSetting = ( req, res ) => {
 const save = ( req, res ) => {
     if( req.userAuth('/admin/login') ) return;
 
-    // Setting.getByField(req.)
     let arrPromises = [];
-    for(key in req.body) {
+    for(let key in req.body) {
         let pro = new Promise(function(resolve, reject) {
             Setting.getByField('setting_key', key).then( record => {
-                if(record){
-                    console.log(req.body[key]);
-                    Setting.findByIdAndUpdate(record.setting_id,{setting_value:req.body[key]})
-                    .catch(err=>console.log(err));
-                } else {
-                    console.log('CREATE');
+                if(record)
+                {
+                    Setting.findByIdAndUpdate(record.setting_id,{setting_value:req.body[key]}).then( resolve );
+                }
+                else
+                {
+                    Setting.create({setting_key:key, setting_value:req.body[key]}).then(resolve);
                 }
             }).catch( err => console.log(err) );
         });
-        // arrPromises.push();
+        arrPromises.push(pro);
     }
-    // Promise.all( arrPromises ).then( values => res.redirect('/admin/setting') )
-    res.end();
+    Promise.all( arrPromises ).then( values => res.redirect('/admin/setting') )
 };
 
 module.exports = {

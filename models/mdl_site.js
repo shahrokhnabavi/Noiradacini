@@ -8,6 +8,13 @@ const tbl = 'settings',
           return runQuery(sql, data);
         },
 
+        create: function(data){
+            var sql  = `INSERT INTO ${tbl} (setting_key, setting_value) VALUES (?, ?)`,
+                data = [data.setting_key, data.setting_value];
+
+            return runQuery(sql, data);
+        },
+
         getByField: function(field, value){
           var sql  = `SELECT * FROM ${tbl} WHERE ${field} = ?`,
               data = [value];
