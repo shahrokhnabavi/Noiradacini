@@ -1,0 +1,188 @@
+body {
+    margin: 0;
+    padding: 0;
+}
+
+#chartwrapper {
+  position: relative;
+}
+
+#chartdiv {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+}
+
+#chartwrapper .btn-group.bootstrap-select {
+    position: relative;
+    top: 10px;
+    display: block;
+    margin-left: auto;
+    margin-right: 20px;
+    left: 10px;
+    right: 10px;
+    width: inherit;
+}
+#logo{
+    width: 150px;
+    position: absolute;
+    right: 10px;
+    bottom: 10px;
+}
+
+
+
+
+
+
+///  Animation Panel
+#briefUserInfo {
+  background: #ddd;
+  width: 100%;
+  height: 100vh;
+  position: relative;
+}
+#briefUserInfo .close {
+    position: absolute;
+    top: 0px;
+    right: -10px;
+}
+#briefUserInfo blockquote {
+    padding: 0px 20px 0px 10px;
+    margin: 0;
+    height: 160px;
+    border-left: 0px;
+}
+#briefUserInfo .btn{
+    display: block;
+    margin-top: 30px;
+}
+#briefUserInfo blockquote .name {
+    display: block;
+    font-size: 80%;
+    line-height: 1.42857143;
+    color: #777;
+    font-size: 1.2em;
+    margin-bottom: 10px;
+}
+#briefUserInfo blockquote .desc{
+    overflow: scroll;
+    height: 125px;
+}
+#briefUserInfo {
+  position: absolute;
+  overflow: hidden;
+  top: 10%;
+  right: 10%;
+  bottom: 60%;
+  overflow: hidden;
+  left: 10%;
+  padding: 20px 50px;
+  display: block;
+  border-radius: 4px;
+  transform: translateY(20px);
+  transition: all 0.5s;
+  visibility: hidden;
+}
+#briefUserInfo .content {
+  opacity: 0;
+}
+#briefUserInfo:before {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  background: white;
+  content: "";
+  bottom: 10px;
+  left: 50%;
+  top: 95%;
+  color: #fff;
+  border-radius: 50%;
+  -webkit-transition: all 600ms cubic-bezier(0.215, 0.61, 0.355, 1);
+  transition: all 600ms cubic-bezier(0.215, 0.61, 0.355, 1);
+}
+#briefUserInfo.active {
+  display: block;
+  visibility: visible;
+  box-shadow: 2px 3px 16px silver;
+  transition: all 600ms;
+  transform: translateY(0px);
+  transition: all 0.5s;
+}
+#briefUserInfo.active:before {
+  height: 2000px;
+  width: 2000px;
+  border-radius: 50%;
+  top: 50%;
+  left: 50%;
+  margin-left: -1000px;
+  margin-top: -1000px;
+  display: block;
+  -webkit-transition: all 600ms cubic-bezier(0.215, 0.61, 0.355, 1);
+  transition: all 600ms cubic-bezier(0.215, 0.61, 0.355, 1);
+}
+#briefUserInfo.active .content {
+  position: relative;
+  z-index: 1;
+  opacity: 1;
+  transition: all 600ms cubic-bezier(0.55, 0.055, 0.675, 0.19);
+}
+
+
+
+
+
+
+
+/*  */
+#briefUserList{
+    background: white;
+    position: absolute;
+    top: 45%;
+    right: 10%;
+    bottom: 10%;
+    left: 10%;
+    display: block;
+    border-radius: 4px;
+    height: 0%;
+    overflow: scroll;
+    padding: 0px 20px;
+
+    visibility: hidden;
+    transition: all 300ms;
+}
+#briefUserList.active{
+    background: white;
+    position: absolute;
+    top: 45%;
+    right: 10%;
+    bottom: 10%;
+    left: 10%;
+    border-radius: 4px;
+    height: 45%;
+    display: block;
+    padding: 20px;
+
+    visibility: visible;
+    box-shadow: 2px 3px 16px silver;
+    transition: all 500ms;
+}
+.person img{
+    margin-bottom: 10px;
+    margin-right: 10px;
+}
+.person br{
+    line-height: 23px;
+}
+.person .name{
+    margin-top: 5px;
+}
+
+
+
+/* MENU */
+#menu{
+    border: 1px solid #ccc;
+    display: block;
+    height: 100px;
+}
