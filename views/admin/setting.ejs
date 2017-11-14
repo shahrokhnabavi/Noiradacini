@@ -24,24 +24,74 @@
 													<input type="text" class="form-control" id="site_name" name="site_name" value="<%= !!locals.site_name ? site_name : '' %>">
 												</div>
 												<div class="form-group">
-													<label for="name">Website Color</label>
-													<div id="cp2" class="input-group colorpicker-component">
-													    <input type="text" value="#00AABB" name="site_color" class="form-control" />
+													<label for="site_logo">Logo</label>
+													<input type="text" class="form-control" id="site_logoe" name="site_logo" value="<%= !!locals.site_logo ? site_logo : '' %>">
+												</div>
+												<div class="form-group">
+													<input type="checkbox" name="site_use_theme" <%= !!locals.site_use_theme ? 'checked' : '' %> data-toggle="toggle" data-on="Enable" data-off="Disabled" data-onstyle="success" data-offstyle="danger" id="site_use_theme" />
+													<label for="site_use_theme">Use Default Theme</label>
+												</div>
+												<div class="form-group">
+													<label for="site_color">Main Background Color</label>
+													<div class="cp2 input-group colorpicker-component">
+													    <input type="text" value="<%= !!locals.site_color ? site_color : '' %>" name="site_color" class="form-control" />
 													    <span class="input-group-addon"><i></i></span>
 													</div>
 												</div>
-													<div class="form-group">
-														<label for="site_logo">Logo</label>
-														<input type="text" class="form-control" id="site_logoe" name="site_logo" value="<%= !!locals.site_logo ? site_logo : '' %>">
+												<div class="form-group">
+													<label for="site_area_color">Areas Color</label>
+													<div class="cp2 input-group colorpicker-component">
+													    <input type="text" value="<%= !!locals.site_area_color ? site_area_color : '#000' %>" name="site_area_color" class="form-control" />
+													    <span class="input-group-addon"><i></i></span>
 													</div>
+												</div>
+												<div class="form-group">
+													<label for="site_outlineColor">Outline Areas Color</label>
+													<div class="cp2 input-group colorpicker-component">
+													    <input type="text" value="<%= !!locals.site_outlineColor ? site_outlineColor : '#000' %>" name="site_outlineColor" class="form-control" />
+													    <span class="input-group-addon"><i></i></span>
+													</div>
+												</div>
+												<div class="form-group">
+													<label for="site_rollOverColor">Roll Over Areas Color</label>
+													<div class="cp2 input-group colorpicker-component">
+													    <input type="text" value="<%= !!locals.site_rollOverColor ? site_rollOverColor : '#000' %>" name="site_rollOverColor" class="form-control" />
+													    <span class="input-group-addon"><i></i></span>
+													</div>
+												</div>
+												<div class="form-group">
+													<label for="site_selectedColor">Selected Areas Color</label>
+													<div class="cp2 input-group colorpicker-component">
+													    <input type="text" value="<%= !!locals.site_selectedColor ? site_selectedColor : '#000' %>" name="site_selectedColor" class="form-control" />
+													    <span class="input-group-addon"><i></i></span>
+													</div>
+												</div>
+												<div class="form-group">
+													<label for="site_selectedOutlineColor">Selected Areas Color</label>
+													<div class="cp2 input-group colorpicker-component">
+													    <input type="text" value="<%= !!locals.site_selectedOutlineColor ? site_selectedOutlineColor : '#000' %>" name="site_selectedOutlineColor" class="form-control" />
+													    <span class="input-group-addon"><i></i></span>
+													</div>
+												</div>
+												<div class="form-group">
+													<label for="site_circle_label">Circle Label Color</label>
+													<div class="cp2 input-group colorpicker-component">
+													    <input type="text" value="<%= !!locals.site_circle_label ? site_circle_label : '#000' %>" name="site_circle_label" class="form-control" />
+													    <span class="input-group-addon"><i></i></span>
+													</div>
+												</div>
+												<div class="form-group">
+													<label for="site_circle_color">Circle Color</label>
+													<div class="cp2 input-group colorpicker-component">
+													    <input type="text" value="<%= !!locals.site_circle_color ? site_circle_color : '#000' %>" name="site_circle_color" class="form-control" />
+													    <span class="input-group-addon"><i></i></span>
+													</div>
+												</div>
 												<div class="form-group">
 													<button type="submit" class="btn btn-primary pull-right">Save Settings</button>
 												</div>
 											</form>
 
-											<script type="text/javascript">
-												var color = '<%= !!locals.site_color ? site_color : '' %>';
-											</script>
 										</div>
 									</div>
 								</div>

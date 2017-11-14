@@ -2,6 +2,18 @@ const Setting = require('../models/mdl_site');
 const {check, validationResult} = require('express-validator/check');
 
 
+const getSettings = ( req, res ) => {
+
+    Setting.getAll()
+        .then( result => {
+            var settings = {};
+            result.forEach( item => {
+                settings[item.setting_key] = item.setting_value
+            })
+            res.json(settings);
+        });
+};
+
 const admSetting = ( req, res ) => {
     if( req.userAuth('/admin/login') ) return;
 
@@ -38,6 +50,7 @@ const save = ( req, res ) => {
 };
 
 module.exports = {
+    getSettings: getSettings,
     admSetting: admSetting,
     save: save
 };

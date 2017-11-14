@@ -4,6 +4,4 @@ $('[data-toggle=collapse]').click(function(){
       	$(this).find("i").toggleClass("glyphicon-chevron-right glyphicon-chevron-down");
 });
 
-if( window.color ){
-    $('#cp2').colorpicker({color: color});
-}
+$('.cp2').colorpicker();

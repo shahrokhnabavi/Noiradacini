@@ -42,6 +42,7 @@ app.use('*', core.pathUserSession);
 
 // Routes
 app.use('/admin', require('./routes/rt_admin'));
+app.use('/api', require('./routes/rt_api'));
 
 // Listen to port
 const port = process.argv[2] || process.env.port || 3500;
