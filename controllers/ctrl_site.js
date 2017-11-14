@@ -23,6 +23,7 @@ const admSetting = ( req, res ) => {
             result.forEach( item => {
                 settings[item.setting_key] = item.setting_value
             })
+            settings.success =  req.getFlash('success');
             res.render('admin/setting', settings);
         });
 };
@@ -34,6 +35,7 @@ const save = ( req, res ) => {
     for(let key in req.body) {
         let pro = new Promise(function(resolve, reject) {
             Setting.getByField('setting_key', key).then( record => {
+                req.setFlash('success', [{'msg': 'Your information has been submitted successfully.'}]);
                 if(record)
                 {
                     Setting.findByIdAndUpdate(record.setting_id,{setting_value:req.body[key]}).then( resolve );

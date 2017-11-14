@@ -1,5 +1,6 @@
 const express = require('express');
 const router  = express.Router();
+
 // Load Controllers
 const Users = require('../controllers/ctrl_users');
 const Pages = require('../controllers/ctrl_pages');
@@ -17,13 +18,21 @@ router.get('/user/:id',  Users.edtForm);
 router.post('/user/:id', Users.eValidate, Users.edit);
 router.get('/users',     Users.admList);
 
-
 // Setting
-router.get('/setting', Site.admSetting);
+router.get('/setting',  Site.admSetting);
 router.post('/setting', Site.save);
 
-// Dashboard
-router.get('/', Pages.admDashboard);
+// Bundels
+// router.post('/bundel', Pages.makeBundel);
+// router.get('/bundel',  Pages.viewBundel);
+// router.get('/bundels', Pages.bundles )
+// router.get('/', Pages.admDashboard);
 
+// Media
+// router.get('/media', Pages.showMedia);
+
+//Media manager Routes
+// router.get('/bundel/files', Pages.showImage);
+// router.post('/bundel/delete_file', Pages.deleteImage)
 
 module.exports = router;

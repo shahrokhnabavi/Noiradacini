@@ -5,12 +5,23 @@ const mysql      = require('mysql');
 const bodyParser = require('body-parser');
 const cors       = require('cors');
 const session    = require('express-session');
+const mongoose   = require('mongoose');
 
 // Shahrokh Library
 const core = require('./core');
 
 // MySQL Connection
 global.db = require('./db');
+
+// MongoDB Connection
+mongoose.Promise = global.Promise;
+mongoose.connect("mongodb://localhost/roadToSuccess", {useMongoClient: true})
+        .then( () => { // check db connection
+            console.log('MongoDB has been conneted');
+        })
+        .catch( err => { //Check for db errors
+            console.log(`There is an error: ${err}`);
+        });
 
 // Create express server
 const app = express();
