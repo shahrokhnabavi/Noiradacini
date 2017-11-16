@@ -15,7 +15,7 @@ const bundelSchema = mongoose.Schema({
         type: String,
         required: true
     },
-    publish_date:{
+    publishDate:{
         type: Date,
         required: true
     },

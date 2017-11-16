@@ -24,11 +24,11 @@
                                     <form class="form-horizontal" method="post" action="/admin/bundel<%= !!locals.item ? '/' + item._id : '' %>" name="bundel">
 										<div class="form-group">
 											<label for="bundelName">Name of interviewee</label>
-                                            <input name="bundelName" id="bundelName" value="<%= (!!locals.item ? item.bundelName : (!!locals.request ? request.bundelName : '') ) %>" type="text" class="form-control" />
+                                            <input name="bundelName" id="bundelName" required value="<%= (!!locals.item ? item.bundelName : (!!locals.request ? request.bundelName : '') ) %>" type="text" class="form-control" />
 										</div>
 										<div class="form-group">
 											<label for="frontEndDesc">Short Description</label>
-                                            <textarea name="frontEndDesc" id="frontEndDesc" class="form-control"><%= (!!locals.item ? item.frontEndDesc : (!!locals.request ? request.frontEndDesc : '') ) %></textarea>
+                                            <textarea name="frontEndDesc" id="frontEndDesc" required class="form-control"><%= (!!locals.item ? item.frontEndDesc : (!!locals.request ? request.frontEndDesc : '') ) %></textarea>
 										</div>
 										<div class="form-group">
 											<label for="province">Province</label>
@@ -46,11 +46,11 @@
                                                 <option value="NL-NB">Noord-Brabant</option>
                                                 <option value="NL-ZE">Zeeland</option>
                                             </select>
-                                            <% (!!locals.item ? item.province : (!!locals.request ? request.province : '') ) %>
+                                            <% (!!locals.item ? '' : (!!locals.request ? request.province : '') ) %>
 										</div>
 										<div class="form-group">
 											<label for="publishDate">Publish Date</label>
-                                            <input name="publishDate" id="publishDate" value="<%= (!!locals.item ? item.publishDate : (!!locals.request ? request.publishDate : '') ) %>" type="date" class="form-control" />
+                                            <input name="publishDate" id="publishDate" required value="<%= (!!locals.item ? item.publishDate : (!!locals.request ? request.publishDate : '') ) %>" type="date" class="form-control" />
 										</div>
 										<div class="form-group">
 											<label for="language">Select a Language</label>
@@ -62,7 +62,7 @@
                                             <% (!!locals.item ? item.language : (!!locals.request ? request.language : '') ) %>
 										</div>
                                         <div class="form-group">
-                                            <textarea name="bundelEditor" id="editor1" value="<%= (locals.item ? item.bundelEditor : "" ) %>" > </textarea>
+                                            <textarea name="bundelEditor" id="editor1" required value="<%= (locals.item ? item.bundelEditor : "" ) %>" > </textarea>
                                         </div>
                                         <div class="form-group">
                                             <button type="submit" class="btn btn-primary pull-right"><%= (!!locals.item ? 'Edit' : 'Add') %> User</button>
@@ -74,7 +74,6 @@
 
                         <script type="text/javascript">
                             CKEDITOR.replace('editor1',{
-            					// Define the toolbar groups as it is a more accessible solution.
             					toolbarGroups: [
             						{"name":"basicstyles","groups":["basicstyles"]},
             						{"name":"links","groups":["links"]},

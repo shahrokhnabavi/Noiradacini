@@ -1,53 +1,11 @@
 const bundel = require('../models/mdl_bundel');
 const {check, validationResult} = require('express-validator/check');
 
-var fs = require('fs');
-
-
-// const filemanager = require ('../filemanager.config.json')
-
-// const viewBundel = (req , res ) => {
-//     if( req.userAuth('/admin/login') ) return;
-//     var title = "Plugin Imagebrowser ckeditor for nodejs"
-//     res.render('admin/bundel', { result: 'result' })
-// }
-
-//show all the images in upload to json
-const showImage = (req , res ) => {
-    const images = fs.readdirSync('public/upload')
-    var sorted = []
-    for (let item of images){
-        if(item.split('.').pop() === 'png'
-        || item.split('.').pop() === 'jpg'
-        || item.split('.').pop() === 'jpeg'
-        || item.split('.').pop() === 'svg'){
-            var abc = {
-                  "image" : "/upload/"+item,
-                  "folder" : '/'
-            }
-            sorted.push(abc)
-        }
-    }
-    res.send(sorted);
-}
-
-//To delete all the images
-const deleteImage = (req , res, next ) => {
-  var url_del = 'public' + req.body.url_del
-  console.log(url_del)
-  if(fs.existsSync(url_del)){
-    fs.unlinkSync(url_del)
-  }
-  res.redirect('back');
-
-}
-
 const viewBundel = (req , res ) => {
     if( req.userAuth('/admin/login') ) return;
     var title = "Plugin Imagebrowser ckeditor for nodejs"
     res.render('admin/bundel', { result: 'result' })
 }
-
 
 const makeBundel = (req , res ) => {
     if( req.userAuth('/admin/login') ) return;
@@ -55,7 +13,7 @@ const makeBundel = (req , res ) => {
     let newBundel = new bundel({
       name:         req.body.bundelName,
       bundelEditor: req.body.bundelEditor ,
-      publish_date: req.body.publishDate,
+      publishDate: req.body.publishDate,
       frontEndDesc: req.body.frontEndDesc,
       province:     req.body.province,
       language:     req.body.language
@@ -67,12 +25,6 @@ const makeBundel = (req , res ) => {
     .catch(err=>{
       res.end('You have error in making bundel!!!')
     })
-}
-
-// show Media
-const showMedia = (req ,res)=>{
-    if( req.userAuth('/admin/login') ) return;
-    res.render('admin/media');
 }
 
 // bundle display
@@ -119,11 +71,11 @@ const editBundel = (req , res) => {
         let record = {
           name:         req.body.bundelName,
           bundelEditor: req.body.bundelEditor ,
-          publish_date: req.body.publishDate,
+          publishDate: req.body.publishDate,
           frontEndDesc: req.body.frontEndDesc,
           province:     req.body.province,
           language:     req.body.language,
-          udateAt:      Date.now()
+          udateAt:       Date(Date.now())
         };
 
 
@@ -136,15 +88,62 @@ const editBundel = (req , res) => {
           .catch( err => console.log(err) );
 
 }
+
+const bundelsLocationAndName= (req , res ) => {
+      let provinceList = [{ province: 'Zeeland',count:[] }, {province:'Utrecht',count:[]},
+                          {province:'South Holland',count:[]}, {province:'Overijssel',count:[]},
+                          {province:'North Holland',count:[]}, {province:'North Brabant',count:[]},
+                          {province:'Limburg',count:[]}, {province:'Groningen',count:[]},
+                          {province:'Gelderland',count:[]}, {province:'Friesland',count:[]},
+                          {province:'Flevoland',count:[]}, {province:'Drenthe',count:[]}
+                        ];
+
+          var dataNotSend=[];
+          provinceList.forEach(function(item, index){
+            var temp =  new Promise( (resolve, reject) => {
+                bundel.find({$and:[{province: item.province},{language:req.params.lang}]})
+                .select('name -_id').then(name=>{
+                      provinceList[index].count = name.length ;
+                      resolve(1);
+                })
+              });
+              dataNotSend.push(temp);
+          })
+          Promise.all( dataNotSend ).then(() => {res.json(provinceList)})
+        .catch(err=>{
+        res.end('You have error in list of locations!!!')
+      })
+}
+
+const listInProvince= (req , res ) => {
+    // id of the province
+    bundel.find({$and:[{province:req.params.id }, {language:req.params.lang}]}).select(' -bundelEditor')
+    .then(result =>{ res.json(result)
+    }).catch(err=>{
+      res.end('You have error in list province!!!')
+    })
+
+
+}
+
+const showBundel= (req , res ) => {
+    // id of the bundel
+    bundel.find({_id:req.params.id }).then(result =>{
+      res.json(result)
+    }).catch(err=>{
+      res.end('You have error in showBundel!!!')
+    });
+}
+
+
 module.exports = {
     viewBundel: viewBundel,
     makeBundel: makeBundel,
     bundles: bundles,
-
-    showImage:showImage,
-    deleteImage:deleteImage,
-    showMedia:showMedia,
-    remove: remove,
+    api_showBundel: showBundel,
+    api_listInProvince: listInProvince,
+    api_bundelsLocationAndName:bundelsLocationAndName,
     showEditBundel: showEditBundel,
-    editBundel: editBundel
+    remove: remove,
+    editBundel: editBundel,
 };
