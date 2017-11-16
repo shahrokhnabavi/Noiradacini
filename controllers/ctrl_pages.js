@@ -12,7 +12,13 @@ const admMedia = ( req, res ) => {
     res.render('admin/medias');
 };
 
+const admDashboard = ( req, res ) => {
+    if( req.userAuth('/admin/login') ) return;
+    res.redirect('/admin/bundels');
+};
+
 module.exports = {
     admMedia: admMedia,
-    browser:  browser
+    browser:  browser,
+    admDashboard: admDashboard
 };

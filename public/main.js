@@ -6,6 +6,7 @@ $(document).ready(function() {
             method: "GET",
             dataType: "json",
         }).done(function( settings ) {
+            $('#logo').attr('src', settings.site_logo);
             $('title').text(settings.site_name);
             $('body').css({backgroundColor:settings.site_color});
             if( settings.site_use_theme !== 'on'){

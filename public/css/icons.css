@@ -1,0 +1,37 @@
+/*@charset "UTF-8";*/
+@font-face {
+  font-family: "minicons-webalys";
+  src:url("../fonts/demoicons/minicons-webalys.eot?#iefix") format("embedded-opentype"),
+    url("../fonts/demoicons/minicons-webalys.ttf") format("truetype"),
+    url("../fonts/demoicons/minicons-webalys.svg#minicons-webalys") format("svg"),
+    url("../fonts/demoicons/minicons-webalys.woff") format("woff");
+}
+.bt-icon:before,
+.bt-icon-alt:before {
+  font-family: "minicons-webalys";
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  text-transform: none !important;
+  speak: none;
+  display: inline-block;
+  text-decoration: none;
+  width: 1em;
+  line-height: inherit;
+  -webkit-font-smoothing: antialiased;
+}
+.icon-twitter:before {
+  content: "\e01c";
+}
+
+.icon-gplus:before {
+  content: "\e020";
+}
+
+.icon-github:before {
+  content: "\e021";
+}
+
+.icon-facebook:before {
+  content: "\e01d";
+}

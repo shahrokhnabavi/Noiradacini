@@ -34,5 +34,6 @@ router.get('/bundels', Bundels.bundles )
 //Media manager Routes
 router.get('/medias',  Pages.admMedia);
 router.get('/browser', Pages.browser);
+router.get('/', Pages.admDashboard );
 
 module.exports = router;

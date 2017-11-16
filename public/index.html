@@ -21,27 +21,32 @@
       <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
       <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
+
+    <link rel="stylesheet" type="text/css" href="css/icons.css" />
+    <link rel="stylesheet" type="text/css" href="css/style5.css" />
+    <script src="js/modernizr.custom.js"></script>
 </head>
 <body>
 
     <div id="chartwrapper">
         <div id="chartdiv"></div>
-
-        <select onchange="selectArea(this);" id="provence" class="selectpicker" data-live-search="true">
-            <option value="">All Provences</option>
-            <option value="NL-DR">Drenthe</option>
-            <option value="NL-FR">Friesland</option>
-            <option value="NL-GR">Groningen</option>
-            <option value="NL-OV">Overijssel</option>
-            <option value="NL-FL">Flevoland</option>
-            <option value="NL-NH">Noord-Holland</option>
-            <option value="NL-GE">Gelderland</option>
-            <option value="NL-UT">Utrecht</option>
-            <option value="NL-ZH">Zuid-Holland</option>
-            <option value="NL-LI">Limburg</option>
-            <option value="NL-NB">Noord-Brabant</option>
-            <option value="NL-ZE">Zeeland</option>
-        </select>
+        <div id="sadeq">
+            <select onchange="selectArea(this);" id="provence" class="selectpicker" data-live-search="true">
+                <option value="">All Provences</option>
+                <option value="NL-DR">Drenthe</option>
+                <option value="NL-FR">Friesland</option>
+                <option value="NL-GR">Groningen</option>
+                <option value="NL-OV">Overijssel</option>
+                <option value="NL-FL">Flevoland</option>
+                <option value="NL-NH">Noord-Holland</option>
+                <option value="NL-GE">Gelderland</option>
+                <option value="NL-UT">Utrecht</option>
+                <option value="NL-ZH">Zuid-Holland</option>
+                <option value="NL-LI">Limburg</option>
+                <option value="NL-NB">Noord-Brabant</option>
+                <option value="NL-ZE">Zeeland</option>
+            </select>
+        </div>
         <img src="/logo.png" id="logo" />
     </div>
 
@@ -94,6 +99,36 @@
 </div>
 
 
+<!-- MENUBAR -->
+<div class="container">
+    <nav id="bt-menu" class="bt-menu">
+        <a href="#" class="bt-menu-trigger" id="menu-btn"><span>Menu</span></a>
+        <ul>
+            <li><a href="#">About us</a></li>
+            <li><a href="#">Work</a></li>
+            <li><a href="#">Clients</a></li>
+            <li><a href="#">Blog</a></li>
+            <li><a href="#">Contact</a></li>
+            <div>
+                <li class="flag">
+                    <img src="http://icons.iconarchive.com/icons/hopstarter/flag-borderless/24/England-icon.png"></img><br>
+                    <img src="http://icons.iconarchive.com/icons/hopstarter/flag-borderless/24/Romania-icon.png"></img><br>
+                    <img src="http://icons.iconarchive.com/icons/hopstarter/flag-borderless/24/Netherlands-icon.png"></img><br>
+                    <p>&copy; Copy Right 2017</p>
+                </li>
+            </div>
+        </ul>
+        <ul>
+            <li><a href="http://www.twitter.com/codrops" class="bt-icon icon-twitter">Twitter</a></li>
+            <li><a href="https://plus.google.com/101095823814290637419" class="bt-icon icon-gplus">Google+</a></li>
+            <li><a href="http://www.facebook.com/pages/Codrops/159107397912" class="bt-icon icon-facebook">Facebook</a></li>
+            <li><a href="https://github.com/codrops" class="bt-icon icon-github">icon-github</a></li>
+            <!-- <li><a>© 2016 Company,Inc.</a></li> -->
+        </ul>
+    </nav>
+</div>
+
+
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
     <script src="https://www.amcharts.com/lib/3/ammap.js"></script>
@@ -102,5 +137,8 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.4/js/bootstrap-select.min.js"></script>
     <script src="/main.js"></script>
+    <!-- JAVASCRIPT MEUNBAR -->
+    <script src="js/classie.js"></script>
+    <script src="js/borderMenu.js"></script>
 </body>
 </html>
