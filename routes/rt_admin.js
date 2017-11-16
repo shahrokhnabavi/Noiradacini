@@ -31,10 +31,6 @@ router.post('/bundel', Bundels.makeBundel);
 router.get('/bundel', Bundels.viewBundel);
 router.get('/bundels', Bundels.bundles )
 
-
-//Media manager Routes
-
-
 //Media manager Routes
 router.get('/medias', Pages.admMedia);
 // router.get('/bundel/files', Pages.showImage);

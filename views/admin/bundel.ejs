@@ -1,0 +1,106 @@
+<%- include('../includes/admin/header',{page_title: 'User Managment'}); %>
+
+
+      <!-- <script src="/ckeditor/ckeditor.js"></script> -->
+      <script src="//cdn.ckeditor.com/4.7.3/full/ckeditor.js"></script>
+
+
+			<!-- /col-3 -->
+  			<div class="col-sm-9">
+				<h4 class="title">
+					<strong><i class="glyphicon glyphicon-pushpin"></i> Create a Bundel</strong>
+					<a href="/admin/bundels" class="btn btn-primary btn-sm pull-right">Back to list</a>
+				</h4>
+				<hr>
+
+                <%- include('../includes/admin/message'); %>
+
+                <div class="row">
+					<div class="col-md-12">
+
+						<div class="container-fluid">
+							<div class="row">
+								<div class="col-md-12">
+                                    <form class="form-horizontal" method="post" action="/admin/bundel<%= !!locals.item ? '/' + item._id : '' %>" name="bundel">
+										<div class="form-group">
+											<label for="bundelName">Name of interviewee</label>
+                                            <input name="bundelName" id="bundelName" value="<%= (!!locals.item ? item.bundelName : (!!locals.request ? request.bundelName : '') ) %>" type="text" class="form-control" />
+										</div>
+										<div class="form-group">
+											<label for="frontEndDesc">Short Description</label>
+                                            <textarea name="frontEndDesc" id="frontEndDesc" class="form-control"><%= (!!locals.item ? item.frontEndDesc : (!!locals.request ? request.frontEndDesc : '') ) %></textarea>
+										</div>
+										<div class="form-group">
+											<label for="province">Province</label>
+                                            <select name="province" id="province" class="form-control"  >
+                                                <option value="NL-DR">Drenthe</option>
+                                                <option value="NL-FR">Friesland</option>
+                                                <option value="NL-GR">Groningen</option>
+                                                <option value="NL-OV">Overijssel</option>
+                                                <option value="NL-FL">Flevoland</option>
+                                                <option value="NL-NH">Noord-Holland</option>
+                                                <option value="NL-GE">Gelderland</option>
+                                                <option value="NL-UT">Utrecht</option>
+                                                <option value="NL-ZH">Zuid-Holland</option>
+                                                <option value="NL-LI">Limburg</option>
+                                                <option value="NL-NB">Noord-Brabant</option>
+                                                <option value="NL-ZE">Zeeland</option>
+                                            </select>
+                                            <% (!!locals.item ? item.province : (!!locals.request ? request.province : '') ) %>
+										</div>
+										<div class="form-group">
+											<label for="publishDate">Publish Date</label>
+                                            <input name="publishDate" id="publishDate" value="<%= (!!locals.item ? item.publishDate : (!!locals.request ? request.publishDate : '') ) %>" type="date" class="form-control" />
+										</div>
+										<div class="form-group">
+											<label for="language">Select a Language</label>
+                                            <select name="language" id="language" class="form-control"  >
+                                                <option value="en">English</option>
+                                                <option value="nl">Dutch</option>
+                                                <option value="ro">Romanian</option>
+                                            </select>
+                                            <% (!!locals.item ? item.language : (!!locals.request ? request.language : '') ) %>
+										</div>
+                                        <div class="form-group">
+                                            <textarea name="bundelEditor" id="editor1" value="<%= (locals.item ? item.bundelEditor : "" ) %>" > </textarea>
+                                        </div>
+                                        <div class="form-group">
+                                            <button type="submit" class="btn btn-primary pull-right"><%= (!!locals.item ? 'Edit' : 'Add') %> User</button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+
+                        <script type="text/javascript">
+                            CKEDITOR.replace('editor1',{
+            					// Define the toolbar groups as it is a more accessible solution.
+            					toolbarGroups: [
+            						{"name":"basicstyles","groups":["basicstyles"]},
+            						{"name":"links","groups":["links"]},
+            						{"name":"paragraph","groups":["list","blocks"]},
+            						{"name":"document","groups":["mode"]},
+            						{"name":"insert","groups":["insert"]},
+            						{"name":"styles","groups":["styles"]},
+            						{"name":"about","groups":["about"]}
+            					],
+                                //https://ckeditor.com/old/forums/CKEditor/Complete-list-of-toolbar-items#comment-123266
+            					removeButtons: 'Anchor,Print,Save,Preview,Flash,PageBreak,SpecialChar'
+            				});
+                        </script>
+					</div>
+        </div>
+
+        <!-- <script>
+          ClassicEditor
+            .create( document.querySelector( '#bundelEditor' ) )
+            .then( editor => {
+              console.log( editor );
+            } )
+            .catch( error => {
+              console.error( error );
+            } );
+        </script> -->
+
+            <!--/col-span-9-->
+<%- include('../includes/admin/footer'); %>
