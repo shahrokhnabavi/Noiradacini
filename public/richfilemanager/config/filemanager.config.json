@@ -1,7 +1,7 @@
 {
     "_comment": "IMPORTANT : go to the wiki page to know about options configuration https://github.com/servocoder/RichFilemanager/wiki/Configuration-options",
     "options": {
-        "fileRoot": "/userfiles",
+        "fileRoot": "",
         "theme": "flat-dark",
         "showTitleAttr": false,
         "showConfirmation": true,
@@ -10,7 +10,7 @@
         "fileSorting": "NAME_ASC",
         "folderPosition": "bottom",
         "quickSelect": false,
-        "logger": true,
+        "logger": false,
         "allowFolderDownload": true,
         "allowChangeExtensions": false,
         "capabilities": [
@@ -98,8 +98,7 @@
         "video": ["ogv", "avi", "mkv", "mp4", "webm", "m4v"]
     },
     "viewer": {
-        "absolutePath": "/userfiles",
-        "previewUrl": "/userfiles",
+        "absolutePath": false,
         "image": {
             "enabled": true,
             "lazyLoad": true,

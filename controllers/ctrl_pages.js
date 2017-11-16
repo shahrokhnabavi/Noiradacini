@@ -2,9 +2,9 @@
 const {check, validationResult} = require('express-validator/check');
 
 
-const admDashboard = ( req, res ) => {
+const browser = ( req, res ) => {
     if( req.userAuth('/admin/login') ) return;
-    res.render('admin/setting');
+    res.render('admin/browser');
 };
 
 const admMedia = ( req, res ) => {
@@ -14,5 +14,5 @@ const admMedia = ( req, res ) => {
 
 module.exports = {
     admMedia: admMedia,
-    admDashboard: admDashboard
+    browser:  browser
 };

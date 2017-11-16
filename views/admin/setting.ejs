@@ -32,6 +32,14 @@
 													<label for="site_use_theme">Use Default Theme</label>
 												</div>
 												<div class="form-group">
+													<label for="site_def_language">Default Language</label>
+		                                            <select name="site_def_language" id="site_def_language" class="form-control"  >
+		                                                <option value="en" <%= !!locals.site_def_language && locals.site_def_language === 'en' ? 'selected' : '' %>>English</option>
+		                                                <option value="nl" <%= !!locals.site_def_language && locals.site_def_language === 'nl' ? 'selected' : '' %>>Dutch</option>
+		                                                <option value="ro" <%= !!locals.site_def_language && locals.site_def_language === 'ro' ? 'selected' : '' %>>Romanian</option>
+		                                            </select>
+												</div>
+												<div class="form-group">
 													<label for="site_color">Main Background Color</label>
 													<div class="cp2 input-group colorpicker-component">
 													    <input type="text" value="<%= !!locals.site_color ? site_color : '' %>" name="site_color" class="form-control" />
