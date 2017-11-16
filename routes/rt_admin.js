@@ -5,6 +5,7 @@ const router  = express.Router();
 const Users = require('../controllers/ctrl_users');
 const Pages = require('../controllers/ctrl_pages');
 const Site  = require('../controllers/ctrl_site');
+const Bundels  = require('../controllers/ctrl_bundels');
 
 // User Operations
 router.get('/logout', Users.doLogout);
@@ -23,15 +24,19 @@ router.get('/setting',  Site.admSetting);
 router.post('/setting', Site.save);
 
 // Bundels
-// router.post('/bundel', Pages.makeBundel);
-// router.get('/bundel',  Pages.viewBundel);
-// router.get('/bundels', Pages.bundles )
-// router.get('/', Pages.admDashboard);
+router.get('/bundel/delete/:id', Bundels.remove);
+router.get('/bundels/:id',  Bundels.showEditBundel);
+router.post('/bundel/:id',  Bundels.editBundel);
+router.post('/bundel', Bundels.makeBundel);
+router.get('/bundel', Bundels.viewBundel);
+router.get('/bundels', Bundels.bundles )
 
-// Media
-// router.get('/media', Pages.showMedia);
 
 //Media manager Routes
+
+
+//Media manager Routes
+router.get('/medias', Pages.admMedia);
 // router.get('/bundel/files', Pages.showImage);
 // router.post('/bundel/delete_file', Pages.deleteImage)
 

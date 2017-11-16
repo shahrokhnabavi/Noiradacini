@@ -1,6 +1,5 @@
 const tbl = 'settings',
       Setting = {
-
         findByIdAndUpdate: function(id, data){
           var sql  = `UPDATE ${tbl} SET setting_value = ? WHERE setting_id = ?`,
               data = [data.setting_value, id];
