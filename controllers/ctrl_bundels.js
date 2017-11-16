@@ -19,7 +19,9 @@ const makeBundel = (req , res ) => {
       language:     req.body.language
     });
 
+res.end();
     newBundel.save().then(newBundel=>{
+        req.setFlash('success', [{'msg': 'The interview has been submitted successfully.'}]);
         res.redirect('/admin/bundels')
     })
     .catch(err=>{
@@ -32,7 +34,7 @@ const bundles = (req ,res)=>{
     if( req.userAuth('/admin/login') ) return;
 
     bundel.find({}).select(' -bundelEditor').sort('-createAt').then(result=>{
-      res.render('admin/bundleDisplay' , {result} );
+      res.render('admin/bundleDisplay' , {result, success: req.getFlash('success')} );
     }).catch(err =>{
       res.json(err)
       console.log(err + "error in show bundels list");
@@ -78,12 +80,10 @@ const editBundel = (req , res) => {
           udateAt:       Date(Date.now())
         };
 
-
-
     bundel.findByIdAndUpdate( req.params.id, record )
           .then( result => {
               req.setFlash('success', [{'msg': 'Your information has been submitted successfully.'}]);
-              res.redirect('/admin/bundel');
+              res.redirect('/admin/bundels');
           })
           .catch( err => console.log(err) );
 

@@ -28,7 +28,7 @@
 													<input type="text" class="form-control" id="site_logoe" name="site_logo" value="<%= !!locals.site_logo ? site_logo : '' %>">
 												</div>
 												<div class="form-group">
-													<input type="checkbox" name="site_use_theme" <%= !!locals.site_use_theme ? 'checked' : '' %> data-toggle="toggle" data-on="Enable" data-off="Disabled" data-onstyle="success" data-offstyle="danger" id="site_use_theme" />
+													<input type="checkbox" name="site_use_theme" <%= !!locals.site_use_theme && locals.site_use_theme === 'on' ? 'checked' : '' %> data-toggle="toggle" data-on="Enable" data-off="Disabled" data-onstyle="success" data-offstyle="danger" id="site_use_theme" />
 													<label for="site_use_theme">Use Default Theme</label>
 												</div>
 												<div class="form-group">

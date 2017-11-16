@@ -1,8 +1,8 @@
 $(document).ready(function() {
-
+    var apiDomain = "http://localhost:3500/api/"
     //get all settings
     var request = $.ajax({
-            url: "http://localhost:3500/api/settings/",
+            url: apiDomain + "settings/",
             method: "GET",
             dataType: "json",
         }).done(function( settings ) {
@@ -19,6 +19,7 @@ $(document).ready(function() {
             map.imagesSettings.labelColor = settings.site_circle_label;
             map.imagesSettings.labelRollOverColor = settings.site_circle_label;
             map.imagesSettings.color = settings.site_circle_color;
+            map.validateData();
         }).fail(function( jqXHR, textStatus ) {
             console.log("Request failed: " + textStatus);
         });

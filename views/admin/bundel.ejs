@@ -1,8 +1,7 @@
 <%- include('../includes/admin/header',{page_title: 'User Managment'}); %>
 
-
-      <!-- <script src="/ckeditor/ckeditor.js"></script> -->
       <script src="//cdn.ckeditor.com/4.7.3/full/ckeditor.js"></script>
+
 
 
 			<!-- /col-3 -->
@@ -24,7 +23,7 @@
                                     <form class="form-horizontal" method="post" action="/admin/bundel<%= !!locals.item ? '/' + item._id : '' %>" name="bundel">
 										<div class="form-group">
 											<label for="bundelName">Name of interviewee</label>
-                                            <input name="bundelName" id="bundelName" required value="<%= (!!locals.item ? item.bundelName : (!!locals.request ? request.bundelName : '') ) %>" type="text" class="form-control" />
+                                            <input name="bundelName" id="bundelName" required value="<%= (!!locals.item ? item.name : (!!locals.request ? request.bundelName : '') ) %>" type="text" class="form-control" />
 										</div>
 										<div class="form-group">
 											<label for="frontEndDesc">Short Description</label>
@@ -33,36 +32,39 @@
 										<div class="form-group">
 											<label for="province">Province</label>
                                             <select name="province" id="province" class="form-control"  >
-                                                <option value="NL-DR">Drenthe</option>
-                                                <option value="NL-FR">Friesland</option>
-                                                <option value="NL-GR">Groningen</option>
-                                                <option value="NL-OV">Overijssel</option>
-                                                <option value="NL-FL">Flevoland</option>
-                                                <option value="NL-NH">Noord-Holland</option>
-                                                <option value="NL-GE">Gelderland</option>
-                                                <option value="NL-UT">Utrecht</option>
-                                                <option value="NL-ZH">Zuid-Holland</option>
-                                                <option value="NL-LI">Limburg</option>
-                                                <option value="NL-NB">Noord-Brabant</option>
-                                                <option value="NL-ZE">Zeeland</option>
+                                                <option value="NL-DR" <%= (!!locals.item && item.province === 'NL-DR' ? 'selected' : (!!locals.request && request.province === 'NL-DR' ? 'selected' : '') ) %>>Drenthe</option>
+                                                <option value="NL-FR" <%= (!!locals.item && item.province === 'NL-FR' ? 'selected' : (!!locals.request && request.province === 'NL-FR' ? 'selected' : '') ) %>>Friesland</option>
+                                                <option value="NL-GR" <%= (!!locals.item && item.province === 'NL-GR' ? 'selected' : (!!locals.request && request.province === 'NL-GR' ? 'selected' : '') ) %>>Groningen</option>
+                                                <option value="NL-OV" <%= (!!locals.item && item.province === 'NL-OV' ? 'selected' : (!!locals.request && request.province === 'NL-OV' ? 'selected' : '') ) %>>Overijssel</option>
+                                                <option value="NL-FL" <%= (!!locals.item && item.province === 'NL-FL' ? 'selected' : (!!locals.request && request.province === 'NL-FL' ? 'selected' : '') ) %>>Flevoland</option>
+                                                <option value="NL-NH" <%= (!!locals.item && item.province === 'NL-NH' ? 'selected' : (!!locals.request && request.province === 'NL-NH' ? 'selected' : '') ) %>>Noord-Holland</option>
+                                                <option value="NL-GE" <%= (!!locals.item && item.province === 'NL-GE' ? 'selected' : (!!locals.request && request.province === 'NL-GE' ? 'selected' : '') ) %>>Gelderland</option>
+                                                <option value="NL-UT" <%= (!!locals.item && item.province === 'NL-UT' ? 'selected' : (!!locals.request && request.province === 'NL-UT' ? 'selected' : '') ) %>>Utrecht</option>
+                                                <option value="NL-ZH" <%= (!!locals.item && item.province === 'NL-ZH' ? 'selected' : (!!locals.request && request.province === 'NL-ZH' ? 'selected' : '') ) %>>Zuid-Holland</option>
+                                                <option value="NL-LI" <%= (!!locals.item && item.province === 'NL-LI' ? 'selected' : (!!locals.request && request.province === 'NL-LI' ? 'selected' : '') ) %>>Limburg</option>
+                                                <option value="NL-NB" <%= (!!locals.item && item.province === 'NL-NB' ? 'selected' : (!!locals.request && request.province === 'NL-NB' ? 'selected' : '') ) %>>Noord-Brabant</option>
+                                                <option value="NL-ZE" <%= (!!locals.item && item.province === 'NL-ZE' ? 'selected' : (!!locals.request && request.province === 'NL-ZE' ? 'selected' : '') ) %>>Zeeland</option>
                                             </select>
-                                            <% (!!locals.item ? '' : (!!locals.request ? request.province : '') ) %>
 										</div>
-										<div class="form-group">
-											<label for="publishDate">Publish Date</label>
-                                            <input name="publishDate" id="publishDate" required value="<%= (!!locals.item ? item.publishDate : (!!locals.request ? request.publishDate : '') ) %>" type="date" class="form-control" />
-										</div>
+                                        <div class="form-group">
+                                            <label for="publishDate">Publish Date</label>
+                                            <div class='input-group date' id='datetimepicker1'>
+                                                <input type='text' name="publishDate" id="publishDate" value="<%= (!!locals.item ? item.publishDate : (!!locals.request ? request.publishDate : '') ) %>" class="form-control" />
+                                                <span class="input-group-addon">
+                                                    <span class="glyphicon glyphicon-calendar"></span>
+                                                </span>
+                                            </div>
+                                        </div>
 										<div class="form-group">
 											<label for="language">Select a Language</label>
                                             <select name="language" id="language" class="form-control"  >
-                                                <option value="en">English</option>
-                                                <option value="nl">Dutch</option>
-                                                <option value="ro">Romanian</option>
+                                                <option value="en" <%= (!!locals.item && item.language === 'en' ? 'selected' : (!!locals.request && request.language === 'en' ? 'selected' : '') ) %>>English</option>
+                                                <option value="nl" <%= (!!locals.item && item.language === 'nl' ? 'selected' : (!!locals.request && request.language === 'nl' ? 'selected' : '') ) %>>Dutch</option>
+                                                <option value="ro" <%= (!!locals.item && item.language === 'ro' ? 'selected' : (!!locals.request && request.language === 'ro' ? 'selected' : '') ) %>>Romanian</option>
                                             </select>
-                                            <% (!!locals.item ? item.language : (!!locals.request ? request.language : '') ) %>
 										</div>
                                         <div class="form-group">
-                                            <textarea name="bundelEditor" id="editor1" required value="<%= (locals.item ? item.bundelEditor : "" ) %>" > </textarea>
+                                            <textarea name="bundelEditor" id="editor1"></textarea>
                                         </div>
                                         <div class="form-group">
                                             <button type="submit" class="btn btn-primary pull-right"><%= (!!locals.item ? 'Edit' : 'Add') %> User</button>
@@ -72,6 +74,7 @@
                             </div>
                         </div>
 
+                        <% var text = !!locals.item ? item.bundelEditor.replace(/\r?\n|\r/g,'') : ""; %>
                         <script type="text/javascript">
                             CKEDITOR.replace('editor1',{
             					toolbarGroups: [
@@ -87,43 +90,61 @@
             					removeButtons: 'Anchor,Print,Save,Preview,Flash,PageBreak,SpecialChar'
             				});
 
-        CKEDITOR.on('dialogDefinition', function (event)
-	    {
-	        var editor = event.editor;
-	        var dialogDefinition = event.data.definition;
-	        var dialogName = event.data.name;
+                            CKEDITOR.on('dialogDefinition', function (event)
+                            {
+                                var editor = event.editor;
+                                var dialogDefinition = event.data.definition;
+                                var dialogName = event.data.name;
 
-	        var cleanUpFuncRef = CKEDITOR.tools.addFunction(function ()
-	        {
-	            // Do the clean-up of filemanager here (called when an image was selected or cancel was clicked)
-	            $('#filemanager_iframe').remove();
-	            $("body").css("overflow-y", "scroll");
-	        });
+                                var cleanUpFuncRef = CKEDITOR.tools.addFunction(function ()
+                                {
+                                    // Do the clean-up of filemanager here (called when an image was selected or cancel was clicked)
+                                    $('#filemanager_iframe').remove();
+                                    $("body").css("overflow-y", "scroll");
+                                });
 
-	        var tabCount = dialogDefinition.contents.length;
-	        for (var i = 0; i < tabCount; i++) {
-	            var browseButton = dialogDefinition.contents[i].get('browse');
+                                var tabCount = dialogDefinition.contents.length;
+                                for (var i = 0; i < tabCount; i++) {
+                                    var browseButton = dialogDefinition.contents[i].get('browse');
 
-	            if (browseButton !== null) {
-	                browseButton.hidden = false;
-	                browseButton.onClick = function (dialog, i)
-	                {
-	                    editor._.filebrowserSe = this;
-	                    var iframe = $("<iframe id='filemanager_iframe' class='fm-modal'/>").attr({
-	                        src: '/admin/browser' + // Change it to wherever  Filemanager is stored.
-	                            '?CKEditorFuncNum=' + CKEDITOR.instances[event.editor.name]._.filebrowserFn +
-	                            '&CKEditorCleanUpFuncNum=' + cleanUpFuncRef +
-	                            '&langCode=en' +
-	                            '&CKEditor=' + event.editor.name
-	                    });
+                                    if (browseButton !== null) {
+                                        browseButton.hidden = false;
+                                        browseButton.onClick = function (dialog, i)
+                                        {
+                                            editor._.filebrowserSe = this;
+                                            var iframe = $("<iframe id='filemanager_iframe' class='fm-modal'/>").attr({
+                                                src: '/admin/browser' + // Change it to wherever  Filemanager is stored.
+                                                    '?CKEditorFuncNum=' + CKEDITOR.instances[event.editor.name]._.filebrowserFn +
+                                                    '&CKEditorCleanUpFuncNum=' + cleanUpFuncRef +
+                                                    '&langCode=en' +
+                                                    '&CKEditor=' + event.editor.name
+                                            });
 
-	                    $("body").append(iframe);
-	                    $("body").css("overflow-y", "hidden");  // Get rid of possible scrollbars in containing document
-	                }
-	            }
-	        }
-	    }); // dialogDefinition
+                                            $("body").append(iframe);
+                                            $("body").css("overflow-y", "hidden");  // Get rid of possible scrollbars in containing document
+                                        }
+                                    }
+                                }
+                            }); // dialogDefinition
+                            CKEDITOR.instances['editor1'].setData('<%- text %>');
+
+                            $(document).ready(function(){
+
+                                $('#datetimepicker1').datetimepicker({
+                                            allowInputToggle: true
+                                        });
+
+                                $("form").submit( function(e) {
+                                    var messageLength = CKEDITOR.instances['editor1'].getData().replace(/<[^>]*>/gi, '').length;
+                                    if( !messageLength ) {
+                                        alert( 'Please enter a the text of interview' );
+                                        e.preventDefault();
+                                    }
+                                });
+                            });
+
                         </script>
+
                         <style>
                         .fm-modal {
 	z-index: 10011; /** Because CKEditor image dialog was at 10010 */

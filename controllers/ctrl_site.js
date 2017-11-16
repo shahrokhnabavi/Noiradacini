@@ -31,11 +31,23 @@ const admSetting = ( req, res ) => {
 const save = ( req, res ) => {
     if( req.userAuth('/admin/login') ) return;
 
-    let arrPromises = [];
+    let arrPromises = [ new Promise(function(resolve, reject) {
+        Setting.getByField('setting_key', 'site_use_theme').then( record => {
+            let val = req.body.site_use_theme ? 'on' : 'off';
+            if(record)
+            {
+                Setting.findByIdAndUpdate(record.setting_id,{setting_value:val}).then( resolve );
+            }
+            else
+            {
+                Setting.create({setting_key:'site_use_theme', setting_value:val}).then(resolve);
+            }
+        }).catch( err => console.log(err) );
+    }) ];
+
     for(let key in req.body) {
         let pro = new Promise(function(resolve, reject) {
             Setting.getByField('setting_key', key).then( record => {
-                req.setFlash('success', [{'msg': 'Your information has been submitted successfully.'}]);
                 if(record)
                 {
                     Setting.findByIdAndUpdate(record.setting_id,{setting_value:req.body[key]}).then( resolve );
@@ -48,7 +60,10 @@ const save = ( req, res ) => {
         });
         arrPromises.push(pro);
     }
-    Promise.all( arrPromises ).then( values => res.redirect('/admin/setting') )
+    Promise.all( arrPromises ).then( values => {
+        req.setFlash('success', [{'msg': 'Your information has been submitted successfully.'}]);
+        res.redirect('/admin/setting')
+    })
 };
 
 module.exports = {
