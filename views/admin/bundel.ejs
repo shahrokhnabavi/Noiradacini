@@ -71,6 +71,14 @@
                                             <textarea name="bundelEditor" id="editor1"></textarea>
                                         </div>
                                         <div class="form-group">
+                                          <button id="js-window-button2" class="btn btn-success" >Select Audio</button>
+                                          <input type="text" class="form-control" id="selectAudio" name="audio" value="<%= (!!locals.item ? item.audio : (!!locals.request ? request.audio : '') ) %>"  required>
+                                        </div>
+                                        <div class="form-group">
+                                          <button id="js-window-button3" class="btn btn-success" >Select Main image</button>
+                                          <input type="text" class="form-control" id="selectImage" name="mainImage" value="<%= (!!locals.item ? item.mainImage : (!!locals.request ? request.mainImage : '') ) %>"  required>
+                                        </div>
+                                        <div class="form-group">
                                             <button type="submit" class="btn btn-primary pull-right"><%= (!!locals.item ? 'Edit' : 'Add') %> Interview</button>
                                         </div>
                                     </form>
@@ -147,20 +155,44 @@
                                 });
                             });
 
+
+
+                            $('#js-window-button2').on('click', function(e) {
+              									e.preventDefault();
+              							        var opener = window.open("/admin/browser", 'targetWindow',
+              							            'toolbar=no,location=no,status=no,menubar=no,scrollbars=yes,resizable=yes,width=800, height=800');
+              							        function handlePostMessage(e) {
+              							            var data = e.originalEvent.data;
+              							            console.log('js-data', data);
+              							            if (data.source === 'richfilemanager') {
+              											$('#selectAudio').val(data.preview_url);
+              							                opener.close();
+              							            }
+              							        // remove an event handler
+              							        $(window).off('message', handlePostMessage);
+              							    }
+              							    $(window).on('message', handlePostMessage);
+              							});
+                            $('#js-window-button3').on('click', function(e) {
+              									e.preventDefault();
+              							        var opener = window.open("/admin/browser", 'targetWindow',
+              							            'toolbar=no,location=no,status=no,menubar=no,scrollbars=yes,resizable=yes,width=800, height=800');
+              							        function handlePostMessage(e) {
+              							            var data = e.originalEvent.data;
+              							            console.log('js-data', data);
+              							            if (data.source === 'richfilemanager') {
+              											$('#selectImage').val(data.preview_url);
+              							                opener.close();
+              							            }
+              							        // remove an event handler
+              							        $(window).off('message', handlePostMessage);
+              							    }
+              							    $(window).on('message', handlePostMessage);
+              							});
+
                         </script>
 					</div>
         </div>
-
-        <!-- <script>
-          ClassicEditor
-            .create( document.querySelector( '#bundelEditor' ) )
-            .then( editor => {
-              console.log( editor );
-            } )
-            .catch( error => {
-              console.error( error );
-            } );
-        </script> -->
 
             <!--/col-span-9-->
 <%- include('../includes/admin/footer'); %>

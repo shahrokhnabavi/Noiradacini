@@ -35,6 +35,14 @@ const bundelSchema = mongoose.Schema({
     language: {
       type: String,
       required: true
+    },
+    audio: {
+      type: String,
+      required: true
+    },
+    mainImage: {
+      type: String,
+      required: true
     }
 
 });

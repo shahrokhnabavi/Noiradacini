@@ -112,6 +112,8 @@ $(document).ready(function() {
 
 
     $('.flag a').on('click', function(){
+        $('#briefUserList').removeClass('active');
+        $('#briefUserInfo').removeClass('active');
         selectedLang = $(this).attr('href');
         getProvenciesInfo();
         getPages();

@@ -16,7 +16,9 @@ const makeBundel = (req , res ) => {
       publishDate: req.body.publishDate,
       frontEndDesc: req.body.frontEndDesc,
       province:     req.body.province,
-      language:     req.body.language
+      language:     req.body.language,
+      mainImage:    req.body.mainImage,
+      audio:        req.body.audio
     });
 
     newBundel.save().then(newBundel=>{
@@ -76,7 +78,9 @@ const editBundel = (req , res) => {
           frontEndDesc: req.body.frontEndDesc,
           province:     req.body.province,
           language:     req.body.language,
-          udateAt:       Date(Date.now())
+          udateAt:       Date(Date.now()),
+          mainImage:    req.body.mainImage,
+          audio:        req.body.audio
         };
 
     bundel.findByIdAndUpdate( req.params.id, record )
@@ -99,7 +103,7 @@ const bundelsLocationAndName= (req , res ) => {
           var dataNotSend=[];
           provinceList.forEach(function(item, index){
             var temp =  new Promise( (resolve, reject) => {
-                bundel.find({$and:[{province: item.province},{language:req.params.lang}]})
+                bundel.find({$and:[{province: item.province},{language:req.params.lang}, {publishDate:{$lt: Date.now()}  }  ]})
                 .select('name -_id').then(name=>{
                       provinceList[index].count = name.length ;
                       resolve(1);
@@ -115,7 +119,7 @@ const bundelsLocationAndName= (req , res ) => {
 
 const listInProvince= (req , res ) => {
     // id of the province
-    bundel.find({$and:[{province:req.params.id }, {language:req.params.lang}]}).select(' -bundelEditor')
+    bundel.find({$and:[{province:req.params.id }, {language:req.params.lang},{publishDate:{$lt: Date.now() } }]}).select(' -bundelEditor')
     .then(result =>{ res.json(result)
     }).catch(err=>{
       res.end('You have error in list province!!!')
