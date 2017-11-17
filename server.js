@@ -55,6 +55,14 @@ app.use('*', core.pathUserSession);
 app.use('/admin', require('./routes/rt_admin'));
 app.use('/api',   require('./routes/rt_api'));
 app.use('/filemanager', require('./richfilemanager/filemanager')(path.normalize(`${__dirname}/public/userfiles`)));
+app.get('/:lang/:page', (req, res) => {
+    const Page = require('./models/mdl_page');
+    Page.find({language: req.params.lang, slugName: req.params.page})
+            .then(item=>{
+                res.render('page', item[0]);
+            })
+    .catch( err=> console.log(err) );
+});
 
 // Listen to port
 const port = process.argv[2] || process.env.port || 3500;

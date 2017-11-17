@@ -127,10 +127,19 @@ const editPage2 = (req,res)=>{
 }
 
 
+const apiGetPages = (req ,res)=>{
+    makepage.find({language: req.params.lang}).select('titleName slugName -_id')
+            .then(item=>{
+                res.json(item);
+            })
+    .catch( err=> console.log(err) );
+}
+
 module.exports = {
     admMedia: admMedia,
     browser:  browser,
     admDashboard: admDashboard,
+    apiGetPages: apiGetPages,
 
     showPages:showPages,
     addDynamicPages:addDynamicPages,

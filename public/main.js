@@ -1,5 +1,7 @@
 $(document).ready(function() {
-    var apiDomain = "http://localhost:3500/api/"
+    var apiDomain = "http://localhost:3500/api/",
+        selectedLang = 'en';
+
     //get all settings
     var request = $.ajax({
             url: apiDomain + "settings/",
@@ -20,7 +22,10 @@ $(document).ready(function() {
             map.imagesSettings.labelColor = settings.site_circle_label;
             map.imagesSettings.labelRollOverColor = settings.site_circle_label;
             map.imagesSettings.color = settings.site_circle_color;
+            selectedLang = settings.site_def_language;
             map.validateData();
+            getProvenciesInfo();
+            getPages();
         }).fail(function( jqXHR, textStatus ) {
             console.log("Request failed: " + textStatus);
         });
@@ -28,20 +33,45 @@ $(document).ready(function() {
     //Get State informations
     var getProvenciesInfo = () => {
         var request = $.ajax({
-            url: apiDomain + "bundels/en/",
+            url: apiDomain + "bundels/" + selectedLang + "/",
             method: "GET",
             dataType: "json",
         }).done(function( settings ) {
             settings.forEach( (val, index) => {
                 mapData[index].label = val.count;
+                mapData[index].value = val.count;
                 mapData[index].title = val.count ? val.count + " Persons in Friesland" : "";
             });
+            map.dataProvider.images = circuleCalculate();
             map.validateData();
         }).fail(function( jqXHR, textStatus ) {
             console.log("Request failed: " + textStatus);
         });
     }
-    getProvenciesInfo();
+
+    //Get Pages List
+    var getPages = () => {
+        var request = $.ajax({
+            url: apiDomain + "pages/" + selectedLang + "/",
+            method: "GET",
+            dataType: "json",
+        }).done(function( pages ) {
+            $('#menuPages').html('');
+            pages.forEach( val => {
+                $('<li><a href="/' + selectedLang + '/' + val.slugName + '">' + val.titleName + '</a></li>').appendTo('#menuPages');
+            });
+        }).fail(function( jqXHR, textStatus ) {
+            console.log("Request failed: " + textStatus);
+        });
+    }
+
+
+    $('.flag a').on('click', function(){
+        selectedLang = $(this).attr('href');
+        getProvenciesInfo();
+        getPages();
+        return false;
+    });
 
 
     $('a.close').on('click', function(){
@@ -77,12 +107,6 @@ $(document).ready(function() {
 
 
 
-
-
-
-// create circle for each country
-
-//
 // http://www.distancelatlong.com/country/netherlands
 var mapData = [
     {
@@ -208,38 +232,41 @@ var mapData = [
 ];
 
 // get min and max values
-var minBulletSize = 13;
-var maxBulletSize = 60;
-var min = Infinity;
-var max = -Infinity;
-for ( var i = 0; i < mapData.length; i++ ) {
-  var value = parseInt(mapData[ i ].label);
-  if ( value < min ) {
-    min = value;
-  }
-  if ( value > max ) {
-    max = value;
-  }
-}
+var circuleCalculate = () => {
+    var minBulletSize = 13;
+    var maxBulletSize = 60;
+    var min = Infinity;
+    var max = -Infinity;
+    for ( var i = 0; i < mapData.length; i++ ) {
+      var value = parseInt(mapData[ i ].label);
+      if ( value < min ) {
+        min = value;
+      }
+      if ( value > max ) {
+        max = value;
+      }
+    }
 
-// it's better to use circle square to show difference between values, not a radius
-var maxSquare = maxBulletSize * maxBulletSize * 2 * Math.PI;
-var minSquare = minBulletSize * minBulletSize * 2 * Math.PI;
+    // it's better to use circle square to show difference between values, not a radius
+    var maxSquare = maxBulletSize * maxBulletSize * 2 * Math.PI;
+    var minSquare = minBulletSize * minBulletSize * 2 * Math.PI;
 
-// create circle for each country
-var images = [];
-for ( var i = 0; i < mapData.length; i++ ) {
-  var dataItem = mapData[ i ];
-  var value = parseInt(dataItem.label);
-  // calculate size of a bubble
-  var square = ( value - min ) / ( max - min ) * ( maxSquare - minSquare ) + minSquare;
-  if ( square < minSquare ) {
-    square = minSquare;
-  }
-  var size = Math.sqrt( square / ( Math.PI * 2 ) );
-dataItem.width = dataItem.height = size;
-dataItem.scale = 1;
-  images.push(dataItem);
+    // create circle for each country
+    var images = [];
+    for ( var i = 0; i < mapData.length; i++ ) {
+        var dataItem = mapData[ i ];
+        var value = parseInt(dataItem.label);
+        // calculate size of a bubble
+        var square = ( value - min ) / ( max - min ) * ( maxSquare - minSquare ) + minSquare;
+        if ( square < minSquare ) {
+            square = minSquare;
+        }
+        var size = Math.sqrt( square / ( Math.PI * 2 ) );
+        dataItem.width = dataItem.height = size;
+        dataItem.scale = 1;
+        images.push(dataItem);
+    }
+    return images;
 }
 
 
@@ -252,7 +279,7 @@ var map = AmCharts.makeChart( "chartdiv", {
         map: "netherlandsLow",
         getAreasFromMap: true,
         zoomLevel: 1,
-        images: images
+        images: circuleCalculate()
     },
 
     imagesSettings: {
