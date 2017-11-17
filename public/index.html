@@ -31,7 +31,7 @@
     <div id="chartwrapper">
         <div id="chartdiv"></div>
         <div id="sadeq">
-            <select onchange="selectArea(this);" id="provence" class="selectpicker" data-live-search="true">
+            <select id="provence" class="selectpicker" data-live-search="true">
                 <option value="">All Provences</option>
                 <option value="NL-DR">Drenthe</option>
                 <option value="NL-FR">Friesland</option>
@@ -55,29 +55,13 @@
     <div id="briefUserInfo">
       <div class="content">
           <div class="item active">
-              <blockquote>
-                  <div class="row">
-                      <div class="col-sm-3 text-center">
-                          <img class="img-circle" src="http://www.reactiongifs.com/r/overbite.gif" style="width: 100px;height:100px;">
-                          <a href="#" class="btn btn-primary">Interview</a>
-                      </div>
-                      <div class="col-sm-9">
-                          <span class="name">Someone famous</span>
-                          <div class="desc">
-                              <p>Neque porro quisquam est qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit!</p>
-                              <p>Neque porro quisquam est qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit!</p>
-                              <p>Neque porro quisquam est qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit!</p>
-                          </div>
-                          <a href="#" class="close">X</a>
-                      </div>
-                  </div>
-              </blockquote>
+              <blockquote id="singlePerson"></blockquote>
           </div>
       </div>
     </div>
 
     <div id="briefUserList">
-        <div class="person">
+        <div class="person hidden">
             <img class="pull-left" width="50px" height="50px" src="data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiIHN0YW5kYWxvbmU9InllcyI/PjxzdmcgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB3aWR0aD0iMTQwIiBoZWlnaHQ9IjE0MCIgdmlld0JveD0iMCAwIDE0MCAxNDAiIHByZXNlcnZlQXNwZWN0UmF0aW89Im5vbmUiPjwhLS0KU291cmNlIFVSTDogaG9sZGVyLmpzLzE0MHgxNDAKQ3JlYXRlZCB3aXRoIEhvbGRlci5qcyAyLjYuMC4KTGVhcm4gbW9yZSBhdCBodHRwOi8vaG9sZGVyanMuY29tCihjKSAyMDEyLTIwMTUgSXZhbiBNYWxvcGluc2t5IC0gaHR0cDovL2ltc2t5LmNvCi0tPjxkZWZzPjxzdHlsZSB0eXBlPSJ0ZXh0L2NzcyI+PCFbQ0RBVEFbI2hvbGRlcl8xNWZiNmY0YjQyOSB0ZXh0IHsgZmlsbDojQUFBQUFBO2ZvbnQtd2VpZ2h0OmJvbGQ7Zm9udC1mYW1pbHk6QXJpYWwsIEhlbHZldGljYSwgT3BlbiBTYW5zLCBzYW5zLXNlcmlmLCBtb25vc3BhY2U7Zm9udC1zaXplOjEwcHQgfSBdXT48L3N0eWxlPjwvZGVmcz48ZyBpZD0iaG9sZGVyXzE1ZmI2ZjRiNDI5Ij48cmVjdCB3aWR0aD0iMTQwIiBoZWlnaHQ9IjE0MCIgZmlsbD0iI0VFRUVFRSIvPjxnPjx0ZXh0IHg9IjQ0LjA1NDY4NzUiIHk9Ijc0LjUiPjE0MHgxNDA8L3RleHQ+PC9nPjwvZz48L3N2Zz4=" alt="name" class="img-thumbnail">
             <div class="pull-left name">
                 User Number One<br/>
@@ -85,16 +69,7 @@
             </div>
             <a href="#" class="btn btn-info btn-xs pull-right">See More</a>
         </div>
-        <div class="clearfix"></div>
-        <div class="person">
-            <img class="pull-left" width="50px" height="50px" src="data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiIHN0YW5kYWxvbmU9InllcyI/PjxzdmcgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB3aWR0aD0iMTQwIiBoZWlnaHQ9IjE0MCIgdmlld0JveD0iMCAwIDE0MCAxNDAiIHByZXNlcnZlQXNwZWN0UmF0aW89Im5vbmUiPjwhLS0KU291cmNlIFVSTDogaG9sZGVyLmpzLzE0MHgxNDAKQ3JlYXRlZCB3aXRoIEhvbGRlci5qcyAyLjYuMC4KTGVhcm4gbW9yZSBhdCBodHRwOi8vaG9sZGVyanMuY29tCihjKSAyMDEyLTIwMTUgSXZhbiBNYWxvcGluc2t5IC0gaHR0cDovL2ltc2t5LmNvCi0tPjxkZWZzPjxzdHlsZSB0eXBlPSJ0ZXh0L2NzcyI+PCFbQ0RBVEFbI2hvbGRlcl8xNWZiNmY0YjQyOSB0ZXh0IHsgZmlsbDojQUFBQUFBO2ZvbnQtd2VpZ2h0OmJvbGQ7Zm9udC1mYW1pbHk6QXJpYWwsIEhlbHZldGljYSwgT3BlbiBTYW5zLCBzYW5zLXNlcmlmLCBtb25vc3BhY2U7Zm9udC1zaXplOjEwcHQgfSBdXT48L3N0eWxlPjwvZGVmcz48ZyBpZD0iaG9sZGVyXzE1ZmI2ZjRiNDI5Ij48cmVjdCB3aWR0aD0iMTQwIiBoZWlnaHQ9IjE0MCIgZmlsbD0iI0VFRUVFRSIvPjxnPjx0ZXh0IHg9IjQ0LjA1NDY4NzUiIHk9Ijc0LjUiPjE0MHgxNDA8L3RleHQ+PC9nPjwvZz48L3N2Zz4=" alt="name" class="img-thumbnail">
-            <div class="pull-left name">
-                User Number One<br/>
-                Published on 10/02/2017 at 13:20
-            </div>
-            <a href="#" class="btn btn-info btn-xs pull-right">See More</a>
-        </div>
-        <div class="clearfix"></div>
+        <div class="clearfix hidden"></div>
     </div>
 </div>
 
@@ -104,7 +79,6 @@
     <nav id="bt-menu" class="bt-menu">
         <a href="#" class="bt-menu-trigger" id="menu-btn"><span>Menu</span></a>
         <ul id="menuPages">
-
         </ul>
         <div class="flag">
             <a href="en"><img src="http://icons.iconarchive.com/icons/hopstarter/flag-borderless/24/England-icon.png"></img></a>
@@ -112,7 +86,7 @@
             <a href="nl"><img src="http://icons.iconarchive.com/icons/hopstarter/flag-borderless/24/Netherlands-icon.png"></img></a>
             <p>&copy; Copy Right 2017</p>
         </div>
-        <ul>
+        <ul class="hidden">
             <li><a href="http://www.twitter.com/codrops" class="bt-icon icon-twitter">Twitter</a></li>
             <li><a href="https://plus.google.com/101095823814290637419" class="bt-icon icon-gplus">Google+</a></li>
             <li><a href="http://www.facebook.com/pages/Codrops/159107397912" class="bt-icon icon-facebook">Facebook</a></li>

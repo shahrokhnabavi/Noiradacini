@@ -89,14 +89,13 @@ const editBundel = (req , res) => {
 }
 
 const bundelsLocationAndName= (req , res ) => {
-      let provinceList = [{ province: 'NL-GE',count:[] }, {province:'NL-FR',count:[]},
-                          {province:'NL-GR',count:[]}, {province:'NL-OV',count:[]},
-                          {province:'NL-DR',count:[]}, {province:'NL-NH',count:[]},
-                          {province:'NL-UT',count:[]}, {province:'NL-FR',count:[]},
-                          {province:'NL-LI',count:[]}, {province:'NL-NB',count:[]},
-                          {province:'NL-ZE',count:[]}, {province:'NL-ZH',count:[]}
+      let provinceList = [{province:'NL-DR',count:[] }, {province:'NL-FR',count:[]},
+                          {province:'NL-GE',count:[]}, {province:'NL-GR',count:[]},
+                          {province:'NL-OV',count:[]}, {province:'NL-NH',count:[]},
+                          {province:'NL-UT',count:[]}, {province:'NL-LI',count:[]},
+                          {province:'NL-NB',count:[]}, {province:'NL-ZE',count:[]},
+                          {province:'NL-FL',count:[]}, {province:'NL-ZH',count:[]}
                         ];
-
           var dataNotSend=[];
           provinceList.forEach(function(item, index){
             var temp =  new Promise( (resolve, reject) => {

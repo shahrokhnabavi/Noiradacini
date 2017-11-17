@@ -15,6 +15,6 @@ router.get('/pages/:lang', Pages.apiGetPages);
 // Bundels
 router.get('/bundel/:id', Bundels.api_showBundel);
 router.get('/bundels/:lang', Bundels.api_bundelsLocationAndName);
-router.get('/:id/:lang', Bundels.api_listInProvince);
+router.get('/bundel/:id/:lang', Bundels.api_listInProvince);
 
 module.exports = router;

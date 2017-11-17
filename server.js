@@ -59,7 +59,10 @@ app.get('/:lang/:page', (req, res) => {
     const Page = require('./models/mdl_page');
     Page.find({language: req.params.lang, slugName: req.params.page})
             .then(item=>{
-                res.render('page', item[0]);
+                if( item && item.length === 1 )
+                    res.render('page', item[0]);
+                else
+                    res.redirect('/');
             })
     .catch( err=> console.log(err) );
 });
