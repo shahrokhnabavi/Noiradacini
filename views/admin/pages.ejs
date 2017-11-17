@@ -1,0 +1,167 @@
+<%- include('../includes/admin/header',{page_title: 'User Managment'}); %>
+
+
+<% if(locals.listItems ) { %>
+    <div class="col-sm-9">
+        <h4 class="title">
+               <strong><i class="glyphicon glyphicon-list"></i> Page Displayer</strong>
+               <a href="/admin/dynamicPage" class="btn btn-primary btn-sm pull-right">Add a new page</a>
+        </h4>
+        <hr>
+        <%- include('../includes/admin/message'); %>
+
+        <div class="row">
+          <div class="col-md-12">
+            <table class="table table-striped">
+              <thead>
+                <tr>
+                  <th>#</th>
+                  <th>Page Name</th>
+                  <th>Slug</th>
+                  <th>Language</th>
+                  <th class="text-right"></th>
+                </tr>
+              </thead>
+              <tbody>
+                <% let row = 0; listItems.forEach( (item, index) => { %>
+                <tr>
+                  <th scope="row"><%= ++row %></th>
+                  <td><%= item.titleName %></td>
+                  <td><%= item.slugName %></td>
+                  <td><%= item.language %></td>
+                  <td class="text-right">
+                    <a class="options" href="/admin/pages/<%= item._id %>">
+                      <i class="glyphicon glyphicon-pencil text-warning"></i></a>
+                    <a class="options" href="/admin/pages/delete/<%= item._id %>">
+                      <i class="glyphicon glyphicon-trash text-danger"></i>
+                    </a>
+                  </td>
+                </tr>
+                <% }); %>
+              </tbody>
+            </table>
+          </div>
+        </div>
+    </div>
+<% } %>
+
+<% if(locals.pageResult){ %>
+    <script src="//cdn.ckeditor.com/4.7.3/full/ckeditor.js"></script>
+
+    		<!-- /col-3 -->
+			<div class="col-sm-9">
+    			<h4 class="title">
+    				<strong><i class="glyphicon glyphicon-list"></i> Edit Page</strong>
+    				<a href="/admin/pages" class="btn btn-primary btn-sm pull-right">Page Displayer</a>
+    			</h4>
+    			<hr>
+                <%- include('../includes/admin/message'); %>
+
+
+            <div class="row">
+    			<div class="col-md-12">
+
+					<div class="container-fluid">
+						<div class="row">
+							<div class="col-md-12">
+
+               <form class="form-horizontal" method="post" action="/admin/updatePage/<%= pageResult._id %>" name="pageName">
+                   <div class="form-group">
+                       <label for="language">Select a Language</label>
+                       <select name="language" id="language" class="form-control"  >
+                           <option value="en" <%= (!!locals.pageResult && pageResult.language === 'en' ? 'selected' : (!!locals.request && request.language === 'en' ? 'selected' : '') ) %>>English</option>
+                           <option value="nl" <%= (!!locals.pageResult && pageResult.language === 'nl' ? 'selected' : (!!locals.request && request.language === 'nl' ? 'selected' : '') ) %>>Dutch</option>
+                           <option value="ro" <%= (!!locals.pageResult && pageResult.language === 'ro' ? 'selected' : (!!locals.request && request.language === 'ro' ? 'selected' : '') ) %>>Romanian</option>
+                       </select>
+                   </div>
+                   <div class="form-group">
+                       <label for="titleName">Title</label>
+                       <input name="titleName" id="titleName" required value="<%= (!!locals.pageResult ? pageResult.titleName : (!!locals.request ? request.titleName : '') ) %>" type="text" class="form-control" />
+                   </div>
+                   <div class="form-group">
+                       <label for="slugName">Slug</label>
+                       <input name="slugName" id="slugName" required value="<%= (!!locals.pageResult ? pageResult.slugName : (!!locals.request ? request.slugName : '') ) %>" type="text" class="form-control" />
+                   </div>
+                   <div class="form-group">
+                       <textarea name="pageEditor" id="editor1"></textarea>
+                   </div>
+                   <div class="form-group">
+                       <button type="submit" class="btn btn-primary pull-right"><%= (!!locals.pageResult ? 'Edit' : 'Add') %> Pages</button>
+                   </div>
+               </form>
+                           </div>
+       <% var text = !!locals.pageResult ? pageResult.pageEditor.replace(/\r?\n|\r/g,'') : ""; %>
+       <script type="text/javascript">
+           CKEDITOR.replace('editor1',{
+               toolbarGroups: [
+                   {"name":"basicstyles","groups":["basicstyles"]},
+                   {"name":"links","groups":["links"]},
+                   {"name":"paragraph","groups":["list","blocks"]},
+                   {"name":"document","groups":["mode"]},
+                   {"name":"insert","groups":["insert"]},
+                   {"name":"styles","groups":["styles"]},
+                   {"name":"about","groups":["about"]}
+               ],
+               //https://ckeditor.com/old/forums/CKEditor/Complete-list-of-toolbar-items#comment-123266
+               removeButtons: 'Anchor,Print,Save,Preview,Flash,PageBreak,SpecialChar'
+           });
+
+           CKEDITOR.on('dialogDefinition', function (event)
+           {
+               var editor = event.editor;
+               var dialogDefinition = event.data.definition;
+               var dialogName = event.data.name;
+
+               var cleanUpFuncRef = CKEDITOR.tools.addFunction(function ()
+               {
+                   // Do the clean-up of filemanager here (called when an image was selected or cancel was clicked)
+                   $('#filemanager_iframe').remove();
+                   $("body").css("overflow-y", "scroll");
+               });
+
+               var tabCount = dialogDefinition.contents.length;
+               for (var i = 0; i < tabCount; i++) {
+                   var browseButton = dialogDefinition.contents[i].get('browse');
+
+                   if (browseButton !== null) {
+                       browseButton.hidden = false;
+                       browseButton.onClick = function (dialog, i)
+                       {
+                           editor._.filebrowserSe = this;
+                           var iframe = $("<iframe id='filemanager_iframe' class='fm-modal'/>").attr({
+                               src: '/admin/browser' + // Change it to wherever  Filemanager is stored.
+                                   '?CKEditorFuncNum=' + CKEDITOR.instances[event.editor.name]._.filebrowserFn +
+                                   '&CKEditorCleanUpFuncNum=' + cleanUpFuncRef +
+                                   '&langCode=en' +
+                                   '&CKEditor=' + event.editor.name
+                           });
+
+                           $("body").append(iframe);
+                           $("body").css("overflow-y", "hidden");  // Get rid of possible scrollbars in containing document
+                       }
+                   }
+               }
+           }); // dialogDefinition
+           CKEDITOR.instances['editor1'].setData('<%- text %>');
+
+           $(document).ready(function(){
+
+               $("form").submit( function(e) {
+                   var messageLength = CKEDITOR.instances['editor1'].getData().replace(/<[^>]*>/gi, '').length;
+                   if( !messageLength ) {
+                       alert( 'Please enter a the text of interview' );
+                       e.preventDefault();
+                   }
+               });
+           });
+       </script>
+   </div>
+   </div>
+</div>
+</div>
+</div>
+
+<%}%>
+
+
+<%- include('../includes/admin/footer'); %>

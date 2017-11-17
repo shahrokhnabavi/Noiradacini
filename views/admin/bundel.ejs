@@ -49,7 +49,11 @@
                                         <div class="form-group">
                                             <label for="publishDate">Publish Date</label>
                                             <div class='input-group date' id='datetimepicker1'>
-                                                <input type='text' name="publishDate" id="publishDate" value="<%= (!!locals.item ? item.publishDate : (!!locals.request ? request.publishDate : '') ) %>" class="form-control" />
+                                                <%
+                                                var nd = new Date((!!locals.item ? item.publishDate : (!!locals.request ? request.publishDate : '') ));
+                                                var str = nd.getMonth() + '/' + nd.getDate() + '/' + nd.getFullYear();
+                                                %>
+                                                <input type='text' name="publishDate" id="publishDate" value="<%= str %>" class="form-control" />
                                                 <span class="input-group-addon">
                                                     <span class="glyphicon glyphicon-calendar"></span>
                                                 </span>

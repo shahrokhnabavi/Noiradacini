@@ -25,6 +25,23 @@ $(document).ready(function() {
             console.log("Request failed: " + textStatus);
         });
 
+    //Get State informations
+    var getProvenciesInfo = () => {
+        var request = $.ajax({
+            url: apiDomain + "bundels/en/",
+            method: "GET",
+            dataType: "json",
+        }).done(function( settings ) {
+            settings.forEach( (val, index) => {
+                mapData[index].label = val.count;
+                mapData[index].title = val.count ? val.count + " Persons in Friesland" : "";
+            });
+            map.validateData();
+        }).fail(function( jqXHR, textStatus ) {
+            console.log("Request failed: " + textStatus);
+        });
+    }
+    getProvenciesInfo();
 
 
     $('a.close').on('click', function(){
@@ -270,9 +287,6 @@ var map = AmCharts.makeChart( "chartdiv", {
                 if( map.selectedArea === provence_id ){
 
                     if ( event.mapObject.type === 'circle' ){
-                        // map.selectObject(map.getObjectById(provence_id));
-                        // $('#briefUserInfo').toggleClass('active');
-                        // $('#briefUserList').toggleClass('active');
                     } else {
                         map.selectedArea = null;
                         map.selectObject();
@@ -280,6 +294,8 @@ var map = AmCharts.makeChart( "chartdiv", {
                         $('#provence').selectpicker( 'val', '');
                     }
                 } else {
+                    console.log(map.getObjectById(provence_id));
+
                     map.selectedArea = provence_id;
                     $('#provence').selectpicker( 'val', provence_id);
                     map.selectObject(map.getObjectById(provence_id));

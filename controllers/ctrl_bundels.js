@@ -19,7 +19,6 @@ const makeBundel = (req , res ) => {
       language:     req.body.language
     });
 
-res.end();
     newBundel.save().then(newBundel=>{
         req.setFlash('success', [{'msg': 'The interview has been submitted successfully.'}]);
         res.redirect('/admin/bundels')
@@ -90,12 +89,12 @@ const editBundel = (req , res) => {
 }
 
 const bundelsLocationAndName= (req , res ) => {
-      let provinceList = [{ province: 'Zeeland',count:[] }, {province:'Utrecht',count:[]},
-                          {province:'South Holland',count:[]}, {province:'Overijssel',count:[]},
-                          {province:'North Holland',count:[]}, {province:'North Brabant',count:[]},
-                          {province:'Limburg',count:[]}, {province:'Groningen',count:[]},
-                          {province:'Gelderland',count:[]}, {province:'Friesland',count:[]},
-                          {province:'Flevoland',count:[]}, {province:'Drenthe',count:[]}
+      let provinceList = [{ province: 'NL-GE',count:[] }, {province:'NL-FR',count:[]},
+                          {province:'NL-GR',count:[]}, {province:'NL-OV',count:[]},
+                          {province:'NL-DR',count:[]}, {province:'NL-NH',count:[]},
+                          {province:'NL-UT',count:[]}, {province:'NL-FR',count:[]},
+                          {province:'NL-LI',count:[]}, {province:'NL-NB',count:[]},
+                          {province:'NL-ZE',count:[]}, {province:'NL-ZH',count:[]}
                         ];
 
           var dataNotSend=[];
@@ -111,7 +110,7 @@ const bundelsLocationAndName= (req , res ) => {
           })
           Promise.all( dataNotSend ).then(() => {res.json(provinceList)})
         .catch(err=>{
-        res.end('You have error in list of locations!!!')
+            res.end('You have error in list of locations!!!')
       })
 }
 

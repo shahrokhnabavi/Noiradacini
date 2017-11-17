@@ -36,4 +36,12 @@ router.get('/medias',  Pages.admMedia);
 router.get('/browser', Pages.browser);
 router.get('/', Pages.admDashboard );
 
+// Pages
+router.get('/dynamicPage', Pages.addDynamicPages);
+router.post('/makePage', Pages.validatePage ,Pages.makePages);
+router.post('/updatePage/:id', Pages.validatePage, Pages.editPage2)
+router.get('/pages/delete/:id', Pages.deletePage);
+router.get('/pages/:id', Pages.editPage)
+router.get('/pages', Pages.showPages);
+
 module.exports = router;
