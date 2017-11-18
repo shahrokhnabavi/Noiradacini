@@ -1,12 +1,13 @@
-<%- include('../includes/admin/header',{page_title: 'User Managment'}); %>
-  <div class="col-sm-9">
-      <h3 class="title">Bundle List
-
-        <a href="/admin/bundel" class="btn btn-primary btn-sm pull-right">New Bundel</a>
-      </h3>
+<%- include('../includes/admin/header',{page_title: 'Interview Managment'}); %>
+<div class="col-sm-9">
+      <h4 class="title">
+             <strong><i class="glyphicon glyphicon-pushpin"></i> Bundle Interview</strong>
+             <a href="/admin/bundel" class="btn btn-primary btn-sm pull-right">Add a new Interview</a>
+      </h4>
+      <hr>
             <div class="row">
               <div class="col-md-12">
-                  <%- include('../includes/admin/message'); %>
+              <%- include('../includes/admin/message'); %>
 
                 <table class="table table-striped">
                   <thead>
@@ -23,7 +24,7 @@
                     <tr>
                       <th scope="row"><%=  ++row %></th>
                       <td><%= item.name %></td>
-                      <td><%= item.publishDate %></td>
+                      <td><%= dateFormat(item.publishDate, 1) %> at <%= dateFormat(item.publishDate, 2) %></td>
                       <td><%= item.language %></td>
                       <td class="text-right">
                         <a class="options" href="/admin/bundels/<%= item._id %>">

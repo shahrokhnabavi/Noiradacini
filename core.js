@@ -1,24 +1,59 @@
 module.exports = {
     pathUserSession: (req, res, next) => {
-        res.locals.user = req.session.user;
-        // res.locals.user = {name: 'DEBUG MODE'};
+        res.locals.user = req.app.debug ? {name: 'DEBUG MODE'} : req.session.user;
 
         if (!req.userAuth) {
-            req.userAuth = _userAuth;
+            req.userAuth = () => { return req.app.debug ? false : _userAuth; }
         }
 
         if (!req.msgFlash) {
             req.setFlash = _setMsgFlash;
             req.getFlash = _getMsgFlash;
         }
+
+        if (!res.dateFormat) {
+            res.locals.dateFormat = _dateFormat;
+        }
         next();
     }
 }
 
+// Date Format
+function _dateFormat(strDate, type = 0, sepDate = '-', sepTime = ':') {
+    var fillZero = num => { return (num<10) ? '0'+num : num; },
+        mL = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
+        mS = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'June', 'July', 'Aug', 'Sept', 'Oct', 'Nov', 'Dec'];
+
+    if( strDate === 'now' ){
+        var date = new Date();
+    } else {
+        var date = new Date(strDate);
+    }
+
+    var day   = fillZero(date.getDate()),
+        year  = date.getFullYear(),
+        month = date.getMonth(),
+        hour = fillZero(date.getHours()),
+        minutes = fillZero(date.getMinutes()),
+        second = fillZero(date.getSeconds());
+
+        switch(type){
+            case 0:
+                return year + sepDate + fillZero(month+1) + sepDate + day + ' ' +
+                       hour + sepTime + minutes + sepTime + second;
+            case 1:
+                return day + ' ' + mL[month] + ', ' + year;
+            case 2:
+                return hour + sepTime + minutes + sepTime + second;
+            case 3:
+                return year + sepDate + fillZero(month+1) + sepDate + day + ' ' + hour + sepTime + minutes;
+            default:
+                return 'not valid';
+        }
+}
+
 // User Authentication
 function _userAuth(redirect, loggedin) {
-    // return false; //DEBUG MODE
-
     if (this.session === undefined) throw Error('req.userAuth() requires sessions');
 
     if( !loggedin && !this.session.user ){

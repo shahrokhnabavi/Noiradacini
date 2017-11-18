@@ -116,7 +116,7 @@ const editPage2 = (req,res)=>{
       slugName : req.body.slugName.replace(/\s+/g, '-').toLowerCase(),
       pageEditor : req.body.pageEditor
     };
-    makepage.findByIdAndUpdate( req.params.id, record, {new: true},  ).then( rec => {
+    makepage.findByIdAndUpdate( req.params.id, record, {new: true}  ).then( rec => {
       data = {
         success: req.getFlash('success'),
         pageResult : rec

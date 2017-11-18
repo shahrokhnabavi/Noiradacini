@@ -7,9 +7,6 @@ const cors       = require('cors');
 const session    = require('express-session');
 const mongoose   = require('mongoose');
 
-// Shahrokh Library
-const core = require('./core');
-
 // MySQL Connection
 global.db = require('./db');
 
@@ -25,6 +22,10 @@ mongoose.connect("mongodb://localhost/roadToSuccess", {useMongoClient: true})
 
 // Create express server
 const app = express();
+app.debug = true;
+
+// Shahrokh Library
+const core = require('./core');
 
 // Load Views
 app.set('views', path.join(__dirname, 'views'));

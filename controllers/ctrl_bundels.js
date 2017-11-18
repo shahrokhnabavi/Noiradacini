@@ -3,7 +3,6 @@ const {check, validationResult} = require('express-validator/check');
 
 const viewBundel = (req , res ) => {
     if( req.userAuth('/admin/login') ) return;
-    var title = "Plugin Imagebrowser ckeditor for nodejs"
     res.render('admin/bundel', { result: 'result' })
 }
 
@@ -74,11 +73,11 @@ const editBundel = (req , res) => {
         let record = {
           name:         req.body.bundelName,
           bundelEditor: req.body.bundelEditor ,
-          publishDate: req.body.publishDate,
+          publishDate:  new Date(req.body.publishDate),
           frontEndDesc: req.body.frontEndDesc,
           province:     req.body.province,
           language:     req.body.language,
-          udateAt:       Date(Date.now()),
+          udateAt:      Date(Date.now()),
           mainImage:    req.body.mainImage,
           audio:        req.body.audio
         };
