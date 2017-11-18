@@ -33,13 +33,25 @@ const makeBundel = (req , res ) => {
 const bundles = (req ,res)=>{
     if( req.userAuth('/admin/login') ) return;
 
-    bundel.find({}).select(' -bundelEditor').sort('-createAt').then(result=>{
-      res.render('admin/bundleDisplay' , {result, success: req.getFlash('success')} );
-    }).catch(err =>{
-      res.json(err)
-      console.log(err + "error in show bundels list");
-    })
+    var page = Math.max(0, req.query.page ? parseInt(req.query.page) : 0);
 
+    bundel.find({})
+        .select('-bundelEditor')
+        .limit(req.app.configs.admPerPage)
+        .skip(req.app.configs.admPerPage * page)
+        .sort('-createAt')
+        .then(result => {
+            bundel.count().then(function(count) {
+                res.render('admin/bundleDisplay' , {
+                        result,
+                        page: page,
+                        pages: count / req.app.configs.admPerPage,
+                        row: page * req.app.configs.admPerPage,
+                        success: req.getFlash('success')
+                    });
+                })
+            .catch(err => console.log(err));
+        });
 }
 
 // remove bundel

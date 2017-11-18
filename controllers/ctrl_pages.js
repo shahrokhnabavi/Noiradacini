@@ -60,13 +60,26 @@ const makePages = (req, res) =>{
 
 const showPages = (req ,res)=>{
     if( req.userAuth('/admin/login') ) return;
+
+    var page = Math.max(0, req.query.page ? parseInt(req.query.page) : 0);
+
     makepage.find({})
-    .then(item=>{
-    res.render('admin/pages', {listItems : item, success: req.getFlash('success')});
-    })
-    .catch(err=>{
-      res.end('there is error');
-    })
+        .select('-pageEditor')
+        .limit(req.app.configs.admPerPage)
+        .skip(req.app.configs.admPerPage * page)
+        .sort('-createAt')
+        .then(result => {
+            makepage.count().then(function(count) {
+                res.render('admin/pages' , {
+                        listItems: result,
+                        page: page,
+                        pages: count / req.app.configs.admPerPage,
+                        row: page * req.app.configs.admPerPage,
+                        success: req.getFlash('success')
+                    });
+                })
+            })
+        .catch(err => console.log(err));
 }
 
 const addDynamicPages = (req, res)=>{

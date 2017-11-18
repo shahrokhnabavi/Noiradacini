@@ -1,9 +1,9 @@
 module.exports = {
     pathUserSession: (req, res, next) => {
-        res.locals.user = req.app.debug ? {name: 'DEBUG MODE'} : req.session.user;
+        res.locals.user = req.app.configs.debug ? {name: 'DEBUG MODE'} : req.session.user;
 
         if (!req.userAuth) {
-            req.userAuth = () => { return req.app.debug ? false : _userAuth; }
+            req.userAuth = () => { return req.app.configs.debug ? false : _userAuth; }
         }
 
         if (!req.msgFlash) {
@@ -15,6 +15,10 @@ module.exports = {
             res.locals.dateFormat = _dateFormat;
         }
         next();
+    },
+    configs: {
+        debug: true,
+        admPerPage: 10
     }
 }
 

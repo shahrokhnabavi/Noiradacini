@@ -185,16 +185,26 @@ const admForm = ( req, res ) => {
 const admList = ( req, res ) => {
     if( req.userAuth('/admin/login') ) return;
 
+    var page = Math.max(0, req.query.page ? parseInt(req.query.page) : 0);
+
     // User.getAll(10)
     User.find({})
-        .then( list => {
-            data = {
-                list: list,
-                row: 0
-            };
-            res.render('admin/users', data);
-        })
-        .catch( err => console.log(err) );
+        .select('-pageEditor')
+        .limit(req.app.configs.admPerPage)
+        .skip(req.app.configs.admPerPage * page)
+        .sort('-createAt')
+        .then(result => {
+            User.count().then(function(count) {
+                res.render('admin/users' , {
+                        list: result,
+                        page: page,
+                        pages: count / req.app.configs.admPerPage,
+                        row: page * req.app.configs.admPerPage,
+                        success: req.getFlash('success')
+                    });
+                })
+            })
+        .catch(err => console.log(err));
 };
 
 // Delete User

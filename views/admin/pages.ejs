@@ -23,7 +23,7 @@
                 </tr>
               </thead>
               <tbody>
-                <% let row = 0; listItems.forEach( (item, index) => { %>
+                <% listItems.forEach( (item, index) => { %>
                 <tr>
                   <th scope="row"><%= ++row %></th>
                   <td><%= item.titleName %></td>
@@ -40,6 +40,8 @@
                 <% }); %>
               </tbody>
             </table>
+            <%- include('../includes/admin/pagination'); %>
+
           </div>
         </div>
     </div>
