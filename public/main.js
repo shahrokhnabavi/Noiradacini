@@ -1,3 +1,4 @@
+var map = null;
 $(document).ready(function() {
     var apiDomain = "http://localhost:3500/api/",
         selectedLang = 'en';
@@ -8,25 +9,108 @@ $(document).ready(function() {
             method: "GET",
             dataType: "json",
         }).done(function( settings ) {
-            $('#logo').attr('src', settings.site_logo);
-            $('title').text(settings.site_name);
-            $('body').css({backgroundColor:settings.site_color});
-            if( settings.site_use_theme !== 'on'){
-                map.areasSettings.color = settings.site_area_color;
+            $.getScript( 'https://www.amcharts.com/lib/3/maps/js/' + settings.site_def_map + '.js', function() {
 
-                map.areasSettings.outlineColor = settings.site_outlineColor;
-                map.areasSettings.rollOverColor = settings.site_rollOverColor;
-                map.areasSettings.selectedColor = settings.site_selectedColor;
-                map.areasSettings.selectedOutlineColor = settings.site_selectedOutlineColor;
-            }
-            map.imagesSettings.labelColor = settings.site_circle_label;
-            map.imagesSettings.labelRollOverColor = settings.site_circle_label;
-            map.imagesSettings.color = settings.site_circle_color;
-            selectedLang = settings.site_def_language;
-            map.validateData();
-            socialMedia(settings);
-            getProvenciesInfo();
-            getPages();
+                map = AmCharts.makeChart( "chartdiv", {
+                    type: "map",
+                    theme: 'light',
+                    colorSteps: 10,
+
+                    dataProvider: {
+                        map: settings.site_def_map,
+                        getAreasFromMap: true,
+                        zoomLevel: 1,
+                        images: circuleCalculate()
+                    },
+
+                    imagesSettings: {
+                        selectable: true,
+                        labelPosition: 'middle',
+                        rollOverScale: 1.5,
+                        selectedScale: 1.5,
+                        labelColor: settings.site_circle_label,
+                        labelRollOverColor: settings.site_circle_label,
+                        color: settings.site_circle_color,
+                    },
+
+                    zoomControl: {
+                        zoomControlEnabled: false,
+                        homeButtonEnabled: false
+                    },
+
+                    areasSettings: {
+                        autoZoom: true
+                    },
+
+                    listeners: [{
+                            event: "rendered",
+                            method: function(e) {
+                                var map = e.chart;
+                                map.initialZoomLevel = map.zoomLevel();
+                                map.initialZoomLatitude = map.zoomLatitude();
+                                map.initialZoomLongitude = map.zoomLongitude();
+                            }
+                        },
+                        {
+                            event: "clickMapObject",
+                            method: function( event ) {
+                                provence_id = event.mapObject.type === 'circle' ? event.mapObject.provence_id : event.mapObject.id;
+                                if( map.selectedArea === provence_id ){
+
+                                    if ( event.mapObject.type === 'circle' ){
+                                    } else {
+                                        map.selectedArea = null;
+                                        map.selectObject();
+                                        map.zoomToLongLat(map.initialZoomLevel, map.initialZoomLongitude, map.initialZoomLatitude);
+                                        $('#provence').selectpicker( 'val', '');
+                                    }
+                                } else {
+                                    getPersonInProvencies(provence_id);
+
+                                    map.selectedArea = provence_id;
+                                    $('#provence').selectpicker( 'val', provence_id);
+                                    map.selectObject(map.getObjectById(provence_id));
+                                }
+                            }
+                        },
+                        {
+                            event: "selectedObjectChanged",
+                            method: function( event ) {
+                                $('#briefUserList').removeClass('active');
+                                $('#briefUserInfo').removeClass('active');
+                            }
+                        },
+                        {
+                            event: "zoomCompleted",
+                            method: function( event ) {
+                                if( map.selectedArea !== null ){
+                                    $('#briefUserInfo').addClass('active');
+                                    $('#briefUserList').addClass('active');
+                                }
+                            }
+                        }
+                    ],
+                    selectedArea: null
+                });
+
+
+                $('#logo').attr('src', settings.site_logo);
+                $('title').text(settings.site_name);
+                $('body').css({backgroundColor:settings.site_color});
+                if( settings.site_use_theme !== 'on'){
+                    map.areasSettings.color = settings.site_area_color;
+
+                    map.areasSettings.outlineColor = settings.site_outlineColor;
+                    map.areasSettings.rollOverColor = settings.site_rollOverColor;
+                    map.areasSettings.selectedColor = settings.site_selectedColor;
+                    map.areasSettings.selectedOutlineColor = settings.site_selectedOutlineColor;
+                }
+                selectedLang = settings.site_def_language;
+                map.validateData();
+                socialMedia(settings);
+                getProvenciesInfo();
+                getPages();
+            });
         }).fail(function( jqXHR, textStatus ) {
             console.log("Request failed: " + textStatus);
         });
@@ -341,7 +425,9 @@ $(document).ready(function() {
         colorSteps: 10,
 
         dataProvider: {
-            map: "netherlandsLow",
+            map: "syriaLow",
+            // map: "iranLow",
+            // map: "netherlandsLow",
             getAreasFromMap: true,
             zoomLevel: 1,
             images: circuleCalculate()
