@@ -24,6 +24,7 @@ $(document).ready(function() {
             map.imagesSettings.color = settings.site_circle_color;
             selectedLang = settings.site_def_language;
             map.validateData();
+            socialMedia(settings);
             getProvenciesInfo();
             getPages();
         }).fail(function( jqXHR, textStatus ) {
@@ -96,6 +97,16 @@ $(document).ready(function() {
         }).fail(function( jqXHR, textStatus ) {
             console.log("Request failed: " + textStatus);
         });
+    }
+
+    //List of social media
+    var socialMedia = (settings) => {
+        if( settings.site_twitter )
+            $('#twitter_link').removeClass('hidden').attr('href', settings.site_twitter);
+        if( settings.site_google )
+            $('#google_link').removeClass('hidden').attr('href', settings.site_google);
+        if( settings.site_facebook )
+            $('#facebook_link').removeClass('hidden').attr('href', settings.site_facebook);
     }
 
 
