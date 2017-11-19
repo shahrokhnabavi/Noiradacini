@@ -6,6 +6,7 @@ const bodyParser = require('body-parser');
 const cors       = require('cors');
 const session    = require('express-session');
 const mongoose   = require('mongoose');
+const cookieParser = require('cookie-parser');
 
 // MySQL Connection
 global.db = require('./db');
@@ -42,6 +43,9 @@ app.use(bodyParser.json());
 
 // Cross-origin resource sharing - Middelware
 app.use(cors());
+
+// Cookie - Middelware
+app.use(cookieParser())
 
 // Session - Middelware
 app.use(session({

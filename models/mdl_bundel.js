@@ -22,7 +22,7 @@ const bundelSchema = mongoose.Schema({
     createAt:{
         type: Date,
         required: false,
-        default: Date.now()
+        default: Date.now
     },
     frontEndDesc: {
         type: String,

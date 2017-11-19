@@ -20,6 +20,9 @@
 									<li>
 										<a href="#2" data-toggle="tab">Theme Colors</a>
 									</li>
+									<li>
+										<a href="#3" data-toggle="tab">Social Media</a>
+									</li>
 								</ul>
 							</div>
 						</div>
@@ -52,6 +55,14 @@
 				                                                <option value="en" <%= !!locals.site_def_language && locals.site_def_language === 'en' ? 'selected' : '' %>>English</option>
 				                                                <option value="nl" <%= !!locals.site_def_language && locals.site_def_language === 'nl' ? 'selected' : '' %>>Dutch</option>
 				                                                <option value="ro" <%= !!locals.site_def_language && locals.site_def_language === 'ro' ? 'selected' : '' %>>Romanian</option>
+				                                            </select>
+														</div>
+														<div class="form-group">
+															<label for="site_def_map">Map</label>
+				                                            <select name="site_def_map" id="site_def_map" class="form-control"  >
+				                                                <option value="en" <%= !!locals.site_def_map && locals.site_def_map === 'en' ? 'selected' : '' %>>Netherlands</option>
+				                                                <option value="nl" <%= !!locals.site_def_map && locals.site_def_map === 'nl' ? 'selected' : '' %>>Iran</option>
+				                                                <option value="ro" <%= !!locals.site_def_map && locals.site_def_map === 'ro' ? 'selected' : '' %>>Syria</option>
 				                                            </select>
 														</div>
 													</div>
@@ -112,6 +123,8 @@
 															    <span class="input-group-addon"><i></i></span>
 															</div>
 														</div>
+													</div>
+													<div class="tab-pane" id="3">
 													</div>
 												</div>
 												<div class="form-group">

@@ -1,0 +1,66 @@
+<div class="filter-panel">
+
+      <div id="filter-panel" class="collapse filter-panel">
+          <div class="panel panel-default">
+              <div class="panel-body">
+
+                  <form class="form-inline" id="searchForm" data-type="page" action="/admin/pages">
+                      <input type="hidden" id="searchField" name="onField" value="title">
+                      <div class="input-group">
+                          <div class="input-group-btn">
+                              <a class="btn btn-search btn-default dropdown-toggle" data-toggle="dropdown">
+                                  <span class="label-icon">
+                                      <span class="glyphicon glyphicon-search"></span>
+                                      Search By Page Title
+                                  </span>
+                                  <span class="caret"></span>
+                              </a>
+                              <ul class="dropdown-menu pull-left" role="menu">
+                                  <li>
+                                      <a href="#" data-field="title">
+                                          <span class="label-icon">
+                                              <span class="glyphicon glyphicon-search"></span>
+                                              Search By Page Title
+                                          </span>
+                                      </a>
+                                  </li>
+                                  <li>
+                                      <a href="#" data-field="content">
+                                          <span class="label-icon">
+                                              <span class="glyphicon glyphicon-book"></span>
+                                              Search By Page Content
+                                          </span>
+                                      </a>
+                                  </li>
+                              </ul>
+                          </div>
+                          <input type="text" name="search" class="form-control">
+                          <div class="input-group-btn">
+                              <a class="btn btn-search btn-default" id="search">
+                                  GO
+                              </a>
+                          </div>
+                      </div>
+
+                      <div class="form-group">
+                          <label class="filter-col" style="margin-right:0;" for="pref-orderby">Filter by:</label>
+                          <select name="lang" class="form-control">
+                              <option value="">All Languages</option>
+                              <option value="en">English</option>
+                              <option value="nl">Dutch</option>
+                              <option value="ro">Romainian</option>
+                          </select>
+                      </div> <!-- form group [order by] -->
+                      <div class="form-group">
+                          <a class="btn btn-default filter-col" id="reset-filter" data-type="page">
+                              <span class="glyphicon glyphicon-record"></span> Reset
+                          </a>
+                      </div>
+                  </form>
+              </div>
+          </div>
+      </div>
+      <a class="btn btn-primary btn-sm pull-right" data-toggle="collapse" data-target="#filter-panel">
+          <span class="glyphicon glyphicon-filter"></span> Filter & Search
+      </a>
+</div>

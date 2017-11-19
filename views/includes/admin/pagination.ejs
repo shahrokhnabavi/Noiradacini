@@ -1,9 +1,9 @@
 <ul class="pagination">
-    <li class="<%= (page < 1 ? 'disabled' : '') %>"><a href="/admin/bundels/?page=<%= page-1 %>" aria-label="Previous"><span aria-hidden="true">«</span></a></li>
+    <li class="<%= (page < 1 ? 'disabled' : '') %>"><a href="<%= link %>/?page=<%= page-1 %>" aria-label="Previous"><span aria-hidden="true">«</span></a></li>
     <% for(var index = 0; index < pages; index++ ) { %>
     <li class="<%= (page === index ? 'active' : '') %>">
-        <a href="/admin/bundels/?page=<%= index %>"><%= index+1 %><span class="sr-only">(current)</span></a>
+        <a href="<%= link %>/?page=<%= index %>"><%= index+1 %><span class="sr-only">(current)</span></a>
     </li>
     <% } %>
-    <li class="<%= (page > pages-1 ? 'disabled' : '') %>"><a href="/admin/bundels/?page=<%= (page > pages-1 ? pages : page+1) %>" aria-label="Next"><span aria-hidden="true">»</span></a></li>
+    <li class="<%= (page > pages-1 ? 'disabled' : '') %>"><a href="<%= link %>/?page=<%= (page > pages-1 ? pages : page+1) %>" aria-label="Next"><span aria-hidden="true">»</span></a></li>
 </ul>

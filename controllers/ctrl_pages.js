@@ -37,8 +37,7 @@ const makePages = (req, res) =>{
         errors: errors.array()
     };
     res.render('admin/addPages', data)
-  }
-  else{
+  } else {
 
     let newPage = new makepage({
       language : req.body.language,
@@ -53,7 +52,6 @@ const makePages = (req, res) =>{
     .catch(err =>{
       res.end('You have error in making the page')
     })
-
   }
 
 }
@@ -61,25 +59,18 @@ const makePages = (req, res) =>{
 const showPages = (req ,res)=>{
     if( req.userAuth('/admin/login') ) return;
 
-    var page = Math.max(0, req.query.page ? parseInt(req.query.page) : 0);
+    var page   = Math.max(0, req.query.page ? parseInt(req.query.page) : 0),
+        filter = req.cookies.pageFilter ? __Filter( JSON.parse(req.cookies.pageFilter) ) : {};
 
-    makepage.find({})
-        .select('-pageEditor')
-        .limit(req.app.configs.admPerPage)
-        .skip(req.app.configs.admPerPage * page)
-        .sort('-createAt')
-        .then(result => {
-            makepage.count().then(function(count) {
-                res.render('admin/pages' , {
-                        listItems: result,
-                        page: page,
-                        pages: count / req.app.configs.admPerPage,
-                        row: page * req.app.configs.admPerPage,
-                        success: req.getFlash('success')
-                    });
-                })
-            })
-        .catch(err => console.log(err));
+    getList( filter, req.app.configs.admPerPage, page, (count, result) => {
+        res.render('admin/pages' , {
+            listItems: result,
+            page: page,
+            pages: count / req.app.configs.admPerPage,
+            row: page * req.app.configs.admPerPage,
+            success: req.getFlash('success')
+        });
+    })
 }
 
 const addDynamicPages = (req, res)=>{
@@ -148,11 +139,18 @@ const apiGetPages = (req ,res)=>{
     .catch( err=> console.log(err) );
 }
 
+const apiFilter = (req ,res) => {
+    var filter = __Filter( req.body );
+
+    getList( filter, req.app.configs.admPerPage, 0, (count, result) => { return res.json(result); });
+}
+
 module.exports = {
     admMedia: admMedia,
     browser:  browser,
     admDashboard: admDashboard,
     apiGetPages: apiGetPages,
+    apiFilter: apiFilter,
 
     showPages:showPages,
     addDynamicPages:addDynamicPages,
@@ -162,3 +160,34 @@ module.exports = {
     editPage:editPage,
     editPage2:editPage2
 };
+
+
+
+const __Filter = (filter) => {
+    var resFilter = {};
+    if(filter.lang){
+        resFilter.language = filter.lang
+    }
+
+    if( filter.search.trim() ) {
+        if(filter.onField == 'title'){
+            resFilter.titleName = { "$regex": filter.search, "$options": "i" };
+        } else if ( filter.onField == 'content' ) {
+            resFilter.pageEditor = { "$regex": filter.search, "$options": "i" };
+        }
+    }
+    return resFilter;
+}
+
+
+const getList = (filter, admPerPage, page, cb) => {
+    makepage.find(filter)
+        .select('-pageEditor')
+        .limit(admPerPage)
+        .skip(admPerPage * page)
+        .sort('-createAt')
+        .then(result => {
+            makepage.count(filter).then( count => cb(count, result) );
+        })
+        .catch(err => console.log(err));
+}
