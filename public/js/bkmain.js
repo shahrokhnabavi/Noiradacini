@@ -8,7 +8,7 @@ $(document).ready( function() {
         $('#searchField').val( $(this).data("field") );
     });
 
-    var loadFilter = function( el ){
+    var loadFilter = function(){
         var obj = {},
             form = $('#searchForm');
 
@@ -23,42 +23,47 @@ $(document).ready( function() {
             cache: false,
             dataType: 'json',
             success: function(json){
-                let icon = '" class="options"><i class="glyphicon glyphicon-',
-                    row = 1;
+                let row = 1;
                 $('#listBody').html('');
                 json.forEach( val => {
-                    let links = {
-                        show: '<a href="/admin/pages/' + val._id + icon + 'new-window text-primary"></i></a>',
-                        edit: '<a href="/admin/pages/' + val._id + icon +  'pencil text-warning"></i></a>',
-                        delete: '<a href="/admin/pages/delete/' + val._id + icon +  'trash text-danger"></i></a>'
-                    };
-                    $('<tr>' +
-                        '<th scope="row">' + (row++) + '</th>' +
-                        '<td>' + val.titleName + '</td>' +
-                        '<td>' + val.slugName + '</td>' +
-                        '<td>' + val.language + '</td>' +
-                        '<td class="text-right">' +
-                        links.show + links.edit + links.delete +
-                        '</td></tr>').appendTo('#listBody');
+                    $('<tr>' + listGenaration[form.data('type')](val, row++) + '</tr>').appendTo('#listBody');
                 });
             }
         });
     };
 
     $("#reset-filter").on('click', function(){
-        delete_cookie( $(this).data('type') + 'Filter' );
-        window.location.href = '/admin/pages';
+        var form = $('#searchForm');
+        delete_cookie( form.data('type') + 'Filter' );
+        window.location.href = form.attr('action');
     });
-    $("#search").on('click', function(){ loadFilter($(this)); });
-    $("select").on('change', function(){ loadFilter($(this)); });
+    $("#search").on('click', loadFilter);
+    $("select").on('change', loadFilter);
+
+    if( typeof checkFilter !== 'undefined' && getCookie( checkFilter + 'Filter' ) )
+        $('#filter-panel').collapse('show');
 
 });
 
 /* swap open/close side menu icons */
 $('[data-toggle=collapse]').click(function(){
-      	// toggle icon
       	$(this).find("i").toggleClass("glyphicon-chevron-right glyphicon-chevron-down");
 });
+
+
+const listGenaration = {
+    page: (val, index) => {
+        let elem = $('#template').html();
+        elem = elem.replace(/NAME/g, val.titleName );
+        elem = elem.replace(/SLUG/g, val.slugName );
+        elem = elem.replace(/LANG/g, val.language );
+        elem = elem.replace(/ROW/g, index );
+        elem = elem.replace(/_ID/g, val._id );
+        return elem;
+    },
+    interview: () => {}
+}
+
 
 function setCookie(cname, cvalue, exdays) {
     var d = new Date();
@@ -69,3 +74,17 @@ function setCookie(cname, cvalue, exdays) {
 function delete_cookie(name) {
     document.cookie = name + '=;expires=Thu, 01 Jan 1970 00:00:01 GMT;path=/';
 };
+function getCookie(cname) {
+    var name = cname + "=";
+    var ca = document.cookie.split(';');
+    for(var i = 0; i < ca.length; i++) {
+        var c = ca[i];
+        while (c.charAt(0) == ' ') {
+            c = c.substring(1);
+        }
+        if (c.indexOf(name) == 0) {
+            return c.substring(name.length, c.length);
+        }
+    }
+    return "";
+}

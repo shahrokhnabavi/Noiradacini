@@ -68,7 +68,8 @@ const showPages = (req ,res)=>{
             page: page,
             pages: count / req.app.configs.admPerPage,
             row: page * req.app.configs.admPerPage,
-            success: req.getFlash('success')
+            success: req.getFlash('success'),
+            filter: req.cookies.pageFilter ? JSON.parse(req.cookies.pageFilter) : {}
         });
     })
 }

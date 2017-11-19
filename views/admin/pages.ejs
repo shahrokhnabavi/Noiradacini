@@ -14,14 +14,28 @@
           <div class="col-md-12">
             <%- include('../includes/admin/search'); %>
             <table class="table table-striped">
-              <thead>
-                <tr>
-                  <th>#</th>
-                  <th>Page Name</th>
-                  <th>Slug</th>
-                  <th>Language</th>
-                  <th class="text-right"></th>
-                </tr>
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Page Name</th>
+                        <th>Slug</th>
+                        <th>Language</th>
+                        <th class="text-right"></th>
+                    </tr>
+                    <tr class="hidden" id="template">
+                        <th scope="row">ROW</th><td>NAME</td><td>SLUG</td><td>LANG</td>
+                        <td class="text-right">
+                            <a class="options" href="/admin/pages/_ID">
+                                <i class="glyphicon glyphicon-new-window text-primary"></i>
+                            </a>
+                            <a class="options" href="/admin/pages/_ID">
+                              <i class="glyphicon glyphicon-pencil text-warning"></i>
+                            </a>
+                            <a class="options" href="/admin/pages/delete/_ID">
+                              <i class="glyphicon glyphicon-trash text-danger"></i>
+                            </a>
+                        </td>
+                    </tr>
               </thead>
               <tbody id="listBody">
                 <% listItems.forEach( (item, index) => { %>
@@ -43,7 +57,7 @@
                 <% }); %>
               </tbody>
             </table>
-            <%- include('../includes/admin/pagination',{link: '/admin/pages'}); %>
+            <%- include('../includes/admin/pagination',{link: '/admin/pages', filter: filter}); %>
 
           </div>
         </div>

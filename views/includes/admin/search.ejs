@@ -3,38 +3,55 @@
       <div id="filter-panel" class="collapse filter-panel">
           <div class="panel panel-default">
               <div class="panel-body">
-
-                  <form class="form-inline" id="searchForm" data-type="page" action="/admin/pages">
-                      <input type="hidden" id="searchField" name="onField" value="title">
+                  <%
+var arr = {
+    type: 'page',
+    url: '/admin/pages',
+    select: {
+        'title': 0,
+        'content': 1
+    },
+    items: [
+        {
+            text: 'Search By Page Title',
+            field:  'title',
+            icon: 'search'
+        },
+        {
+            text: 'Search By Page Content',
+            field:  'content',
+            icon: 'book'
+        }
+    ]
+};
+if( locals.filter.onField )
+    sel = arr.select[filter.onField];
+else
+    var sel = 0;
+                  %>
+                  <form class="form-inline" id="searchForm" data-type="<%= arr.type %>" action="<%= arr.url %>">
+                      <input type="hidden" id="searchField" name="onField" value="<%= arr.items[sel].field %>">
                       <div class="input-group">
                           <div class="input-group-btn">
                               <a class="btn btn-search btn-default dropdown-toggle" data-toggle="dropdown">
                                   <span class="label-icon">
-                                      <span class="glyphicon glyphicon-search"></span>
-                                      Search By Page Title
+                                      <span class="glyphicon glyphicon-<%= arr.items[sel].icon %>"></span> <%= arr.items[sel].text %>
                                   </span>
                                   <span class="caret"></span>
                               </a>
                               <ul class="dropdown-menu pull-left" role="menu">
-                                  <li>
-                                      <a href="#" data-field="title">
-                                          <span class="label-icon">
-                                              <span class="glyphicon glyphicon-search"></span>
-                                              Search By Page Title
-                                          </span>
-                                      </a>
-                                  </li>
-                                  <li>
-                                      <a href="#" data-field="content">
-                                          <span class="label-icon">
-                                              <span class="glyphicon glyphicon-book"></span>
-                                              Search By Page Content
-                                          </span>
-                                      </a>
-                                  </li>
+                                  <% arr.items.forEach( function( value ){ %>
+                                      <li>
+                                          <a href="#" data-field="<%= value.field %>">
+                                              <span class="label-icon">
+                                                  <span class="glyphicon glyphicon-<%= value.icon %>"></span> <%= value.text %>
+                                              </span>
+                                          </a>
+                                      </li>
+                                  <% }) %>
                               </ul>
                           </div>
-                          <input type="text" name="search" class="form-control">
+                          <input type="text" name="search" class="form-control" value="<%= filter.search %>">
                           <div class="input-group-btn">
                               <a class="btn btn-search btn-default" id="search">
                                   GO
@@ -46,13 +63,13 @@
                           <label class="filter-col" style="margin-right:0;" for="pref-orderby">Filter by:</label>
                           <select name="lang" class="form-control">
                               <option value="">All Languages</option>
-                              <option value="en">English</option>
-                              <option value="nl">Dutch</option>
-                              <option value="ro">Romainian</option>
+                              <option value="en" <%= (filter.lang === 'en'?'selected':'') %>>English</option>
+                              <option value="nl" <%= (filter.lang === 'nl'?'selected':'') %>>Dutch</option>
+                              <option value="ro" <%= (filter.lang === 'ro'?'selected':'') %>>Romainian</option>
                           </select>
                       </div> <!-- form group [order by] -->
                       <div class="form-group">
-                          <a class="btn btn-default filter-col" id="reset-filter" data-type="page">
+                          <a class="btn btn-default filter-col" id="reset-filter">
                               <span class="glyphicon glyphicon-record"></span> Reset
                           </a>
                       </div>
@@ -60,7 +77,10 @@
               </div>
           </div>
       </div>
-      <a class="btn btn-primary btn-sm pull-right" data-toggle="collapse" data-target="#filter-panel">
+      <a class="btn btn-primary btn-sm pull-right" id="open-filter" data-toggle="collapse" data-target="#filter-panel">
           <span class="glyphicon glyphicon-filter"></span> Filter & Search
       </a>
 </div>
+<script type="text/javascript">
+    var checkFilter = 'page';
+</script>
