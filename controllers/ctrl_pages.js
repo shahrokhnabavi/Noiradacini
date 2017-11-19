@@ -66,7 +66,7 @@ const showPages = (req ,res)=>{
         res.render('admin/pages' , {
             listItems: result,
             page: page,
-            pages: count / req.app.configs.admPerPage,
+            pages:  Math.floor(count / req.app.configs.admPerPage),
             row: page * req.app.configs.admPerPage,
             success: req.getFlash('success'),
             filter: req.cookies.pageFilter ? JSON.parse(req.cookies.pageFilter) : {}
@@ -143,7 +143,12 @@ const apiGetPages = (req ,res)=>{
 const apiFilter = (req ,res) => {
     var filter = __Filter( req.body );
 
-    getList( filter, req.app.configs.admPerPage, 0, (count, result) => { return res.json(result); });
+    getList( filter, req.app.configs.admPerPage, 0, (count, result) => {
+        return res.json({
+            result: result,
+            pages: Math.floor(count / req.app.configs.admPerPage)
+        });
+    });
 }
 
 module.exports = {

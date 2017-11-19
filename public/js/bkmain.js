@@ -25,9 +25,11 @@ $(document).ready( function() {
             success: function(json){
                 let row = 1;
                 $('#listBody').html('');
-                json.forEach( val => {
+                json.result.forEach( val => {
                     $('<tr>' + listGenaration[form.data('type')](val, row++) + '</tr>').appendTo('#listBody');
                 });
+                updateURL('page', 0);
+                drawPagination(json.pages);
             }
         });
     };
@@ -64,6 +66,21 @@ const listGenaration = {
     interview: () => {}
 }
 
+const drawPagination = (pages) => {
+    var html = '<li class="disabled"><a href="#" aria-label="Previous"><span aria-hidden="true">«</span></a></li>';
+
+    for(let index = 0; index <= pages; index++ ) {
+        let active = 0 === index ? 'active' : '';
+        html += '<li class="' + active + '">'+
+            '<a href="?page=' + index + '">' + (index+1) +
+            '<span class="sr-only">(current)</span></a></li>';
+    }
+    html += '<li class="' +( pages === 0  ? 'disabled' : '')+ '"><a href="' +
+            ( pages === 0  ? '#' : '?page=1') +
+            '" aria-label="Next"><span aria-hidden="true">»</span></a></li>';
+    $('.pagination').html(html);
+}
+
 
 function setCookie(cname, cvalue, exdays) {
     var d = new Date();
@@ -87,4 +104,28 @@ function getCookie(cname) {
         }
     }
     return "";
+}
+//update URL Parameter
+function updateURL(key,val){
+    var url = window.location.href;
+    var reExp = new RegExp("[\?|\&]"+key + "=[0-9a-zA-Z\_\+\-\|\.\,\;]*");
+
+    if(reExp.test(url)) {
+        // update
+        var reExp = new RegExp("[\?&]" + key + "=([^&#]*)");
+        var delimiter = reExp.exec(url)[0].charAt(0);
+        url = url.replace(reExp, delimiter + key + "=" + val);
+    } else {
+        // add
+        var newParam = key + "=" + val;
+        if(!url.indexOf('?')){url += '?';}
+
+        if(url.indexOf('#') > -1){
+            var urlparts = url.split('#');
+            url = urlparts[0] +  "&" + newParam +  (urlparts[1] ?  "#" +urlparts[1] : '');
+        } else {
+            url += "&" + newParam;
+        }
+    }
+    window.history.pushState(null, document.title, url);
 }
