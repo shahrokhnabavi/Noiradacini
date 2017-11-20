@@ -25,6 +25,14 @@
 											<label for="bundelName">Name of interviewee</label>
                                             <input name="bundelName" id="bundelName" required value="<%= (!!locals.item ? item.name : (!!locals.request ? request.bundelName : '') ) %>" type="text" class="form-control" />
 										</div>
+                    <div class="form-group">
+											<label for="occupation">Occupation</label>
+                                              <input name="occupation" id="occupation" required value="<%= (!!locals.item ? item.occupation : (!!locals.request ? request.occupation : '') ) %>" type="text" class="form-control" />
+										</div>
+                    <div class="form-group">
+											<label for="">Place of birth</label>
+                                              <input name="placeOfBirth" id="placeOfBirth" required value="<%= (!!locals.item ? item.placeOfBirth : (!!locals.request ? request.placeOfBirth : '') ) %>" type="text" class="form-control" />
+										</div>
 										<div class="form-group">
 											<label for="frontEndDesc">Short Description</label>
                                             <textarea name="frontEndDesc" id="frontEndDesc" required class="form-control"><%= (!!locals.item ? item.frontEndDesc : (!!locals.request ? request.frontEndDesc : '') ) %></textarea>
