@@ -45,7 +45,7 @@
 																<img class="preview thumbnail" src="<%= site_logo %>" />
 															<% } %>
 															<label for="site_logo">Logo</label><br/>
-															<button id="js-window-button" class="btn btn-info">Change Logo</button>
+															<button class="btn btn-info selectFile" data-field="site_logo">Change Logo</button>
 															<input type="hidden" class="form-control" id="site_logo" name="site_logo" value="<%= !!locals.site_logo ? site_logo : '' %>">
 														</div>
 														<div class="form-group">
@@ -152,26 +152,6 @@
 
 							</div>
 						</div>
-
-						<script type="text/javascript">
-							$('#js-window-button').on('click', function(e) {
-									e.preventDefault();
-							        var opener = window.open("/admin/browser", 'targetWindow',
-							            'toolbar=no,location=no,status=no,menubar=no,scrollbars=yes,resizable=yes,width=800, height=800');
-							        function handlePostMessage(e) {
-							            var data = e.originalEvent.data;
-							            console.log('js-data', data);
-							            if (data.source === 'richfilemanager') {
-											$('#site_logo').val(data.preview_url);
-							                opener.close();
-							            }
-							        // remove an event handler
-							        $(window).off('message', handlePostMessage);
-							    }
-							    $(window).on('message', handlePostMessage);
-							});
-						</script>
-
                     </div>
                 </div>
             </div>

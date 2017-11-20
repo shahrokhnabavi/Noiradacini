@@ -2,6 +2,23 @@ $(document).ready( function() {
 
     $('.cp2').colorpicker();
 
+    $('.selectFile').on('click', function(e) {
+            e.preventDefault();
+            var elemnt = $(this),
+                opener = window.open("/admin/browser", 'targetWindow',
+                'toolbar=no,location=no,status=no,menubar=no,scrollbars=yes,resizable=yes,width=800, height=400');
+            function handlePostMessage(e) {
+                var data = e.originalEvent.data;
+                if (data.source === 'richfilemanager') {
+                    $('#' + elemnt.data('field')).val(data.preview_url);
+                    opener.close();
+                }
+            // remove an event handler
+            $(window).off('message', handlePostMessage);
+        }
+        $(window).on('message', handlePostMessage);
+    });
+
     $(".input-group-btn .dropdown-menu li a").click(function(){
         var selText = $(this).html();
         $(this).parents('.input-group-btn').find('.btn-search > .label-icon').html(selText);
