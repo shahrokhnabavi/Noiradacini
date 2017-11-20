@@ -15,10 +15,15 @@ const bundelSchema = mongoose.Schema({
         type: String,
         required: true
     },
+    birthDate:{
+        type: Date,
+        required: true
+    },
     province: {
         type: String,
         required: true
-    },occupation: {
+    },
+    occupation: {
         type: String,
         required: true
     },

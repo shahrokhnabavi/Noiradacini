@@ -15,6 +15,7 @@ const makeBundel = (req , res ) => {
       publishDate:  req.body.publishDate,
       frontEndDesc: req.body.frontEndDesc,
       placeOfBirth: req.body.placeOfBirth,
+      birthDate:    req.body.birthDate,
       occupation:   req.body.occupation,
       province:     req.body.province,
       language:     req.body.language,

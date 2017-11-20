@@ -30,6 +30,15 @@
                                               <input name="occupation" id="occupation" required value="<%= (!!locals.item ? item.occupation : (!!locals.request ? request.occupation : '') ) %>" type="text" class="form-control" />
 										</div>
                     <div class="form-group">
+                        <label for="publishDate">Date of birth</label>
+                        <div class='input-group date' id='datetimepicker2'>
+                            <input type='text' name="birthDate" id="birthDate" value="<%= (locals.item ? dateFormat(item.birthDate, 3, '/') : dateFormat('')) %>" class="form-control" />
+                            <span class="input-group-addon">
+                                <span class="glyphicon glyphicon-calendar"></span>
+                            </span>
+                        </div>
+                    </div>
+                    <div class="form-group">
 											<label for="">Place of birth</label>
                                               <input name="placeOfBirth" id="placeOfBirth" required value="<%= (!!locals.item ? item.placeOfBirth : (!!locals.request ? request.placeOfBirth : '') ) %>" type="text" class="form-control" />
 										</div>
@@ -149,6 +158,10 @@
                                 $('#datetimepicker1').datetimepicker({
                                             allowInputToggle: true,
                                             format: 'YYYY/MM/DD HH:mm'
+                                        });
+                                $('#datetimepicker2').datetimepicker({
+                                            allowInputToggle: true,
+                                            format: 'YYYY/MM/DD'
                                         });
 
                                 $("form").submit( function(e) {
