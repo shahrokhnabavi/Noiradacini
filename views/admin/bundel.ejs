@@ -159,24 +159,6 @@
                                 });
                             });
 
-
-                            $('#js-window-button2').on('click', function(e) {
-              									e.preventDefault();
-              							        var opener = window.open("/admin/browser", 'targetWindow',
-              							            'toolbar=no,location=no,status=no,menubar=no,scrollbars=yes,resizable=yes,width=800, height=800');
-              							        function handlePostMessage(e) {
-              							            var data = e.originalEvent.data;
-              							            console.log('js-data', data);
-              							            if (data.source === 'richfilemanager') {
-              											$('#selectAudio').val(data.preview_url);
-              							                opener.close();
-              							            }
-              							        // remove an event handler
-              							        $(window).off('message', handlePostMessage);
-              							    }
-              							    $(window).on('message', handlePostMessage);
-              							});
-
                         </script>
 					</div>
         </div>
