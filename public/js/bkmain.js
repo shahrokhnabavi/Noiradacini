@@ -109,6 +109,9 @@ function getCookie(cname) {
 function updateURL(key,val){
     var url = window.location.href;
     var reExp = new RegExp("[\?|\&]"+key + "=[0-9a-zA-Z\_\+\-\|\.\,\;]*");
+    if(url.indexOf('?') < 0){
+        url += '?';
+    }
 
     if(reExp.test(url)) {
         // update
@@ -127,5 +130,6 @@ function updateURL(key,val){
             url += "&" + newParam;
         }
     }
+
     window.history.pushState(null, document.title, url);
 }
