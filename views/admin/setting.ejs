@@ -40,10 +40,13 @@
 															<label for="site_name">Website Name</label>
 															<input type="text" class="form-control" id="site_name" name="site_name" value="<%= !!locals.site_name ? site_name : '' %>">
 														</div>
-														<div class="form-group">
-															<label for="site_logo">Logo</label>
-																	<button id="js-window-button">SELECT</button>
-															<input type="text" class="form-control" id="site_logo" name="site_logo" value="<%= !!locals.site_logo ? site_logo : '' %>">
+														<div class="form-group btn-browser">
+															<% if( locals.site_logo ) { %>
+																<img class="preview thumbnail" src="<%= site_logo %>" />
+															<% } %>
+															<label for="site_logo">Logo</label><br/>
+															<button id="js-window-button" class="btn btn-info">Change Logo</button>
+															<input type="hidden" class="form-control" id="site_logo" name="site_logo" value="<%= !!locals.site_logo ? site_logo : '' %>">
 														</div>
 														<div class="form-group">
 															<input type="checkbox" name="site_use_theme" <%= !!locals.site_use_theme && locals.site_use_theme === 'on' ? 'checked' : '' %> data-toggle="toggle" data-on="Enable" data-off="Disabled" data-onstyle="success" data-offstyle="danger" id="site_use_theme" />

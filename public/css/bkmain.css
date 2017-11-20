@@ -88,3 +88,18 @@ h4.title a{
 .filter-panel{
     margin-bottom: 10px;
 }
+
+.preview{
+    width: 200px;
+    float: left;
+    margin-right: 14px;
+    margin-bottom: 0px;
+}
+.btn-browser{
+    position: relative;
+}
+.btn-browser .btn{
+    bottom: 0px;
+    position: absolute;
+    top: 30px;
+}
