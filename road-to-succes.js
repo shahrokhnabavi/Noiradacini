@@ -75,7 +75,7 @@ app.get('/:lang/:page', (req, res) => {
 });
 
 // Listen to port
-const port = process.argv[2] || process.env.port || 3500;
+const port = process.argv[2] || process.env.port || 3501;
 app.listen( port, () => {
     console.log(`Server is listening on ${port}.`);
 });
