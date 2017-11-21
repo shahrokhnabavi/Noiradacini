@@ -6,8 +6,30 @@ const viewBundel = (req , res ) => {
     res.render('admin/bundel', { result: 'result' })
 }
 
+var addValidate = () => {
+    return [
+            check('bundelName',   'Please enter Name of interviewee.').not().isEmpty(),
+            check('bundelEditor', 'Please enter Interview.').not().isEmpty(),
+            check('publishDate',  'Please enter Publish Date.').not().isEmpty(),
+            check('frontEndDesc', 'Please enter Short Description.').not().isEmpty(),
+            check('province',     'Please enter Province.').not().isEmpty(),
+            check('language',     'Please enter Language.').not().isEmpty(),
+            check('mainImage',    'Please enter Interviewee Photo.').not().isEmpty(),
+            check('audio',        'Please enter Interview Audio File.').not().isEmpty()
+        ];
+};
+
 const makeBundel = (req , res ) => {
     if( req.userAuth('/admin/login') ) return;
+    const errors = validationResult(req);
+
+    if (!errors.isEmpty()) {
+        let data = {
+            errors: errors.array(),
+            request: req.body
+        };
+        return res.render('admin/bundel', data);
+    }
 
     let newBundel = new bundel({
       name:         req.body.bundelName,
@@ -84,17 +106,32 @@ const showEditBundel = (req , res) => {
 
 const editBundel = (req , res) => {
     if( req.userAuth('/admin/login') ) return;
-        let record = {
-          name:         req.body.bundelName,
-          bundelEditor: req.body.bundelEditor ,
-          publishDate:  new Date(req.body.publishDate),
-          frontEndDesc: req.body.frontEndDesc,
-          province:     req.body.province,
-          language:     req.body.language,
-          udateAt:      Date(Date.now()),
-          mainImage:    req.body.mainImage,
-          audio:        req.body.audio
-        };
+    const errors = validationResult(req);
+
+    if (!errors.isEmpty()) {
+
+        return bundel.findById(req.params.id)
+            .then( user => {
+                let data = {
+                    errors: errors.array(),
+                    request: req.body,
+                    'item': user
+                };
+                return res.render('admin/bundel', data);
+            })
+            .catch( err => console.log(err) );
+    }
+    let record = {
+        name:         req.body.bundelName,
+        bundelEditor: req.body.bundelEditor ,
+        publishDate:  new Date(req.body.publishDate),
+        frontEndDesc: req.body.frontEndDesc,
+        province:     req.body.province,
+        language:     req.body.language,
+        udateAt:      Date(Date.now()),
+        mainImage:    req.body.mainImage,
+        audio:        req.body.audio
+    };
 
     bundel.findByIdAndUpdate( req.params.id, record )
           .then( result => {
@@ -154,6 +191,7 @@ const showBundel= (req , res ) => {
 module.exports = {
     viewBundel: viewBundel,
     makeBundel: makeBundel,
+    addValidate: addValidate(),
     bundles: bundles,
     api_showBundel: showBundel,
     api_listInProvince: listInProvince,

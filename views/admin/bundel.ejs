@@ -23,11 +23,11 @@
                                     <form class="form-horizontal" method="post" action="/admin/bundel<%= !!locals.item ? '/' + item._id : '' %>" name="bundel">
 										<div class="form-group">
 											<label for="bundelName">Name of interviewee</label>
-                                            <input name="bundelName" id="bundelName" required value="<%= (!!locals.item ? item.name : (!!locals.request ? request.bundelName : '') ) %>" type="text" class="form-control" />
+                                            <input name="bundelName" id="bundelName"  value="<%= (!!locals.item ? item.name : (!!locals.request ? request.bundelName : '') ) %>" type="text" class="form-control" />
 										</div>
                                         <div class="form-group hidden">
 											<label for="occupation">Occupation</label>
-                                              <input name="occupation" id="occupation" required value="<%= (!!locals.item ? item.occupation : (!!locals.request ? request.occupation : '') ) %>TEMP" type="text" class="form-control" />
+                                              <input name="occupation" id="occupation"  value="<%= (!!locals.item ? item.occupation : (!!locals.request ? request.occupation : '') ) %>TEMP" type="text" class="form-control" />
 										</div>
                                         <div class="form-group hidden">
 											<label for="">Place of birth</label>
@@ -82,7 +82,7 @@
                                             <% } %>
                                             <label for="mainImage">Interviewee Photo</label><br/>
                                             <button class="btn btn-info selectFile" data-field="selectImage">Select Image</button>
-                                            <input type="hidden" class="form-control" id="selectImage" name="mainImage" value="<%= (!!locals.item ? item.mainImage : (!!locals.request ? request.mainImage : '') ) %>" required />
+                                            <input type="hidden" class="form-control" id="selectImage" name="mainImage" value="<%= (!!locals.item ? item.mainImage : (!!locals.request ? request.mainImage : '') ) %>"  />
                                         </div>
                                         <div class="form-group">
                                             <label for="mainImage">Interview Audio File</label><br/>
@@ -91,7 +91,7 @@
                                                 <source src="<%= (locals.item ? item.audio : (locals.request ? request.audio : '') ) %>" type="audio/mpeg">
                                                 Your browser does not support the audio element.
                                             </audio>
-                                          <input type="hidden" class="form-control" id="selectAudio" name="audio" value="<%= (!!locals.item ? item.audio : (!!locals.request ? request.audio : '') ) %>"  required />
+                                          <input type="hidden" class="form-control" id="selectAudio" name="audio" value="<%= (!!locals.item ? item.audio : (!!locals.request ? request.audio : '') ) %>"   />
                                         </div>
                                         <div class="form-group">
                                             <button type="submit" class="btn btn-primary pull-right"><%= (!!locals.item ? 'Edit' : 'Add') %> Interview</button>
@@ -150,13 +150,13 @@
                                             format: 'YYYY/MM/DD HH:mm'
                                         });
 
-                                $("form").submit( function(e) {
-                                    var messageLength = CKEDITOR.instances['editor1'].getData().replace(/<[^>]*>/gi, '').length;
-                                    if( !messageLength ) {
-                                        alert( 'Please enter a the text of interview' );
-                                        e.preventDefault();
-                                    }
-                                });
+                                // $("form").submit( function(e) {
+                                //     var messageLength = CKEDITOR.instances['editor1'].getData().replace(/<[^>]*>/gi, '').length;
+                                //     if( !messageLength ) {
+                                //         alert( 'Please enter a the text of interview' );
+                                //         e.preventDefault();
+                                //     }
+                                // });
                             });
 
                         </script>
