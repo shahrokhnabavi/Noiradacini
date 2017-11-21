@@ -383,7 +383,10 @@ case 'getimage':
     break;
 case 'readfile':
     parsePath(path, (pp) => {
-        res.sendFile(paths.resolve(pp.osFullPath));
+        if(pp.osFullPath)
+            res.sendFile(paths.resolve(pp.osFullPath));
+        else
+            res.status(404).end();
 });// parsePath
     break;
 case 'download':

@@ -88,3 +88,25 @@ h4.title a{
 .filter-panel{
     margin-bottom: 10px;
 }
+
+.preview{
+    width: 130px;
+    float: left;
+    margin-right: 14px;
+    margin-bottom: 0px;
+}
+.btn-browser{
+    position: relative;
+}
+.btn-browser .btn{
+    bottom: 0px;
+    position: absolute;
+    top: 30px;
+}
+.select-box .col-md-5,
+.select-box .col-md-4{
+    margin-right: 30px;
+}
+audio{
+    width: 100%;
+}

@@ -111,19 +111,7 @@
                            </div>
        <% var text = !!locals.pageResult ? pageResult.pageEditor.replace(/\r?\n|\r/g,'') : ""; %>
        <script type="text/javascript">
-           CKEDITOR.replace('editor1',{
-               toolbarGroups: [
-                   {"name":"basicstyles","groups":["basicstyles"]},
-                   {"name":"links","groups":["links"]},
-                   {"name":"paragraph","groups":["list","blocks"]},
-                   {"name":"document","groups":["mode"]},
-                   {"name":"insert","groups":["insert"]},
-                   {"name":"styles","groups":["styles"]},
-                   {"name":"about","groups":["about"]}
-               ],
-               //https://ckeditor.com/old/forums/CKEditor/Complete-list-of-toolbar-items#comment-123266
-               removeButtons: 'Anchor,Print,Save,Preview,Flash,PageBreak,SpecialChar'
-           });
+           CKEDITOR.replace('editor1',ckeditorConfig);
 
            CKEDITOR.on('dialogDefinition', function (event)
            {

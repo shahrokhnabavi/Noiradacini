@@ -40,10 +40,13 @@
 															<label for="site_name">Website Name</label>
 															<input type="text" class="form-control" id="site_name" name="site_name" value="<%= !!locals.site_name ? site_name : '' %>">
 														</div>
-														<div class="form-group">
-															<label for="site_logo">Logo</label>
-																	<button id="js-window-button">SELECT</button>
-															<input type="text" class="form-control" id="site_logo" name="site_logo" value="<%= !!locals.site_logo ? site_logo : '' %>">
+														<div class="form-group btn-browser">
+															<% if( locals.site_logo ) { %>
+																<img class="preview thumbnail" src="<%= site_logo %>" />
+															<% } %>
+															<label for="site_logo">Logo</label><br/>
+															<button class="btn btn-info selectFile" data-field="site_logo">Change Logo</button>
+															<input type="hidden" class="form-control" id="site_logo" name="site_logo" value="<%= !!locals.site_logo ? site_logo : '' %>">
 														</div>
 														<div class="form-group">
 															<input type="checkbox" name="site_use_theme" <%= !!locals.site_use_theme && locals.site_use_theme === 'on' ? 'checked' : '' %> data-toggle="toggle" data-on="Enable" data-off="Disabled" data-onstyle="success" data-offstyle="danger" id="site_use_theme" />
@@ -149,26 +152,6 @@
 
 							</div>
 						</div>
-
-						<script type="text/javascript">
-							$('#js-window-button').on('click', function(e) {
-									e.preventDefault();
-							        var opener = window.open("/admin/browser", 'targetWindow',
-							            'toolbar=no,location=no,status=no,menubar=no,scrollbars=yes,resizable=yes,width=800, height=800');
-							        function handlePostMessage(e) {
-							            var data = e.originalEvent.data;
-							            console.log('js-data', data);
-							            if (data.source === 'richfilemanager') {
-											$('#site_logo').val(data.preview_url);
-							                opener.close();
-							            }
-							        // remove an event handler
-							        $(window).off('message', handlePostMessage);
-							    }
-							    $(window).on('message', handlePostMessage);
-							});
-						</script>
-
                     </div>
                 </div>
             </div>

@@ -43,71 +43,59 @@
                                                     </div>
                                                   </form>
                                             </div>
-        <% var text = !!locals.item ? item.bundelEditor.replace(/\r?\n|\r/g,'') : ""; %>
-        <script type="text/javascript">
-            CKEDITOR.replace('editor1',{
-                toolbarGroups: [
-                    {"name":"basicstyles","groups":["basicstyles"]},
-                    {"name":"links","groups":["links"]},
-                    {"name":"paragraph","groups":["list","blocks"]},
-                    {"name":"document","groups":["mode"]},
-                    {"name":"insert","groups":["insert"]},
-                    {"name":"styles","groups":["styles"]},
-                    {"name":"about","groups":["about"]}
-                ],
-                //https://ckeditor.com/old/forums/CKEditor/Complete-list-of-toolbar-items#comment-123266
-                removeButtons: 'Anchor,Print,Save,Preview,Flash,PageBreak,SpecialChar'
-            });
+                                            <% var text = !!locals.item ? item.bundelEditor.replace(/\r?\n|\r/g,'') : ""; %>
+                                            <script type="text/javascript">
+                                                CKEDITOR.replace('editor1', ckeditorConfig);
 
-            CKEDITOR.on('dialogDefinition', function (event)
-            {
-                var editor = event.editor;
-                var dialogDefinition = event.data.definition;
-                var dialogName = event.data.name;
+                                                CKEDITOR.on('dialogDefinition', function (event)
+                                                {
+                                                    var editor = event.editor;
+                                                    var dialogDefinition = event.data.definition;
+                                                    var dialogName = event.data.name;
 
-                var cleanUpFuncRef = CKEDITOR.tools.addFunction(function ()
-                {
-                    // Do the clean-up of filemanager here (called when an image was selected or cancel was clicked)
-                    $('#filemanager_iframe').remove();
-                    $("body").css("overflow-y", "scroll");
-                });
+                                                    var cleanUpFuncRef = CKEDITOR.tools.addFunction(function ()
+                                                    {
+                                                        // Do the clean-up of filemanager here (called when an image was selected or cancel was clicked)
+                                                        $('#filemanager_iframe').remove();
+                                                        $("body").css("overflow-y", "scroll");
+                                                    });
 
-                var tabCount = dialogDefinition.contents.length;
-                for (var i = 0; i < tabCount; i++) {
-                    var browseButton = dialogDefinition.contents[i].get('browse');
+                                                    var tabCount = dialogDefinition.contents.length;
+                                                    for (var i = 0; i < tabCount; i++) {
+                                                        var browseButton = dialogDefinition.contents[i].get('browse');
 
-                    if (browseButton !== null) {
-                        browseButton.hidden = false;
-                        browseButton.onClick = function (dialog, i)
-                        {
-                            editor._.filebrowserSe = this;
-                            var iframe = $("<iframe id='filemanager_iframe' class='fm-modal'/>").attr({
-                                src: '/admin/browser' + // Change it to wherever  Filemanager is stored.
-                                    '?CKEditorFuncNum=' + CKEDITOR.instances[event.editor.name]._.filebrowserFn +
-                                    '&CKEditorCleanUpFuncNum=' + cleanUpFuncRef +
-                                    '&langCode=en' +
-                                    '&CKEditor=' + event.editor.name
-                            });
+                                                        if (browseButton !== null) {
+                                                            browseButton.hidden = false;
+                                                            browseButton.onClick = function (dialog, i)
+                                                            {
+                                                                editor._.filebrowserSe = this;
+                                                                var iframe = $("<iframe id='filemanager_iframe' class='fm-modal'/>").attr({
+                                                                    src: '/admin/browser' + // Change it to wherever  Filemanager is stored.
+                                                                        '?CKEditorFuncNum=' + CKEDITOR.instances[event.editor.name]._.filebrowserFn +
+                                                                        '&CKEditorCleanUpFuncNum=' + cleanUpFuncRef +
+                                                                        '&langCode=en' +
+                                                                        '&CKEditor=' + event.editor.name
+                                                                });
 
-                            $("body").append(iframe);
-                            $("body").css("overflow-y", "hidden");  // Get rid of possible scrollbars in containing document
-                        }
-                    }
-                }
-            }); // dialogDefinition
-            CKEDITOR.instances['editor1'].setData('<%- text %>');
+                                                                $("body").append(iframe);
+                                                                $("body").css("overflow-y", "hidden");  // Get rid of possible scrollbars in containing document
+                                                            }
+                                                        }
+                                                    }
+                                                }); // dialogDefinition
+                                                CKEDITOR.instances['editor1'].setData('<%- text %>');
 
-            $(document).ready(function(){
-                $("form").submit( function(e) {
-                    var messageLength = CKEDITOR.instances['editor1'].getData().replace(/<[^>]*>/gi, '').length;
-                    if( !messageLength ) {
-                        alert( 'Please enter a the text of interview' );
-                        e.preventDefault();
-                    }
-                });
-            });
+                                                $(document).ready(function(){
+                                                    $("form").submit( function(e) {
+                                                        var messageLength = CKEDITOR.instances['editor1'].getData().replace(/<[^>]*>/gi, '').length;
+                                                        if( !messageLength ) {
+                                                            alert( 'Please enter a the text of interview' );
+                                                            e.preventDefault();
+                                                        }
+                                                    });
+                                                });
 
-        </script>
+                                            </script>
                                         </div>
                                     </div>
                                 </div>

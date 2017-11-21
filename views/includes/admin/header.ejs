@@ -24,6 +24,20 @@
       <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
       <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
+    <script type="text/javascript">
+        var ckeditorConfig = {
+            toolbarGroups: [
+                {"name":"basicstyles","groups":["basicstyles"]},
+                {"name":"links","groups":["links"]},
+                {"name":"paragraph","groups":["list","blocks",'indent', 'align']},
+                {"name":"insert","groups":["insert"]},
+                {"name":"styles","groups":["styles"]},
+                {"name":"about","groups":["about","tools","mode"]}
+            ],
+            //https://ckeditor.com/old/forums/CKEditor/Complete-list-of-toolbar-items#comment-123266
+            removeButtons: 'Anchor,Print,Save,Preview,Flash,PageBreak,SpecialChar,Iframe'
+        };
+    </script>
 </head>
 <body>
 
