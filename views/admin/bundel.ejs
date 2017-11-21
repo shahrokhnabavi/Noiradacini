@@ -25,14 +25,23 @@
 											<label for="bundelName">Name of interviewee</label>
                                             <input name="bundelName" id="bundelName"  value="<%= (!!locals.item ? item.name : (!!locals.request ? request.bundelName : '') ) %>" type="text" class="form-control" />
 										</div>
-                                        <div class="form-group hidden">
+                                        <div class="form-group">
 											<label for="occupation">Occupation</label>
-                                              <input name="occupation" id="occupation"  value="<%= (!!locals.item ? item.occupation : (!!locals.request ? request.occupation : '') ) %>TEMP" type="text" class="form-control" />
+                                              <input name="occupation" id="occupation"  value="<%= (!!locals.item ? item.occupation : (!!locals.request ? request.occupation : '') ) %>" type="text" class="form-control" />
 										</div>
-                                        <div class="form-group hidden">
-											<label for="">Place of birth</label>
-                                              <input name="placeOfBirth" id="placeOfBirth" value="<%= (!!locals.item ? item.placeOfBirth : (!!locals.request ? request.placeOfBirth : 'may, 5 2010') ) %>" type="text" class="form-control" />
+                                        <div class="form-group">
+											<label for="placeOfBirth">Place of birth</label>
+                                              <input name="placeOfBirth" id="placeOfBirth" value="<%= (!!locals.item ? item.placeOfBirth : (!!locals.request ? request.placeOfBirth : '') ) %>" type="text" class="form-control" />
 										</div>
+                                        <div class="form-group">
+                                            <label for="dateOfBirth">Date Of Birth</label>
+                                            <div class='input-group date' id='datetimepicker2'>
+                                                <input type='text' name="dateOfBirth" id="dateOfBirth" value="<%= (locals.item ? dateFormat(item.dateOfBirth, 3, '/') : dateFormat('now')) %>" class="form-control" />
+                                                <span class="input-group-addon">
+                                                    <span class="glyphicon glyphicon-calendar"></span>
+                                                </span>
+                                            </div>
+                                        </div>
 										<div class="form-group">
 											<label for="frontEndDesc">Short Description</label>
                                             <textarea name="frontEndDesc" id="frontEndDesc" class="form-control"><%= (!!locals.item ? item.frontEndDesc : (!!locals.request ? request.frontEndDesc : '') ) %></textarea>

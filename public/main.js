@@ -1,6 +1,6 @@
 var map = null;
 $(document).ready(function() {
-    var apiDomain = "http://localhost:3500/api/",
+    var apiDomain = "http://localhost:3501/api/",
         selectedLang = 'en';
 
     //get all settings

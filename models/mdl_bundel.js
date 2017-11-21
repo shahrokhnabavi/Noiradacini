@@ -18,8 +18,13 @@ const bundelSchema = mongoose.Schema({
     province: {
         type: String,
         required: true
-    },occupation: {
+    },
+    occupation: {
         type: String,
+        required: true
+    },
+    dateOfBirth:{
+        type: Date,
         required: true
     },
     publishDate:{

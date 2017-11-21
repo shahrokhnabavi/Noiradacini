@@ -51,6 +51,8 @@ function _dateFormat(strDate, type = 0, sepDate = '-', sepTime = ':') {
                 return hour + sepTime + minutes + sepTime + second;
             case 3:
                 return year + sepDate + fillZero(month+1) + sepDate + day + ' ' + hour + sepTime + minutes;
+            case 4:
+                return mL[month]  + ' ' + day+ ', ' + year;
             default:
                 return 'not valid';
         }

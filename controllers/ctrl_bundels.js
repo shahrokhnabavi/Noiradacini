@@ -9,6 +9,9 @@ const viewBundel = (req , res ) => {
 var addValidate = () => {
     return [
             check('bundelName',   'Please enter Name of interviewee.').not().isEmpty(),
+            check('dateOfBirth', 'Please enter date of birth.').not().isEmpty(),
+            check('placeOfBirth', 'Please enter place of birth.').not().isEmpty(),
+            check('occupation',   'Please enter Occupation.').not().isEmpty(),
             check('bundelEditor', 'Please enter Interview.').not().isEmpty(),
             check('publishDate',  'Please enter Publish Date.').not().isEmpty(),
             check('frontEndDesc', 'Please enter Short Description.').not().isEmpty(),
@@ -34,10 +37,11 @@ const makeBundel = (req , res ) => {
     let newBundel = new bundel({
       name:         req.body.bundelName,
       bundelEditor: req.body.bundelEditor ,
-      publishDate:  req.body.publishDate,
-      frontEndDesc: req.body.frontEndDesc,
+      dateOfBirth:  new Date(req.body.dateOfBirth),
+      publishDate:  new Date(req.body.publishDate),
       placeOfBirth: req.body.placeOfBirth,
       occupation:   req.body.occupation,
+      frontEndDesc: req.body.frontEndDesc,
       province:     req.body.province,
       language:     req.body.language,
       mainImage:    req.body.mainImage,
@@ -125,6 +129,9 @@ const editBundel = (req , res) => {
         name:         req.body.bundelName,
         bundelEditor: req.body.bundelEditor ,
         publishDate:  new Date(req.body.publishDate),
+        dateOfBirth:  new Date(req.body.dateOfBirth),
+        placeOfBirth: req.body.placeOfBirth,
+        occupation:   req.body.occupation,
         frontEndDesc: req.body.frontEndDesc,
         province:     req.body.province,
         language:     req.body.language,
@@ -187,6 +194,15 @@ const showBundel= (req , res ) => {
     });
 }
 
+const show = (req , res ) => {
+    // id of the bundel
+    bundel.find({_id:req.params.id}).then(result => {
+        res.render('frontend/interview', {item: result[0]});
+    }).catch(err=>{
+        res.end('You have error in showBundel!!!')
+    });
+}
+
 
 module.exports = {
     viewBundel: viewBundel,
@@ -197,6 +213,7 @@ module.exports = {
     api_listInProvince: listInProvince,
     api_bundelsLocationAndName:bundelsLocationAndName,
     showEditBundel: showEditBundel,
+    show: show,
     remove: remove,
     editBundel: editBundel,
 };
