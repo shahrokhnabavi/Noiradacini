@@ -47,7 +47,7 @@ const makePages = (req, res) =>{
     });
     newPage.save().then(newPagel =>{
       req.setFlash('success', [{'msg': 'Your information has been submitted successfully.'}]);
-      res.redirect('/admin/dynamicPage')
+      res.redirect('/admin/pages')
     })
     .catch(err =>{
       res.end('You have error in making the page')
