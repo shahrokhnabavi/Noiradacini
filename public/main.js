@@ -148,7 +148,7 @@ $(document).ready(function() {
 
             persons.forEach( (val, index) => {
                 $('<div class="person">' +
-                    '<img class="pull-left" width="50px" height="50px" src="http://www.reactiongifs.com/r/overbite.gif" alt="name" class="img-thumbnail">' +
+                    '<img class="pull-left" width="50px" height="50px" src="' + val.mainImage + '" alt="name" class="img-thumbnail">' +
                     '<div class="pull-left name">' + val.name + '<br/>Published: ' + val.publishDate + '</div>' +
                     '<a href="#" ref="' + index + '" class="btn btn-info btn-xs pull-right showMiniInFo">See More</a></div><div class="clearfix"></div>')
                 .appendTo('#briefUserList');
@@ -198,8 +198,8 @@ $(document).ready(function() {
     var randomPerson = function( persons,index ){
         $('#singlePerson').html('');
         $('<div class="row"><div class="col-sm-3 text-center">' +
-                '<img class="img-circle" src="http://www.reactiongifs.com/r/overbite.gif" style="width: 100px;height:100px;">' +
-                '<a href="/interview/' + persons[index]._id + '" class="btn btn-primary">Interview</a>' +
+                '<img class="img-circle" src="' + persons[index].mainImage + '" style="width: 100px;height:100px;">' +
+                '<a href="/' + selectedLang + '/interview/' + persons[index]._id + '" class="btn btn-primary">Interview</a>' +
             '</div><div class="col-sm-9"><span class="name">' + persons[index].name + '</span>' +
             '<div class="desc">' + persons[index].frontEndDesc + '</div><a href="#" class="close">X</a></div></div>')
         .appendTo('#singlePerson');
