@@ -17,7 +17,7 @@ module.exports = {
         next();
     },
     configs: {
-        debug: true,
+        debug: false,
         admPerPage: 10
     }
 }
