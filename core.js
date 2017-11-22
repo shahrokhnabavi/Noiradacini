@@ -3,7 +3,7 @@ module.exports = {
         res.locals.user = req.app.configs.debug ? {name: 'DEBUG MODE'} : req.session.user;
 
         if (!req.userAuth) {
-            req.userAuth = () => { return req.app.configs.debug ? false : _userAuth; }
+            req.userAuth = req.app.configs.debug ? () => false : _userAuth;
         }
 
         if (!req.msgFlash) {
