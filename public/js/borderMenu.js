@@ -1,6 +1,4 @@
 
-(function() {
-
 
 	function mobilecheck() {
 		var sadek = false;
@@ -9,7 +7,7 @@
 		return sadek;
 	}
 
-	function init() {
+	// function init() {
 
 		var menu = document.getElementById( 'bt-menu' ),
 			trigger = menu.querySelector( 'a.bt-menu-trigger' ),
@@ -27,7 +25,7 @@
 			},
 			closeClickFn = function( ev ) {
 				resetMenu();
-				overlay.removeEventListener( eventtype, closeClickFn );
+				// overlay.removeEventListener( eventtype, closeClickFn );
 			};
 
 
@@ -51,10 +49,12 @@
 			}
 		});
 
-
-
-	}
-
-	init();
-
-})();
+		menu.addEventListener( eventtype, function( ev ) {
+			closeClickFn();
+		});
+    //
+    //
+    //
+	// }
+    //
+	// init();

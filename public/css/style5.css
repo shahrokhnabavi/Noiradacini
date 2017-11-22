@@ -11,7 +11,6 @@ body  {
 }
 
 .container {
-	padding: 80px;
 }
 
 .bt-menu {
@@ -32,7 +31,7 @@ body  {
 .bt-menu.bt-menu-open {
 	height: 100%;
 	border-width: 0px 0px 50px 150px;
-	background-color: #ffffff05;
+    background-color: rgba(255,255,255,0.7);
 	-webkit-transition: border-width 0.3s, background-color 0.3s;
 	transition: border-width 0.3s, background-color 0.3s;
 }
