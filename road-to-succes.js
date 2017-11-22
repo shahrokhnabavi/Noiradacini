@@ -62,7 +62,7 @@ app.use('*', core.pathUserSession);
 app.use('/admin', require('./routes/rt_admin'));
 app.use('/api',   require('./routes/rt_api'));
 app.use('/filemanager', require('./richfilemanager/filemanager')(path.normalize(`${__dirname}/public/userfiles`)));
-app.use('/:lang', require('./routes/rt_frontend'));
+app.use('/', require('./routes/rt_frontend'));
 
 
 // Listen to port

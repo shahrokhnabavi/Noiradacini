@@ -3,7 +3,7 @@
    <head>
       <meta charset="utf-8">
       <meta http-equiv="X-UA-Compatible" content="IE=edge">
-      <title><%= item.name %> | Our Team</title>
+      <title><%= item.name %> | <%= settings.site_name %></title>
       <meta name="HandheldFriendly" content="True">
       <meta name="MobileOptimized" content="320">
       <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
@@ -25,18 +25,17 @@
                <a class="btn-sidemenu icon-burger"></a>
                <div class="header__default cf">
                 <div class="logo logo--talks">
-                    <a class="logo__link" href="http://localhost:3501/" rel="nofollow" itemprop="headline"> My Logo
-                        <img src="http://localhost:3501/interview_img/logo.png" alt="My Logo">
+                    <a class="logo__link" href="http://localhost:3501/" rel="nofollow" itemprop="headline"> <%= settings.site_name %>
+                        <img src="http://localhost:3501/interview_img/logo.png" alt="<%= settings.site_name %>">
                     </a>
                 </div>
                   <nav class="nav nav--main show--at-768 cf">
                      <ul class="nav cf">
+                         <% pages.forEach( eachPage => { %>
                         <li class="nav__item">
-                           <a href="http://localhost:3501/timekeeper-by-rolex/">About</a>
+                           <a href="/<%= item.language %>/<%= eachPage.slugName %>"><%= eachPage.titleName %></a>
                         </li>
-                        <li class="nav__item show--at-930">
-                            <a href="http://localhost:3501/world-guide/">Contact Us</a>
-                        </li>
+                        <% }) %>
                      </ul>
                      <div class="social show--at-930">
                          Language:
@@ -84,28 +83,25 @@
                                  </span>
                               </span>
                               <div class="share pull-right show--at-768">
-                                  <span class="share__count" style="display: inline;">
-                                      <span class="share__amount">1598</span> shares
-                                  </span>
-                                  <a class="btn btn--square btn--square--facebook btn-share icon-social-facebook" href="https://www.facebook.com/sharer/sharer.php?u=http://localhost:3501/interview/james-mcavoy/" data-title="Facebook" data-width="626" data-height="436"></a>
-                                  <a class="btn btn--square btn--square--twitter btn-share icon-social-twitter" href="https://twitter.com/share?text=James+McAvoy%3A+%E2%80%9CI+don%E2%80%99t+feel+entitled%E2%80%9D+%7C+The+Talks&amp;url=http://localhost:3501/interview/james-mcavoy/&amp;via=the_talks" data-title="Twitter" data-width="600" data-height="200"></a>
-                                  <a class="btn btn--square btn--square--pinterest btn-share icon-social-pinterest" href="//pinterest.com/pin/create/button/?url=http://localhost:3501/interview/james-mcavoy/&amp;media=http://localhost:3501/interview_img/James-McAvoy-01.jpeg&amp;description=James+McAvoy%3A+%E2%80%9CI+don%E2%80%99t+feel+entitled%E2%80%9D+%7C+The+Talks" data-title="Pinterest" data-width="750" data-height="540"></a>
-                                  <a class="btn btn--square btn--square--mail icon-social-mail" href="mailto:?subject=James%20McAvoy%20Interview%20%7C%20The%20Talks&amp;body=http%3A%2F%2Fthe-talks.com%2Finterview%2Fjames-mcavoy%2F"></a>
+                                  <a class="btn btn--square btn--square--facebook btn-share icon-social-facebook" href="https://www.facebook.com/sharer/sharer.php?u=<%= fullUrl %>" data-title="Facebook" data-width="626" data-height="436"></a>
+                                  <a class="btn btn--square btn--square--twitter btn-share icon-social-twitter" href="https://twitter.com/share?text=<%= encodedName %>&url=<%= fullUrl %>&via=<%= settings.site_name %>" data-title="Twitter" data-width="600" data-height="200"></a>
+                                  <a class="btn btn--square btn--square--pinterest btn-share icon-social-pinterest" href="//pinterest.com/pin/create/button/?url=<%= fullUrl %>&media=<%= personImage %>&description=<%= encodedName %>" data-title="Pinterest" data-width="750" data-height="540"></a>
+                                  <a class="btn btn--square btn--square--mail icon-social-mail" href="mailto:?subject=<%= encodedName %>&body=<%= fullUrl %>"></a>
                               </div>
                            </div>
-                           <figure class="interview__hero" hidden>
-                              <div class="card__img card__img--hero">
-                                 <div class="card__img__inner">
-                                     <img src="http:/interview_img/James-McAvoy-01.jpeg" alt="<%= item.name %>">
-                                 </div>
-                              </div>
-                           </figure>
                         </header>
                         <div class="interview__body">
                            <div class="layout layout--with-gutter-40-at-768 layout--with-gutter-100-at-930 cf">
                               <section class="layout__item two-third--at-768">
                                  <div class="interview__content">
                                      <div class="interview__profile interview__profile--mobile hide--at-768">
+                                         <figure class="interview__hero">
+                                            <div class="card__img card__img--hero">
+                                               <div class="card__img__inner">
+                                                   <img src="<%= item.mainImage %>" alt="<%= item.name %>">
+                                               </div>
+                                            </div>
+                                         </figure>
                                          <div class="interview__profile__title caps">Short Profile</div>
                                          <p>
                                              <span class="bold">Name:</span> <%= item.name %><br>
@@ -121,6 +117,13 @@
                               <aside class="layout__item third--at-768 show--at-768">
                                  <div class="interview__sidebar">
                                     <div class="interview__profile">
+                                        <figure class="interview__hero">
+                                           <div class="card__img card__img--hero">
+                                              <div class="card__img__inner">
+                                                  <img src="<%= item.mainImage %>" alt="<%= item.name %>">
+                                              </div>
+                                           </div>
+                                        </figure>
                                         <div class="interview__profile__title caps">Short Profile</div>
                                         <p>
                                             <span class="bold">Name:</span> <%= item.name %><br>
@@ -133,124 +136,13 @@
                               </aside>
                            </div>
                            <div class="share share--bottom show--at-768">
-                               <span class="share__count" data-url="http://localhost:3501/interview/james-mcavoy" style="display: inline;">
-                                   <span class="share__amount">1598</span> shares
-                               </span>
-                               <a class="btn btn--square btn--square--facebook btn-share icon-social-facebook" href="https://www.facebook.com/sharer/sharer.php?u=http://localhost:3501/interview/james-mcavoy/" data-title="Facebook" data-width="626" data-height="436"></a>
-                               <a class="btn btn--square btn--square--twitter btn-share icon-social-twitter" href="https://twitter.com/share?text=James+McAvoy%3A+%E2%80%9CI+don%E2%80%99t+feel+entitled%E2%80%9D+%7C+The+Talks&amp;url=http://localhost:3501/interview/james-mcavoy/&amp;via=the_talks" data-title="Twitter" data-width="600" data-height="200"></a>
-                               <a class="btn btn--square btn--square--pinterest btn-share icon-social-pinterest" href="//pinterest.com/pin/create/button/?url=http://localhost:3501/interview/james-mcavoy/&amp;media=http://localhost:3501/interview_img/James-McAvoy-01.jpeg&amp;description=James+McAvoy%3A+%E2%80%9CI+don%E2%80%99t+feel+entitled%E2%80%9D+%7C+The+Talks" data-title="Pinterest" data-width="750" data-height="540"></a>
-                               <a class="btn btn--square btn--square--mail icon-social-mail" href="mailto:?subject=James%20McAvoy%20Interview%20%7C%20The%20Talks&amp;body=http%3A%2F%2Fthe-talks.com%2Finterview%2Fjames-mcavoy%2F"></a>
+                               <a class="btn btn--square btn--square--facebook btn-share icon-social-facebook" href="https://www.facebook.com/sharer/sharer.php?u=<%= fullUrl %>" data-title="Facebook" data-width="626" data-height="436"></a>
+                               <a class="btn btn--square btn--square--twitter btn-share icon-social-twitter" href="https://twitter.com/share?text=<%= encodedName %>&url=<%= fullUrl %>&via=<%= settings.site_name %>" data-title="Twitter" data-width="600" data-height="200"></a>
+                               <a class="btn btn--square btn--square--pinterest btn-share icon-social-pinterest" href="//pinterest.com/pin/create/button/?url=<%= fullUrl %>&media=<%= personImage %>&description=<%= encodedName %>" data-title="Pinterest" data-width="750" data-height="540"></a>
+                               <a class="btn btn--square btn--square--mail icon-social-mail" href="mailto:?subject=<%= encodedName %>&body=<%= fullUrl %>"></a>
                            </div>
                            <a id="btn-top" class="btn btn--square btn--square--top icon-arrow-up-small"></a>
                         </div>
-                        <footer class="interview__footer">
-                           <div class="related section section--separator">
-                              <span class="h2 section__title">Interviews In same Region</span>
-                              <div class="layout layout--with-gutter-20 cf">
-                                 <div class="layout__item third--at-768">
-                                    <a class="card inner cf" href="http://localhost:3501/interview/sienna-miller">
-                                       <div class="card__img">
-                                          <div class="card__img__inner">
-                                             <img src="http://localhost:3501/interview_img/Sienna-Miller-01-473x246.jpg" alt="Sienna Miller">
-                                             <div class="card__actions show--at-768"><span class="card__btn timekeeper__btn timekeeper__btn--later btn-read-later" data-interview="14800">Read Later</span><span class="card__btn timekeeper__btn timekeeper__btn--remove btn-remove-read-later" data-interview="14800">Remove</span></div>
-                                             <span class="card__btn card__btn--square icon-checkmark btn-remove-read-later-mobile" data-interview="14800"></span>
-                                          </div>
-                                       </div>
-                                       <h2 class="card__title">Sienna Miller<span hidden="">: </span><span class="card__quote show--at-768">“It’s always a dilemma”</span></h2>
-                                    </a>
-                                 </div>
-                                 <div class="layout__item third--at-768">
-                                    <a class="card inner cf" href="http://localhost:3501/interview/m-night-shyamalan">
-                                       <div class="card__img">
-                                          <div class="card__img__inner">
-                                             <img src="http://localhost:3501/interview_img/M-Night-thumb-473x246.jpg" alt="M. Night Shyamalan">
-                                             <div class="card__actions show--at-768"><span class="card__btn timekeeper__btn timekeeper__btn--later btn-read-later" data-interview="14214">Read Later</span><span class="card__btn timekeeper__btn timekeeper__btn--remove btn-remove-read-later" data-interview="14214">Remove</span></div>
-                                             <span class="card__btn card__btn--square icon-checkmark btn-remove-read-later-mobile" data-interview="14214"></span>
-                                          </div>
-                                       </div>
-                                       <h2 class="card__title">M. Night Shyamalan<span hidden="">: </span><span class="card__quote show--at-768">“I’m who you want in there”</span></h2>
-                                    </a>
-                                 </div>
-                                 <div class="layout__item third--at-768">
-                                    <a class="card inner cf" href="http://localhost:3501/interview/ewan-mcgregor">
-                                       <div class="card__img">
-                                          <div class="card__img__inner">
-                                             <img src="http://localhost:3501/interview_img/Ewan-McGregor-01-473x246.jpg" alt="Ewan McGregor">
-                                             <div class="card__actions show--at-768"><span class="card__btn timekeeper__btn timekeeper__btn--later btn-read-later" data-interview="666">Read Later</span><span class="card__btn timekeeper__btn timekeeper__btn--remove btn-remove-read-later" data-interview="666">Remove</span></div>
-                                             <span class="card__btn card__btn--square icon-checkmark btn-remove-read-later-mobile" data-interview="666"></span>
-                                          </div>
-                                       </div>
-                                       <h2 class="card__title">Ewan McGregor<span hidden="">: </span><span class="card__quote show--at-768">“I am quite happy being me”</span></h2>
-                                    </a>
-                                 </div>
-                              </div>
-                           </div>
-                           <div class="latest latest--details section section--separator">
-                              <span class="h2 section__title">Latest Interviews</span>
-                              <div class="layout layout--with-gutter-20 cf">
-                                 <div class="layout__item half sixth--at-768">
-                                    <a class="card card--slim inner cf" href="http://localhost:3501/interview/david-sedaris">
-                                       <div class="card__img">
-                                          <img src="http://localhost:3501/interview_img/David-Sedaris-thumb-473x246.jpg" alt="David Sedaris">
-                                          <div class="card__actions show--at-768"><span class="card__btn timekeeper__btn timekeeper__btn--later btn-read-later" data-interview="15481">Read Later</span><span class="card__btn timekeeper__btn timekeeper__btn--remove btn-remove-read-later" data-interview="15481">Remove</span></div>
-                                          <span class="card__btn card__btn--square icon-checkmark btn-remove-read-later-mobile" data-interview="15481"></span>
-                                       </div>
-                                       <h2 class="card__title">David Sedaris</h2>
-                                    </a>
-                                 </div>
-                                 <div class="layout__item half sixth--at-768">
-                                    <a class="card card--slim inner cf" href="http://localhost:3501/interview/antoine-predock">
-                                       <div class="card__img">
-                                          <img src="http://localhost:3501/interview_img/Antoine-Predock-01-473x246.jpg" alt="Antoine Predock">
-                                          <div class="card__actions show--at-768"><span class="card__btn timekeeper__btn timekeeper__btn--later btn-read-later" data-interview="15452">Read Later</span><span class="card__btn timekeeper__btn timekeeper__btn--remove btn-remove-read-later" data-interview="15452">Remove</span></div>
-                                          <span class="card__btn card__btn--square icon-checkmark btn-remove-read-later-mobile" data-interview="15452"></span>
-                                       </div>
-                                       <h2 class="card__title">Antoine Predock</h2>
-                                    </a>
-                                 </div>
-                                 <div class="layout__item half sixth--at-768">
-                                    <a class="card card--slim inner cf" href="http://localhost:3501/interview/jeff-goldblum">
-                                       <div class="card__img">
-                                          <img src="http://localhost:3501/interview_img/Jeff-Goldblum-01-473x246.jpg" alt="Jeff Goldblum">
-                                          <div class="card__actions show--at-768"><span class="card__btn timekeeper__btn timekeeper__btn--later btn-read-later" data-interview="15439">Read Later</span><span class="card__btn timekeeper__btn timekeeper__btn--remove btn-remove-read-later" data-interview="15439">Remove</span></div>
-                                          <span class="card__btn card__btn--square icon-checkmark btn-remove-read-later-mobile" data-interview="15439"></span>
-                                       </div>
-                                       <h2 class="card__title">Jeff Goldblum</h2>
-                                    </a>
-                                 </div>
-                                 <div class="layout__item half sixth--at-768">
-                                    <a class="card card--slim inner cf" href="http://localhost:3501/interview/rebecca-hall">
-                                       <div class="card__img">
-                                          <img src="http://localhost:3501/interview_img/Rebecca-Hall-01-473x246.jpg" alt="Rebecca Hall">
-                                          <div class="card__actions show--at-768"><span class="card__btn timekeeper__btn timekeeper__btn--later btn-read-later" data-interview="15407">Read Later</span><span class="card__btn timekeeper__btn timekeeper__btn--remove btn-remove-read-later" data-interview="15407">Remove</span></div>
-                                          <span class="card__btn card__btn--square icon-checkmark btn-remove-read-later-mobile" data-interview="15407"></span>
-                                       </div>
-                                       <h2 class="card__title">Rebecca Hall</h2>
-                                    </a>
-                                 </div>
-                                 <div class="layout__item half sixth--at-768">
-                                    <a class="card card--slim inner cf" href="http://localhost:3501/interview/steve-buscemi">
-                                       <div class="card__img">
-                                          <img src="http://localhost:3501/interview_img/Steve-Buscemi-01-473x246.jpg" alt="Steve Buscemi">
-                                          <div class="card__actions show--at-768"><span class="card__btn timekeeper__btn timekeeper__btn--later btn-read-later" data-interview="15360">Read Later</span><span class="card__btn timekeeper__btn timekeeper__btn--remove btn-remove-read-later" data-interview="15360">Remove</span></div>
-                                          <span class="card__btn card__btn--square icon-checkmark btn-remove-read-later-mobile" data-interview="15360"></span>
-                                       </div>
-                                       <h2 class="card__title">Steve Buscemi</h2>
-                                    </a>
-                                 </div>
-                                 <div class="layout__item half sixth--at-768">
-                                    <a class="card card--slim inner cf" href="http://localhost:3501/interview/judi-dench">
-                                       <div class="card__img">
-                                          <img src="http://localhost:3501/interview_img/Judi-Dench-001-473x246.jpg" alt="Judi Dench">
-                                          <div class="card__actions show--at-768"><span class="card__btn timekeeper__btn timekeeper__btn--later btn-read-later" data-interview="15347">Read Later</span><span class="card__btn timekeeper__btn timekeeper__btn--remove btn-remove-read-later" data-interview="15347">Remove</span></div>
-                                          <span class="card__btn card__btn--square icon-checkmark btn-remove-read-later-mobile" data-interview="15347"></span>
-                                       </div>
-                                       <h2 class="card__title">Judi Dench</h2>
-                                    </a>
-                                 </div>
-                              </div>
-                           </div>
-                        </footer>
                      </article>
                   </div>
                </main>
@@ -260,13 +152,18 @@
             <div class="footer__inner wrap cf">
                <nav class="nav nav--footer cf">
                   <div class="social">
-                      <a class="social__item social__item--facebook" href="https://www.facebook.com/shahrokh/" target="_blank">Facebook</a>
-                      <a class="social__item social__item--twitter" href="https://twitter.com/shahrokh" target="_blank">Twitter</a>
-                      <a class="social__item social__item--instagram" href="https://www.instagram.com/shahrokh/" target="_blank">Instagram</a>
-                      <a class="social__item social__item--tumblr" href="http://shahrokh.tumblr.com/" target="_blank">Tumblr</a>
+                      <% if(settings.site_facebook){ %>
+                      <a class="social__item social__item--facebook" href="<%= settings.site_facebook %>" target="_blank">Facebook</a>
+                      <% } %>
+                      <% if(settings.site_twitter){ %>
+                      <a class="social__item social__item--twitter" href="<%= settings.site_twitter %>" target="_blank">Twitter</a>
+                      <% } %>
+                      <% if(settings.site_google){ %>
+                      <a class="social__item social__item--instagram" href="<%= settings.site_google %>" target="_blank">Google+</a>
+                      <% } %>
                   </div>
                </nav>
-               <p class="copy">© 2017 Our Team</p>
+               <p class="copy">© 2017 <%= settings.site_name %></p>
             </div>
          </footer>
       </div>
@@ -275,28 +172,28 @@
             <a class="btn-sidemenu icon-close"></a>
             <nav class="nav nav--sidemenu">
                <ul class="nav cf">
-                  <li class="nav__item nav__item--home"><a href="http://localhost:3501/">Home</a></li>
-                  <li class="nav__item nav__item--has-children">
-                     <a href="http://localhost:3501/interviews/">Interview</a>
-                     <ul class="sub-menu">
-                        <li class="nav__item"><a href="http://localhost:3501/interviews/art/">Grenthe</a></li>
-                     </ul>
-                  </li>
-                  <li class="nav__item"><a href="http://localhost:3501/timekeeper-by-rolex/">About</a></li>
-                  <li class="nav__item"><a href="http://localhost:3501/world-guide/">Contact Us</a></li>
+                  <li class="nav__item nav__item--home"><a href="/">Home</a></li>
+                  <% pages.forEach( eachPage => { %>
+                 <li class="nav__item">
+                    <a href="/<%= item.language %>/<%= eachPage.slugName %>"><%= eachPage.titleName %></a>
+                 </li>
+                 <% }) %>
                </ul>
             </nav>
             <div class="social">
-                <a class="social__item social__item--facebook icon-social-facebook" href="https://www.facebook.com/shahrokh/" target="_blank"></a>
-                <a class="social__item social__item--twitter icon-social-twitter" href="https://twitter.com/shahrokh" target="_blank"></a>
-                <a class="social__item social__item--instagram icon-social-instagram" href="https://www.instagram.com/shahrokh/" target="_blank"></a>
-                <a class="social__item social__item--tumblr icon-social-tumblr" href="http://shahrokh.tumblr.com/" target="_blank"></a>
+                <% if(settings.site_facebook){ %>
+                <a class="social__item social__item--facebook icon-social-facebook" href="<%= settings.site_facebook %>" target="_blank"></a>
+                <% } %>
+                <% if(settings.site_twitter){ %>
+                <a class="social__item social__item--twitter icon-social-twitter" href="<%= settings.site_twitter %>" target="_blank"></a>
+                <% } %>
+                <% if(settings.site_google){ %>
+                <a class="social__item social__item--instagram icon-social-instagram" href="<%= settings.site_google %>" target="_blank"></a>
+                <% } %>
             </div>
             <nav class="nav nav--sidemenu nav--sidemenu--bottom">
                <ul class="nav cf">
-                  <li class="nav__item"><a href="http://localhost:3501/about-the-talks/">About Our Team</a></li>
-                  <li class="nav__item"><a href="http://localhost:3501/legal/">Legal Information</a></li>
-                  <li class="nav__item"><a href="http://localhost:3501/credits/">Site Credits</a></li>
+                  <li class="nav__item"><a href="http://localhost:3501/about-restart/">About Our Team</a></li>
                </ul>
             </nav>
          </div>

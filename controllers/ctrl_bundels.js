@@ -194,15 +194,6 @@ const showBundel= (req , res ) => {
     });
 }
 
-const show = (req , res ) => {
-    // id of the bundel
-    bundel.find({_id:req.params.id}).then(result => {
-        res.render('frontend/interview', {item: result[0]});
-    }).catch(err=>{
-        res.end('You have error in showBundel!!!')
-    });
-}
-
 
 module.exports = {
     viewBundel: viewBundel,
@@ -213,7 +204,6 @@ module.exports = {
     api_listInProvince: listInProvince,
     api_bundelsLocationAndName:bundelsLocationAndName,
     showEditBundel: showEditBundel,
-    show: show,
     remove: remove,
     editBundel: editBundel,
 };
