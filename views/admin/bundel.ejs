@@ -158,14 +158,9 @@
                                             allowInputToggle: true,
                                             format: 'YYYY/MM/DD HH:mm'
                                         });
-
-                                // $("form").submit( function(e) {
-                                //     var messageLength = CKEDITOR.instances['editor1'].getData().replace(/<[^>]*>/gi, '').length;
-                                //     if( !messageLength ) {
-                                //         alert( 'Please enter a the text of interview' );
-                                //         e.preventDefault();
-                                //     }
-                                // });
+                                $('#datetimepicker2').datetimepicker({
+                                            format: 'YYYY/MM/DD'
+                                        });
                             });
 
                         </script>
