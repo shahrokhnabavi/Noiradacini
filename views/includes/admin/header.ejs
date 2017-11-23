@@ -35,7 +35,24 @@
                 {"name":"about","groups":["about","tools","mode"]}
             ],
             //https://ckeditor.com/old/forums/CKEditor/Complete-list-of-toolbar-items#comment-123266
-            removeButtons: 'Anchor,Print,Save,Preview,Flash,PageBreak,SpecialChar,Iframe'
+            removeButtons: 'Anchor,Print,Save,Preview,Flash,PageBreak,SpecialChar,Iframe',
+            contentsCss: '/iterview_css/style.min.1501823564.css',
+            bodyClass: 'interview__content',
+            format_p: { element: 'p', attributes: { 'class': 'a' } },
+            stylesSet: [
+                { name: 'RTS: Inline Title', element: 'p', attributes: { 'class': 'q' } },
+                { name: 'RTS: Highlight', element: 'span', attributes: { 'class': 'highlight' } },
+                //Default
+                { name: 'Inline Code', element: 'code' },
+                { name: 'Inline Quotation', element: 'q' },
+                { name: 'Left Aligned Photo', element: 'img', attributes: { 'class': 'align_left' } },
+                { name: 'Right Aligned Photo', element: 'img', attributes: { 'class': 'align_right' } },
+                { name: 'Centered Photo', element: 'img', attributes: { 'class': 'align_center' } },
+                { name: 'Small', element: 'small' },
+                { name: 'Deleted Text', element: 'del' },
+                { name: 'Inserted Text', element: 'ins' },
+                { name: 'Cited Work', element: 'cite' }
+            ]
         };
     </script>
 </head>
