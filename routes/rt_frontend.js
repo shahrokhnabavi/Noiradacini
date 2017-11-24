@@ -39,14 +39,31 @@ router.get('/:lang/interview/:id', (req , res ) => {
 
 // Home page
 router.get('/:lang/:page', (req, res) => {
-    Page.find({language: req.params.lang, slugName: req.params.page})
-            .then(item=>{
-                if( item && item.length === 1 )
-                    res.render('page', item[0]);
-                else
-                    res.redirect('/');
-            })
-    .catch( err=> console.log(err) );
+    const querystring = require('querystring');
+
+    var host = req.protocol + '://' + req.get('host');
+
+    Page.find({language: req.params.lang, slugName: req.params.page}).then(item=>{
+        Page.find({language: req.params.lang})
+                .then(pages=>{
+                    Setting.getAll()
+                        .then( result => {
+                            var settings = {};
+                            result.forEach( item => {
+                                settings[item.setting_key] = item.setting_value
+                            })
+                            res.render('frontend/page',
+                                        {
+                                            item: item[0],
+                                            fullUrl: host + req.originalUrl,
+                                            // encodedName: querystring.escape(bundels[0].name),
+                                            // personImage: querystring.escape(host + '/' + bundels[0].mainImage),
+                                            pages: pages,
+                                            settings: settings
+                                        });
+                        }).catch(err=>console.log(err));
+                }).catch(err=>console.log(err));
+    }).catch( err=> console.log(err) );
 });
 
 module.exports = router;

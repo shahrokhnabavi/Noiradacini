@@ -1,4 +1,8 @@
 jQuery(document).ready(function(e) {
+    e('#lang').on('change', function(){
+        window.location.href = '/' + e(this).val();
+    })
+
     var t = navigator.userAgent.match(/Android|iPhone/i) && !navigator.userAgent.match(/iPod/i) ? true : false;
     var i = "ontouchstart" in window || "onmsgesturechange" in window;
     var a = false;
