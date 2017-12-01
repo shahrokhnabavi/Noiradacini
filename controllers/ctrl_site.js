@@ -4,7 +4,8 @@ const {check, validationResult} = require('express-validator/check');
 
 const getSettings = ( req, res ) => {
 
-    Setting.getAll()
+    // Setting.getAll()
+    Setting.find()
         .then( result => {
             var settings = {};
             result.forEach( item => {
@@ -17,7 +18,8 @@ const getSettings = ( req, res ) => {
 const admSetting = ( req, res ) => {
     if( req.userAuth('/admin/login') ) return;
 
-    Setting.getAll()
+    // Setting.getAll()
+    Setting.find()
         .then( result => {
             var settings = {};
             result.forEach( item => {
@@ -32,29 +34,38 @@ const save = ( req, res ) => {
     if( req.userAuth('/admin/login') ) return;
 
     let arrPromises = [ new Promise(function(resolve, reject) {
-        Setting.getByField('setting_key', 'site_use_theme').then( record => {
+        Setting.find({'setting_key': 'site_use_theme'}).then( record => {
             let val = req.body.site_use_theme ? 'on' : 'off';
-            if(record)
+            if(record.length)
             {
-                Setting.findByIdAndUpdate(record.setting_id,{setting_value:val}).then( resolve );
+                Setting.findByIdAndUpdate(record[0]._id,{setting_value:val}).then( result => resolve(1) );
             }
             else
             {
-                Setting.create({setting_key:'site_use_theme', setting_value:val}).then(resolve);
+                let setting = new Setting({
+                  setting_key : 'site_use_theme',
+                  setting_value : val
+                });
+                setting.save().then(result => resolve(1)).catch(err => console.log(err));
             }
         }).catch( err => console.log(err) );
     }) ];
 
     for(let key in req.body) {
+
         let pro = new Promise(function(resolve, reject) {
-            Setting.getByField('setting_key', key).then( record => {
-                if(record)
+            Setting.find({'setting_key': key}).then( record => {
+                if(record.length)
                 {
-                    Setting.findByIdAndUpdate(record.setting_id,{setting_value:req.body[key]}).then( resolve );
+                    Setting.findByIdAndUpdate(record[0]._id,{setting_value:req.body[key]}).then( result => resolve(1) );
                 }
                 else
                 {
-                    Setting.create({setting_key:key, setting_value:req.body[key]}).then(resolve);
+                    let setting = new Setting({
+                      setting_key : key,
+                      setting_value : req.body[key]
+                    });
+                    setting.save().then(result => resolve(1)).catch(err => console.log(err));
                 }
             }).catch( err => console.log(err) );
         });

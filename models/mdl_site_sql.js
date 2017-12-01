@@ -1,19 +1,3 @@
-const mongoose = require('mongoose');
-
-// http://mongoosejs.com/docs/schematypes.html
-// Schema
-let SettingSchema = mongoose.Schema({
-    setting_key: {
-        type: String,
-        required: true
-    },
-    setting_value: {
-        type: String
-    }
-});
-
-module.exports = mongoose.model('settings', SettingSchema);
-
 const tbl = 'settings',
       Setting = {
         findByIdAndUpdate: function(id, data){
@@ -52,7 +36,7 @@ const tbl = 'settings',
         }
     };
 
- // module.exports = Setting;
+ module.exports = Setting;
 
 
 function runQuery( sql, data ){
