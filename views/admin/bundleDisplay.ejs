@@ -27,6 +27,8 @@
                       <td><%= dateFormat(item.publishDate, 1) %> at <%= dateFormat(item.publishDate, 2) %></td>
                       <td><%= item.language %></td>
                       <td class="text-right">
+                        <a class="options" target="_blank" href="/admin/preview/<%= item._id %>">
+                            <i class="glyphicon glyphicon-new-window text-primary"></i>
                         <a class="options" href="/admin/bundels/<%= item._id %>">
                           <i class="glyphicon glyphicon-pencil text-warning"></i></a>
                         <a class="options" href="/admin/bundel/delete/<%= item._id %>">

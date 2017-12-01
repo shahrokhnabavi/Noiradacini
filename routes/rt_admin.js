@@ -26,6 +26,7 @@ router.post('/setting', Site.save);
 // Bundels
 router.get('/bundel/delete/:id', Bundels.remove);
 router.get('/bundels/:id',  Bundels.showEditBundel);
+router.get('/preview/:id',  Bundels.showPreview);
 router.post('/bundel/:id', Bundels.addValidate, Bundels.editBundel);
 router.post('/bundel', Bundels.addValidate,Bundels.makeBundel);
 router.get('/bundel', Bundels.viewBundel);

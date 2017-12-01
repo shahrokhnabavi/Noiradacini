@@ -1,5 +1,7 @@
 const bundel = require('../models/mdl_bundel');
 const {check, validationResult} = require('express-validator/check');
+const Setting = require('../models/mdl_site');
+const Page = require('../models/mdl_page');
 
 const viewBundel = (req , res ) => {
     if( req.userAuth('/admin/login') ) return;
@@ -194,6 +196,34 @@ const showBundel= (req , res ) => {
     });
 }
 
+const showPreview =(req , res ) => {
+      // id of the bundel
+      if( req.userAuth('/admin/login') ) return;
+      const querystring = require('querystring');
+      var host = req.protocol + '://' + req.get('host');
+      bundel.find({_id:req.params.id }).then(bundel =>{
+        Setting.find()
+            .then( result => {
+                var settings = {};
+                result.forEach( item => {
+                    settings[item.setting_key] = item.setting_value
+                })
+                res.render('admin/interviewAdmin',
+                            {
+                                item: bundel[0],
+                                fullUrl: host + req.originalUrl,
+                                encodedName: querystring.escape(bundel[0].name),
+                                personImage: querystring.escape(host + '/' + bundel[0].mainImage),
+
+                                settings: settings
+                            });
+            }).catch(err=>console.log(err));
+      }).catch(err=>{ console.log(err);
+        res.end('You have error in show preview!!!')
+      });
+
+}
+
 
 module.exports = {
     viewBundel: viewBundel,
@@ -206,4 +236,5 @@ module.exports = {
     showEditBundel: showEditBundel,
     remove: remove,
     editBundel: editBundel,
+    showPreview: showPreview,
 };

@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en-US" class="mti-inactive">
+   <head>
+      <meta charset="utf-8">
+      <meta http-equiv="X-UA-Compatible" content="IE=edge">
+      <title><%= item.name %> | <%= settings.site_name %></title>
+      <meta name="HandheldFriendly" content="True">
+      <meta name="MobileOptimized" content="320">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+
+      <!--[if IE]>
+      <link rel="shortcut icon" href=/wp-content/themes/thetalks/img/favicon.ico?v2>
+      <![endif]-->
+
+      <link rel="stylesheet" href="/iterview_css/style.min.1501823564.css" media="all">
+      <!--[if lt IE 9]>
+      <link rel='stylesheet' href='/iterview_css/ie.min.1496290384.css' media='all'>
+      <![endif]-->
+   </head>
+   <body class="body--has-hover" >
+
+      <div class="container">
+         <header id="header" class="header">
+            <div class="header__inner cf">
+               <a class="btn-sidemenu icon-burger"></a>
+               <div class="header__default cf">
+                <div class="logo logo--talks">
+                    <a class="logo__link" href="/" rel="nofollow" itemprop="headline"> <%= settings.site_name %>
+                        <img src="/interview_img/logo.png" alt="<%= settings.site_name %>">
+                    </a>
+                </div>
+                  <nav class="nav nav--main show--at-768 cf">
+                     <ul class="nav cf">
+
+                     </ul>
+                  
+                  </nav>
+               </div>
+            </div>
+         </header>
+         <div class="content">
+            <div class="content__inner wrap">
+
+               <main class="main">
+                  <div>
+                     <article class="interview">
+                        <header class="interview__header">
+                           <div class="inner-wrap"></div>
+                           <h1 class="interview__title" rel="bookmark"> <%= item.name %></h1>
+                           <div class="interview__meta cf">
+                              <!-- .vcard -->
+                              <div class="interview__date-author">
+                                 <time class="interview__time"> <%= dateFormat(item.publishDate, 4) %> </time>
+                              </div>
+                              <span class="audio audio--meta">
+                                 <span class="inner">
+                                    <audio class="audio__file" preload="none">
+                                       <source src="<%= item.audio %>" type="audio/mp3">
+                                    </audio>
+                                    <span class="btn-pause audio__btn audio__btn--pause">
+                                        <i class="icon-pause"></i>
+                                        <span class="show--at-930-ilb">&nbsp;Listen to</span>
+                                        <span class="show--at-768-ilb">&nbsp;Audio Excerpt</span>
+                                    </span>
+                                    <span class="btn-play audio__btn audio__btn--play">
+                                        <i class="icon-speaker"></i>
+                                        <span class="show--at-930-ilb">&nbsp;Listen to</span>
+                                        <span class="show--at-768-ilb">&nbsp;Audio Excerpt</span>
+                                    </span>
+                                 </span>
+                              </span>
+                              <div class="share pull-right show--at-768">
+                                  <a class="btn btn--square btn--square--facebook btn-share icon-social-facebook" href="https://www.facebook.com/sharer/sharer.php?u=<%= fullUrl %>" data-title="Facebook" data-width="626" data-height="436"></a>
+                                  <a class="btn btn--square btn--square--twitter btn-share icon-social-twitter" href="https://twitter.com/share?text=<%= encodedName %>&url=<%= fullUrl %>&via=<%= settings.site_name %>" data-title="Twitter" data-width="600" data-height="200"></a>
+                                  <a class="btn btn--square btn--square--pinterest btn-share icon-social-pinterest" href="//pinterest.com/pin/create/button/?url=<%= fullUrl %>&media=<%= personImage %>&description=<%= encodedName %>" data-title="Pinterest" data-width="750" data-height="540"></a>
+                                  <a class="btn btn--square btn--square--mail icon-social-mail" href="mailto:?subject=<%= encodedName %>&body=<%= fullUrl %>"></a>
+                              </div>
+                           </div>
+                        </header>
+                        <div class="interview__body">
+                           <div class="layout layout--with-gutter-40-at-768 layout--with-gutter-100-at-930 cf">
+                              <section class="layout__item two-third--at-768">
+                                 <div class="interview__content">
+                                     <div class="interview__profile interview__profile--mobile hide--at-768">
+                                         <figure class="interview__hero">
+                                            <div class="card__img card__img--hero">
+                                               <div class="card__img__inner">
+                                                   <img src="<%= item.mainImage %>" alt="<%= item.name %>">
+                                               </div>
+                                            </div>
+                                         </figure>
+                                         <div class="interview__profile__title caps">Short Profile</div>
+                                         <p>
+                                             <span class="bold">Name:</span> <%= item.name %><br>
+                                             <span class="bold">DOB:</span> <%= dateFormat(item.dateOfBirth,1) %><br>
+                                             <span class="bold">Place of birth:</span> <%= item.placeOfBirth %><br>
+                                             <span class="bold">Occupation:</span> <%= item.occupation %>
+                                         </p>
+                                         <div class="interview__info"><%= item.frontEndDesc %></div>
+                                     </div>
+                                     <%- item.bundelEditor %>
+                                 </div>
+                              </section>
+                              <aside class="layout__item third--at-768 show--at-768">
+                                 <div class="interview__sidebar">
+                                    <div class="interview__profile">
+                                        <figure class="interview__hero">
+                                           <div class="card__img card__img--hero">
+                                              <div class="card__img__inner">
+                                                  <img src="<%= item.mainImage %>" alt="<%= item.name %>">
+                                              </div>
+                                           </div>
+                                        </figure>
+                                        <div class="interview__profile__title caps">Short Profile</div>
+                                        <p>
+                                            <span class="bold">Name:</span> <%= item.name %><br>
+                                            <span class="bold">DOB:</span> <%= dateFormat(item.dateOfBirth,1) %><br>
+                                            <span class="bold">Place of birth:</span> <%= item.placeOfBirth %><br>
+                                            <span class="bold">Occupation:</span> <%= item.occupation %>
+                                        </p>
+                                        <div class="interview__info"><%= item.frontEndDesc %></div>
+                                    </div>
+                              </aside>
+                           </div>
+                           <div class="share share--bottom show--at-768">
+                               <a class="btn btn--square btn--square--facebook btn-share icon-social-facebook" href="https://www.facebook.com/sharer/sharer.php?u=<%= fullUrl %>" data-title="Facebook" data-width="626" data-height="436"></a>
+                               <a class="btn btn--square btn--square--twitter btn-share icon-social-twitter" href="https://twitter.com/share?text=<%= encodedName %>&url=<%= fullUrl %>&via=<%= settings.site_name %>" data-title="Twitter" data-width="600" data-height="200"></a>
+                               <a class="btn btn--square btn--square--pinterest btn-share icon-social-pinterest" href="//pinterest.com/pin/create/button/?url=<%= fullUrl %>&media=<%= personImage %>&description=<%= encodedName %>" data-title="Pinterest" data-width="750" data-height="540"></a>
+                               <a class="btn btn--square btn--square--mail icon-social-mail" href="mailto:?subject=<%= encodedName %>&body=<%= fullUrl %>"></a>
+                           </div>
+                           <a id="btn-top" class="btn btn--square btn--square--top icon-arrow-up-small"></a>
+                        </div>
+                     </article>
+                  </div>
+               </main>
+            </div>
+         </div>
+         <footer class="footer">
+            <div class="footer__inner wrap cf">
+               <nav class="nav nav--footer cf">
+                  <div class="social">
+                      <% if(settings.site_facebook){ %>
+                      <a class="social__item social__item--facebook" href="<%= settings.site_facebook %>" target="_blank">Facebook</a>
+                      <% } %>
+                      <% if(settings.site_twitter){ %>
+                      <a class="social__item social__item--twitter" href="<%= settings.site_twitter %>" target="_blank">Twitter</a>
+                      <% } %>
+                      <% if(settings.site_google){ %>
+                      <a class="social__item social__item--instagram" href="<%= settings.site_google %>" target="_blank">Google+</a>
+                      <% } %>
+                  </div>
+               </nav>
+               <p class="copy">© 2017 <%= settings.site_name %></p>
+            </div>
+         </footer>
+      </div>
+      <div class="sidemenu">
+         <div class="inner">
+            <a class="btn-sidemenu icon-close"></a>
+            <nav class="nav nav--sidemenu">
+               <ul class="nav cf">
+
+               </ul>
+            </nav>
+            <div class="social">
+                <% if(settings.site_facebook){ %>
+                <a class="social__item social__item--facebook icon-social-facebook" href="<%= settings.site_facebook %>" target="_blank"></a>
+                <% } %>
+                <% if(settings.site_twitter){ %>
+                <a class="social__item social__item--twitter icon-social-twitter" href="<%= settings.site_twitter %>" target="_blank"></a>
+                <% } %>
+                <% if(settings.site_google){ %>
+                <a class="social__item" href="<%= settings.site_google %>" target="_blank">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+                        <path d="M7 11v2.4h3.97c-.16 1.029-1.2 3.02-3.97 3.02-2.39 0-4.34-1.979-4.34-4.42 0-2.44 1.95-4.42 4.34-4.42 1.36 0 2.27.58 2.79 1.08l1.9-1.83c-1.22-1.14-2.8-1.83-4.69-1.83-3.87 0-7 3.13-7 7s3.13 7 7 7c4.04 0 6.721-2.84 6.721-6.84 0-.46-.051-.81-.111-1.16h-6.61zm0 0 17 2h-3v3h-2v-3h-3v-2h3v-3h2v3h3v2z" fill-rule="evenodd" clip-rule="evenodd"/>
+                    </svg>
+                </a>
+                <% } %>
+            </div>
+            <nav class="nav nav--sidemenu nav--sidemenu--bottom">
+               <ul class="nav cf">
+                  <li class="nav__item"><a href="/about-restart/">About Our Team</a></li>
+               </ul>
+            </nav>
+         </div>
+      </div>
+      <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+      <script type="text/javascript" src="/interview_js/scripts.min.1509174658.js"></script>
+   </body>
+</html>
