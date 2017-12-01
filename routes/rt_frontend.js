@@ -15,7 +15,7 @@ router.get('/:lang/interview/:id', (req , res ) => {
     Bundel.find({_id:req.params.id}).then(bundels => {
         Page.find({language: req.params.lang})
                 .then(pages=>{
-                    Setting.getAll()
+                    Setting.find()
                         .then( result => {
                             var settings = {};
                             result.forEach( item => {
@@ -46,7 +46,7 @@ router.get('/:lang/:page', (req, res) => {
     Page.find({language: req.params.lang, slugName: req.params.page}).then(item=>{
         Page.find({language: req.params.lang})
                 .then(pages=>{
-                    Setting.getAll()
+                    Setting.find()
                         .then( result => {
                             var settings = {};
                             result.forEach( item => {
