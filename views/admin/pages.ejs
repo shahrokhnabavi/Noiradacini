@@ -20,6 +20,7 @@
                         <th>Page Name</th>
                         <th>Slug</th>
                         <th>Language</th>
+                        <th>Priority</th>
                         <th class="text-right"></th>
                     </tr>
                     <tr class="hidden" id="template">
@@ -44,8 +45,9 @@
                   <td><%= item.titleName %></td>
                   <td><%= item.slugName %></td>
                   <td><%= item.language %></td>
+                  <td><%= item.priorityName %></td>
                   <td class="text-right">
-                    <a class="options" href="/admin/pages/<%= item._id %>">
+                    <a class="options" href="/<%= item.language %>/<%= item.slugName %>" target="_blank">
                       <i class="glyphicon glyphicon-new-window text-primary"></i></a>
                     <a class="options" href="/admin/pages/<%= item._id %>">
                       <i class="glyphicon glyphicon-pencil text-warning"></i></a>
@@ -100,6 +102,10 @@
                    <div class="form-group">
                        <label for="slugName">Slug</label>
                        <input name="slugName" id="slugName" required value="<%= (!!locals.pageResult ? pageResult.slugName : (!!locals.request ? request.slugName : '') ) %>" type="text" class="form-control" />
+                   </div>
+                   <div class="form-group">
+                       <label for="priorityName">Page Priority</label>
+                       <input name="priorityName" id="priorityName" required value="<%= (!!locals.pageResult ? pageResult.priorityName : (!!locals.request ? request.priorityName : '') ) %>" type="text" class="form-control" />
                    </div>
                    <div class="form-group">
                        <textarea name="pageEditor" id="editor1"></textarea>

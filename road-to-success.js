@@ -8,9 +8,6 @@ const session    = require('express-session');
 const mongoose   = require('mongoose');
 const cookieParser = require('cookie-parser');
 
-// MySQL Connection
-global.db = require('./db');
-
 // MongoDB Connection
 mongoose.Promise = global.Promise;
 mongoose.connect("mongodb://localhost/roadToSuccess", {useMongoClient: true})

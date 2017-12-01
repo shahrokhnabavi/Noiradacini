@@ -15,6 +15,10 @@ const pageSchema = mongoose.Schema({
         type: String,
         required: true
     },
+    priorityName: {
+        type: Number,
+        required: true
+    },
     pageEditor:{
         type: String,
         required: true

@@ -24,6 +24,7 @@ var validatePage = () => {
             check('language', 'Please enter the language.').not().isEmpty(),
             check('titleName', 'Please enter the title.').not().isEmpty(),
             check('slugName', 'Please enter the slug').not().isEmpty(),
+            check('priorityName', 'Please enter the priority').not().isEmpty(),
             check('pageEditor', 'Your some value in the page editor.').not().isEmpty()
         ];
 };
@@ -43,6 +44,7 @@ const makePages = (req, res) =>{
       language : req.body.language,
       titleName : req.body.titleName,
       slugName : req.body.slugName.replace(/\s+/g, '-').toLowerCase(),
+      priorityName: req.body.priorityName,
       pageEditor : req.body.pageEditor
     });
     newPage.save().then(newPagel =>{
@@ -119,6 +121,7 @@ const editPage2 = (req,res)=>{
       language : req.body.language,
       titleName : req.body.titleName,
       slugName : req.body.slugName.replace(/\s+/g, '-').toLowerCase(),
+      priorityName : req.body.priorityName,
       pageEditor : req.body.pageEditor
     };
     makepage.findByIdAndUpdate( req.params.id, record, {new: true}  ).then( rec => {
@@ -133,7 +136,7 @@ const editPage2 = (req,res)=>{
 
 
 const apiGetPages = (req ,res)=>{
-    makepage.find({language: req.params.lang}).select('titleName slugName -_id')
+    makepage.find({language: req.params.lang}).select('titleName slugName -_id').sort('priorityName')
             .then(item=>{
                 res.json(item);
             })
@@ -191,7 +194,7 @@ const getList = (filter, admPerPage, page, cb) => {
         .select('-pageEditor')
         .limit(admPerPage)
         .skip(admPerPage * page)
-        .sort('-createAt')
+        .sort('priorityName')
         .then(result => {
             makepage.count(filter).then( count => cb(count, result) );
         })
