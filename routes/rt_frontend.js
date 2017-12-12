@@ -36,7 +36,7 @@ router.get('/:lang/interview/:id', (req , res ) => {
     });
 });
 
-// Home page
+// Page
 router.get('/:lang/:page', (req, res) => {
     const querystring = require('querystring');
 
@@ -59,6 +59,14 @@ router.get('/:lang/:page', (req, res) => {
                         }).catch(err=>console.log(err));
                 }).catch(err=>console.log(err));
     }).catch( err=> console.log(err) );
+});
+
+// Home
+router.get('/', (req, res) => {
+    Setting.findOne({'setting_key': 'site_def_language'}).then( result => {
+        var lang = (req.query.lang) ? req.query.lang : result.setting_value;
+        res.render('frontend/index', {language: lang});
+    }).catch( err => console.log(err) );
 });
 
 module.exports = router;

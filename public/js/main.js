@@ -1,7 +1,6 @@
 var map = null;
 $(document).ready(function() {
-    var apiDomain = "/api/",
-        selectedLang = 'en';
+    var apiDomain = "/api/";
 
     //get all settings
     var request = $.ajax({
@@ -105,11 +104,12 @@ $(document).ready(function() {
                     map.areasSettings.selectedColor = settings.site_selectedColor;
                     map.areasSettings.selectedOutlineColor = settings.site_selectedOutlineColor;
                 }
-                selectedLang = settings.site_def_language;
+                // selectedLang = settings.site_def_language;
                 map.validateData();
                 socialMedia(settings);
                 getProvenciesInfo();
                 getPages();
+                removeLogo();
             });
         }).fail(function( jqXHR, textStatus ) {
             console.log("Request failed: " + textStatus);
@@ -216,7 +216,7 @@ $(document).ready(function() {
             }, 10);
     }
     removeLogo();
-    
+
 
     $('.flag a').on('click', function(){
         $('#briefUserList').removeClass('active');
