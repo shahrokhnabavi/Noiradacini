@@ -200,7 +200,6 @@ const showPreview =(req , res ) => {
       // id of the bundel
       if( req.userAuth('/admin/login') ) return;
       const querystring = require('querystring');
-      var host = req.protocol + '://' + req.get('host');
       bundel.find({_id:req.params.id }).then(bundel =>{
         Setting.find()
             .then( result => {
@@ -211,9 +210,9 @@ const showPreview =(req , res ) => {
                 res.render('admin/interviewAdmin',
                             {
                                 item: bundel[0],
-                                fullUrl: host + req.originalUrl,
+                                fullUrl: settings.site_host + req.originalUrl,
                                 encodedName: querystring.escape(bundel[0].name),
-                                personImage: querystring.escape(host + '/' + bundel[0].mainImage),
+                                personImage: querystring.escape(settings.site_host + '/' + bundel[0].mainImage),
 
                                 settings: settings
                             });
@@ -221,7 +220,6 @@ const showPreview =(req , res ) => {
       }).catch(err=>{ console.log(err);
         res.end('You have error in show preview!!!')
       });
-
 }
 
 

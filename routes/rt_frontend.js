@@ -11,7 +11,6 @@ const Setting = require('../models/mdl_site');
 router.get('/:lang/interview/:id', (req , res ) => {
     const querystring = require('querystring');
 
-    var host = req.protocol + '://' + req.get('host');
     Bundel.find({_id:req.params.id}).then(bundels => {
         Page.find({language: req.params.lang})
                 .then(pages=>{
@@ -24,9 +23,9 @@ router.get('/:lang/interview/:id', (req , res ) => {
                             res.render('frontend/interview',
                                         {
                                             item: bundels[0],
-                                            fullUrl: host + req.originalUrl,
+                                            fullUrl: settings.site_host  + req.originalUrl,
                                             encodedName: querystring.escape(bundels[0].name),
-                                            personImage: querystring.escape(host + '/' + bundels[0].mainImage),
+                                            personImage: querystring.escape(settings.site_host  + '/' + bundels[0].mainImage),
                                             pages: pages,
                                             settings: settings
                                         });
@@ -41,8 +40,6 @@ router.get('/:lang/interview/:id', (req , res ) => {
 router.get('/:lang/:page', (req, res) => {
     const querystring = require('querystring');
 
-    var host = req.protocol + '://' + req.get('host');
-
     Page.find({language: req.params.lang, slugName: req.params.page}).then(item=>{
         Page.find({language: req.params.lang})
                 .then(pages=>{
@@ -55,9 +52,7 @@ router.get('/:lang/:page', (req, res) => {
                             res.render('frontend/page',
                                         {
                                             item: item[0],
-                                            fullUrl: host + req.originalUrl,
-                                            // encodedName: querystring.escape(bundels[0].name),
-                                            // personImage: querystring.escape(host + '/' + bundels[0].mainImage),
+                                            fullUrl: settings.site_host  + req.originalUrl,
                                             pages: pages,
                                             settings: settings
                                         });

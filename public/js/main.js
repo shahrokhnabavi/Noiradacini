@@ -1,6 +1,6 @@
 var map = null;
 $(document).ready(function() {
-    var apiDomain = "http://localhost:3501/api/",
+    var apiDomain = "/api/",
         selectedLang = 'en';
 
     //get all settings
@@ -205,6 +205,18 @@ $(document).ready(function() {
         .appendTo('#singlePerson');
     }
 
+    // remove amchart logo
+    var removeLogo = function () {
+        var count = 100,
+            timer = setInterval(function () {
+                $('a[href="http://www.amcharts.com/javascript-maps/"]').text('');
+                if( count < 0 )
+                    clearInterval(timer);
+                count--;
+            }, 10);
+    }
+    removeLogo();
+    
 
     $('.flag a').on('click', function(){
         $('#briefUserList').removeClass('active');
@@ -224,12 +236,10 @@ $(document).ready(function() {
         }
     });
 
-
     $('body').on('click', 'a.close', function(){
         map.clickMapObject(map.getObjectById(map.selectedArea));
         return false;
     });
-
 
 
     function alertSize() {
@@ -250,10 +260,6 @@ $(document).ready(function() {
       document.getElementById('chartwrapper').style.height = myHeight + 'px';
     }
     alertSize();
-
-
-
-
 
 
 
@@ -478,6 +484,7 @@ $(document).ready(function() {
                         $('#provence').selectpicker( 'val', provence_id);
                         map.selectObject(map.getObjectById(provence_id));
                     }
+                    removeLogo();
                 }
             },
             {
@@ -485,6 +492,7 @@ $(document).ready(function() {
                 method: function( event ) {
                     $('#briefUserList').removeClass('active');
                     $('#briefUserInfo').removeClass('active');
+                    removeLogo();
                 }
             },
             {
@@ -494,6 +502,7 @@ $(document).ready(function() {
                         $('#briefUserInfo').addClass('active');
                         $('#briefUserList').addClass('active');
                     }
+                    removeLogo();
                 }
             }
         ],
