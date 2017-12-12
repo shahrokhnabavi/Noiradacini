@@ -57,7 +57,8 @@ body  {
     transition: all 300ms;
 }
 
-.bt-menu-trigger span {
+.bt-menu-trigger span ,
+.bt-menu-close .bt-menu-trigger span {
 	position: absolute;
 	top: 50%;
 	left: 0;
@@ -75,9 +76,14 @@ body  {
 	-webkit-transition: background-color 0.3s;
 	transition: background-color 0.3s;
 }
+.bt-menu-open .bt-menu-trigger span {
+    background-color: white;
+}
 
 .bt-menu-trigger span:before,
-.bt-menu-trigger span:after {
+.bt-menu-close .bt-menu-trigger span:before,
+.bt-menu-trigger span:after,
+.bt-menu-close .bt-menu-trigger span:after {
 	position: absolute;
 	left: 0;
 	width: 100%;
@@ -86,6 +92,11 @@ body  {
 	content: '';
 	-webkit-transition: -webkit-transform 0.3s;
 	transition: transform 0.3s;
+}
+
+.bt-menu-open .bt-menu-trigger span:before,
+.bt-menu-open .bt-menu-trigger span:after {
+    background: white;
 }
 
 .bt-menu-trigger span:before {
@@ -241,6 +252,8 @@ body  {
 	color: #83c5e3;
 }
 
+
+/* Shahrokh */
 #flag{
   text-align: center;
     position: fixed;
@@ -256,4 +269,40 @@ body  {
 }
 #flag p{
     text-align: center;
+}
+
+.xMenu {
+    display: inline-block;
+    cursor: pointer;
+    position: fixed;
+    top: 45px;
+    left: 20px;
+    -webkit-transition: all 0.3s;
+    transition: all 0.3s;
+}
+
+.bt-menu-open .bar1,
+.bt-menu-open .bar2,
+.bt-menu-open .bar3 {
+    background-color: #fff;
+}
+
+.bar1, .bar2, .bar3 {
+    width: 35px;
+    height: 5px;
+    background-color: #333;
+    margin: 6px 0;
+    transition: 0.4s;
+}
+
+.bt-menu-open .bar1 {
+    -webkit-transform: rotate(-45deg) translate(-9px, 6px);
+    transform: rotate(-45deg) translate(-9px, 6px);
+}
+
+.bt-menu-open .bar2 {opacity: 0;}
+
+.bt-menu-open .bar3 {
+    -webkit-transform: rotate(45deg) translate(-8px, -8px);
+    transform: rotate(45deg) translate(-8px, -8px);
 }
