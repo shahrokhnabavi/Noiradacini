@@ -109,7 +109,6 @@ $(document).ready(function() {
                 socialMedia(settings);
                 getProvenciesInfo();
                 getPages();
-                removeLogo();
             });
         }).fail(function( jqXHR, textStatus ) {
             console.log("Request failed: " + textStatus);
@@ -218,12 +217,13 @@ $(document).ready(function() {
     removeLogo();
 
 
-    $('.flag a').on('click', function(){
+    $('#flag a').on('click', function(){
         $('#briefUserList').removeClass('active');
         $('#briefUserInfo').removeClass('active');
         selectedLang = $(this).attr('href');
         getProvenciesInfo();
         getPages();
+        removeLogo();
         return false;
     });
 

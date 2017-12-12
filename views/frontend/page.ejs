@@ -35,10 +35,10 @@
                      </ul>
                      <div class="social show--at-930">
                          Language:
-                         <select class="" name="" id="lang">
-                             <option value="en">English</option>
-                             <option value="nl">Dutch</option>
-                             <option value="ro">Romanian</option>
+                         <select class="select-language" id="lang">
+                             <option value="en" <%= item.language === 'en' ? 'selected' : '' %>>English</option>
+                             <option value="nl" <%= item.language === 'nl' ? 'selected' : '' %>>Dutch</option>
+                             <option value="ro" <%= item.language === 'ro' ? 'selected' : '' %>>Romanian</option>
                          </select>
                      </div>
                   </nav>

@@ -18,6 +18,7 @@
 			resetMenu = function() {
 				//back to orginale mode
 				document.getElementById("sadeq").style.marginLeft = "10px";
+				document.getElementById("flag").style.color = "black";
 				document.getElementById("logo").style.bottom = "10px";
 				document.getElementById("menu-btn").style.top = "37px";
 				classie.remove( menu, 'bt-menu-open' );
@@ -40,6 +41,7 @@
 			else {
 				//zoom in when click on menu bar
 				document.getElementById("sadeq").style.marginLeft = "150px";
+				document.getElementById("flag").style.color = "white";
 				document.getElementById("logo").style.bottom = "60px";
 				document.getElementById("menu-btn").style.top = "10px";
 				document.getElementById("menu-btn").style.color = "#fff";
@@ -52,9 +54,3 @@
 		menu.addEventListener( eventtype, function( ev ) {
 			closeClickFn();
 		});
-    //
-    //
-    //
-	// }
-    //
-	// init();
